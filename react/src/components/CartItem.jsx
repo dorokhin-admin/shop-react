@@ -60,7 +60,7 @@ const CartItem = ({items}) => {
         )
      }
 
-
+console.log('fdf')
 
 
 export default CartItem;
