@@ -1,22 +1,30 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class CartHead extends Component {
-    render() {
+const CartHead = (props) => {
+    const { //в функции так
+        total,
+        done
+    } = props
+
+    const hasItem = total > 0
+
         return (
             <div className="cart__header">
                 <div className="cart-head__cart">
                     <h1 className="cart-title">Корзина</h1>
-                    <p className="cart-head__cart-wrapper">3</p>
+                    <div className="cart-head__cart-wrapper">{total}</div>
                 </div>
                 <div className="cart__actions">
                     <button className="cart__select"><img src="src/IMAGES/Checkbox%20(1).png" alt=""
                                                           className="cart__select"/></button>
-                    <button className="cart-select-all">Выделить всё</button>
-                    <button className="cart-delete-all">Удалить выбранные</button>
+                    {hasItem && (
+                        <button className="cart-select-all">Выделить всё</button>
+                    )}
+                    {hasItem && (
+                        <button className="cart-delete-all">Удалить выбранные</button>
+                    )}
                 </div>
             </div>
         );
-    }
 }
-
 export default CartHead;

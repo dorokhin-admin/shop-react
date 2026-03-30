@@ -5,6 +5,9 @@ import HeaderNav from "./HeaderNav.jsx";
 
 class Header extends Component {
     render() {
+
+        const {items} = this.props;//в классе так
+
         return (
             <header>
                 <div className="container">
@@ -15,7 +18,7 @@ class Header extends Component {
                             <HeaderButtonCatalog/>
                             <HeaderFieldSearch/>
                         </div>
-                            <HeaderNav/>
+                            <HeaderNav items={items} />
                     </div>
                 </div>
                 <div className='hero'>
@@ -28,3 +31,4 @@ class Header extends Component {
 }
 
 export default Header;
+

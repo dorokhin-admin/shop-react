@@ -57,16 +57,22 @@ class App extends React.Component {//делаем через формат кла
                     quantity: 1,
                      currency: 'RUB'
                 }
-            ]
+            ],
         };
     }
+
+   deleteItem = (id) => {
+       this.setState({
+           items:  this.state.items.filter(item => item.id !== id)});
+   }
+
     render() {
       return (
           <div>
-            <Header/>
+            <Header items={this.state.items} />
               <div className="container">
                 <Products items={this.state.items}/>
-                <Cart/>
+                <Cart items={this.state.items}/>
               </div>
             <Footer/>
           </div>

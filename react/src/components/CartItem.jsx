@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-const CartItem = ({items}) => {
+const CartItem = ({items = []}) => {
         return (
             <>
                 {items.map(product => {

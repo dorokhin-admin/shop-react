@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import CartHead from "./CartHead.jsx";
+import CartItem from "./CartItem.jsx";
+import CartListItems from "./CartListItems.jsx";
 
 class Cart extends Component {
     render() {
+        const {items = []} = this.props;
         return (
             <section className="page page--cart">
                 <div className="cart-head">
@@ -11,12 +14,13 @@ class Cart extends Component {
                     <p className="cart-head__cart--text">Корзина</p>
                 </div>
 
-                <CartHead/>
+                <CartHead
+                    total={items.length}
+                    done={items.filter((isDone) => isDone).length}
+                />
 
                 <div className="block-cart">
-                    <div className="cart_items">
-                        {/* items*/}
-                    </div>
+                    <CartListItems items={items} isDone = {false}/>
                 </div>
             </section>
 
