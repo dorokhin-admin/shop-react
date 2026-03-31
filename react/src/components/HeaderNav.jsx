@@ -10,7 +10,7 @@ const HeaderNav = ({items =[]}) => {
             <a className='header__link header__link--favorite' href="#">
                 <img className='heart' src='src/IMAGES/heart.png' alt="header__link--favorite"/>
                 <span className='header__link-text'>Избранное</span>
-            </a>console.log
+            </a>console.logjj
 
 
             <a className='header__link header__link--orders' href="#">
