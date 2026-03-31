@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ProductButtonInCart from "./ProductButtonInCart.jsx";
 
-const Products = ({items}) => {
+const Products = ({items, addToCart}) => {
     return (
         <div className="products__list">
             {items.map(product => {
@@ -44,7 +44,10 @@ const Products = ({items}) => {
                             <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
                             <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
                         </div>
-                        <ProductButtonInCart/>
+                        <ProductButtonInCart
+                            addToCart={addToCart}
+                            items={items}
+                        />
                         <button className="product-card__added-to-cart">
                             В корзине
                         </button>

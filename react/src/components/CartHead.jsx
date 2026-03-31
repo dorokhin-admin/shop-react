@@ -3,7 +3,8 @@ import React from 'react';
 const CartHead = (props) => {
     const { //в функции так
         total,
-        done
+        done,
+        deleteItems,
     } = props
 
     const hasItem = total > 0
@@ -15,13 +16,15 @@ const CartHead = (props) => {
                     <div className="cart-head__cart-wrapper">{total}</div>
                 </div>
                 <div className="cart__actions">
+                    {hasItem && (
                     <button className="cart__select"><img src="src/IMAGES/Checkbox%20(1).png" alt=""
                                                           className="cart__select"/></button>
+                    )}
                     {hasItem && (
                         <button className="cart-select-all">Выделить всё</button>
                     )}
                     {hasItem && (
-                        <button className="cart-delete-all">Удалить выбранные</button>
+                        <button className="cart-delete-all" onClick={deleteItems}>Удалить выбранные</button>
                     )}
                 </div>
             </div>

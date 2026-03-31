@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const HeaderNav = ({items =[]}) => {
 
-    const total = items.length
+    let [cartOpen, setCartOpen] = useState(false);
+    const total = orders.length
 
     return (
         <div className='header__nav'>
@@ -17,11 +18,15 @@ const HeaderNav = ({items =[]}) => {
                 <span className='header__link-text'>Заказы</span>
             </a>
 
-            <a className='header__link header__link--cart' href="#">
+            <button className={`header__link header__link--cart ${cartOpen && 'active'}`}
+            onClick={() => setCartOpen(prev => !prev)}>
                 <img src='src/IMAGES/shopping-cart.png' alt="header__link--cart"/>
                 <p className='header__link-text'>Корзина</p>
                 <p className="header__link-counter">{total}</p>
-            </a>
+                {cartOpen &&  (
+                    <div className={`cart-Drawer ${cartOpen ? 'active' : ''}`}></div>
+                )}
+            </button>
 
 
             <a className='header__profile' href="#">

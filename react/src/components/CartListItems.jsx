@@ -4,7 +4,7 @@ import CartItem from "./CartItem.jsx";
 const CartListItems = (props) => {
     const {
         items = [],
-        isDone
+        addToCart
     } = props;
 
     const hasItem = true;
@@ -16,7 +16,11 @@ const CartListItems = (props) => {
     return (
         <div className="cart_items">
             {items.map((item) => (
-                <CartItem items={items}/>
+                <CartItem
+                    key={item.id}
+                    items={items}
+                    addToCart={addToCart}
+                />
             ))}
         </div>
     );

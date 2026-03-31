@@ -5,7 +5,12 @@ import CartListItems from "./CartListItems.jsx";
 
 class Cart extends Component {
     render() {
-        const {items = []} = this.props;
+        const {
+            items = [],
+            addToCart,
+            deleteItems,
+        } = this.props;
+
         return (
             <section className="page page--cart">
                 <div className="cart-head">
@@ -17,10 +22,14 @@ class Cart extends Component {
                 <CartHead
                     total={items.length}
                     done={items.filter((isDone) => isDone).length}
+                    deleteItems={deleteItems}
                 />
 
                 <div className="block-cart">
-                    <CartListItems items={items} isDone = {false}/>
+                    <CartListItems
+                        items={items}
+                        addToCart={addToCart}
+                        />
                 </div>
             </section>
 
