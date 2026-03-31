@@ -65,6 +65,7 @@ class App extends React.Component {//делаем через формат кла
        this.setState({
            items:  this.state.items.filter(item => item.id !== id)});
    }
+   console.log
 
     render() {
       return (
