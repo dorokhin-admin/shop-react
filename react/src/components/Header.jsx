@@ -6,7 +6,7 @@ import HeaderNav from "./HeaderNav.jsx";
 class Header extends Component {
     render() {
 
-        const {items} = this.props;//в классе так
+        const {items,orders,addToCart} = this.props;//в классе так
 
         return (
             <header>
@@ -18,7 +18,11 @@ class Header extends Component {
                             <HeaderButtonCatalog/>
                             <HeaderFieldSearch/>
                         </div>
-                            <HeaderNav items={items} />
+                            <HeaderNav
+                                items={items}
+                                orders={orders}
+                                addToCart={addToCart}
+                            />
                     </div>
                 </div>
                 <div className='hero'>

@@ -113,7 +113,7 @@ header{
     position: relative;
 }
 
- .cart-Drawer{
+ .cart__Drawer{
     position: absolute;
     top: 60px;
     right: 80px;
@@ -125,6 +125,7 @@ header{
     box-shadow: 0 10px 30px rgba(255, 102, 51, 0.16),
                 10px 0 30px rgba(255, 102, 51, 0.07);
  }
+
 
 
 .header__link-counter{
@@ -1022,7 +1023,6 @@ header{
 
 
 .block-cart{
-    display: flex;
     gap: 40px;
     width: 1300px;
     flex-wrap: nowrap;
