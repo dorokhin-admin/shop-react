@@ -1,20 +1,28 @@
 import React from 'react';
 
 const CartOrder = (props) => {
-    const {orderItem,addToCart, plus} = props;
+    const {orderItem, addToCart, toggleSelect, plus} = props;
     const discontSumPrice = orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100);
     const sumPrice = orderItem.price * orderItem.quantity;
+
+
 
     return (
             <div key={orderItem.id} className="cart-item" data-id={orderItem.id}>
                 <div className="cart-item__image">
-                    <button className="cart-item__checkbox-select active"><img
-                        src="src/IMAGES/Checkbox%20(2).png"
-                        alt="Checkbox"/></button>
-                    <button className="cart-item__checkbox-empty hidden"><img
-                        src="src/IMAGES/Checkbox%20(3).png"
-                        alt="Checkbox"/></button>
-                    <img src={orderItem.imgSrc} alt="cart-image" className="cart-image__img"/>
+                    <button className="cart-item__checkbox-select"
+                    onClick={() => toggleSelect(orderItem.id)}
+                    >
+                        {orderItem.selected === true
+                            ? <img
+                                src="src/IMAGES/Checkbox%20(2).png"
+                                alt="have Checkbox"/>
+                            : <img
+                                src="src/IMAGES/Checkbox%20(3).png"
+                                alt="no Checkbox"/>}
+                    </button>
+                    <img src={orderItem.imgSrc} alt="cart-image"
+                         className="cart-image__img"/>
                 </div>
                 <div className="cart-item__info">
                     <h3 className="cart-item__title">Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»</h3>

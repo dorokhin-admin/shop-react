@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 
 class HeaderFieldSearch extends Component {
     render() {
+        const {
+            filterProduct
+        } = this.props;
         return (
             <div className='header__search'>
                 <label
@@ -14,6 +17,7 @@ class HeaderFieldSearch extends Component {
                     id='search-input'
                     type="text"
                     placeholder="Найти товар"
+                    onChange={(e) => filterProduct(e.target.value)}
                 />
                 <button>
                     <img src="src/IMAGES/search.png"

@@ -1,10 +1,28 @@
 import React, {useState} from 'react';
-import HeaderOrder from "./HeaderOrder.jsx";
+import CartOrder from "./CartOrder.jsx";
+
+
 
 const HeaderNav = ({items =[], orders, addToCart}) => {
 
     let [cartOpen, setCartOpen] = useState(false);
-    const total = orders.length
+    const totalOrders = orders.length
+
+    const showOrders = () => {
+        return orders.map((orderItem, index) => (
+            <CartOrder
+                key={`${orderItem.id} - ${index}`}
+                orderItem={orderItem}
+                addToCart={addToCart}
+            />
+        ))
+    }
+
+    const showNothing = () => {
+        return <div className="cart-empty">
+            <h2>Товаров нет</h2>
+        </div>
+    }
 
     return (
         <div className='header__nav'>
@@ -25,28 +43,24 @@ const HeaderNav = ({items =[], orders, addToCart}) => {
             >
                 <img src='src/IMAGES/shopping-cart.png' alt="header__link--cart"/>
                 <p className='header__link-text'>Корзина</p>
-                <p className="header__link-counter">{total}</p>
+                <p className="header__link-counter">{totalOrders}</p>
                 {cartOpen &&  (
                     <div
                         className={`header__link cart__Drawer ${cartOpen ? 'active' : ''}`}
                         onClick={(e) => e.stopPropagation()}//чтобы при клике по области корзины она не закрывалась
                     >
-                        {orders.map((orderItem, index) => (
-                            <HeaderOrder
-                                key={`${orderItem.id} - ${index}`}
-                                orderItem={orderItem}
-                                addToCart={addToCart}
-                            />
-                        ))}
+                        {totalOrders
+                        ? showOrders()
+                        : showNothing()}
                     </div>
                 )}
             </div>
 
 
             <a className='header__profile' href="#">
-                <img src="src/IMAGES/avatar.png" alt="Что-то"/>
+                <img src="src/IMAGES/avatar.png" alt="avatar"/>
                 <span className="header__profile-name">Алексей</span>
-                <img src='src/IMAGES/chevron-down.png' alt="Что-то"/>
+                <img src='src/IMAGES/chevron-down.png' alt="avatar"/>
             </a>
         </div>
     );

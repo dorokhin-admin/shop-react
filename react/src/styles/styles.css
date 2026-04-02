@@ -103,8 +103,7 @@ header{
     transition: color 500ms ease, transform 500ms ease;
 }
 
-.header__link--cart.active{
-    color: red;
+.header__link--cart.active img{
     transform: scale(1.1);
     z-index: 1000;
 }
@@ -832,8 +831,7 @@ header{
     height: 80px;
 }
 
-.cart-item__checkbox-select,
-.cart-item__checkbox-empty{
+.cart-item__checkbox-select{
     position: absolute;
     top: -18px;
     left: 8px;
