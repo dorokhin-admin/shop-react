@@ -6,7 +6,18 @@ import HeaderNav from "./HeaderNav.jsx";
 class Header extends Component {
     render() {
 
-        const {items,orders,addToCart,filterProduct} = this.props;//в классе так
+        const {
+            items,
+            orders,
+            addToCart,
+            filterProduct,
+            plus,
+            minus,
+            toggleSelect,
+            ordersQuantity,
+            selectAll,
+            deleteItems,
+        } = this.props;//в классе так
 
         return (
             <header>
@@ -24,6 +35,10 @@ class Header extends Component {
                                 items={items}
                                 orders={orders}
                                 addToCart={addToCart}
+                                plus={plus}
+                                minus={minus}
+                                toggleSelect={toggleSelect}
+                                ordersQuantity={ordersQuantity}
                             />
                     </div>
                 </div>
