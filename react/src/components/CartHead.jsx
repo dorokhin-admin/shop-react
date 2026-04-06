@@ -2,20 +2,19 @@ import React from 'react';
 
 const CartHead = (props) => {
     const { //в функции так
-        total,
-        done,
         ordersQuantity,
         selectAll,
         deleteItems,
+        orders,
     } = props
 
-    const hasItem = total > 0
+    const hasItem = orders.length > 0
 
         return (
             <div className="cart__header">
                 <div className="cart-head__cart">
                     <h1 className="cart-title">Корзина</h1>
-                    <div className="cart-head__cart-wrapper">{ordersQuantity()}</div>
+                    <div className="cart-head__cart-wrapper">{ordersQuantity}</div>
                 </div>
                 <div className="cart__actions">
                     {hasItem && (

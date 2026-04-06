@@ -1,14 +1,13 @@
 import React from 'react';
 
 const HeaderOrder = (props) => {
-    const {orderItem, addToCart, toggleSelect, plus, minus} = props;
+    const {orderItem, toggleSelect, plus, minus} = props;
     const discontPrice = orderItem.price - (orderItem.price * orderItem.promo) / 100;
     const discontSumPrice = Number((orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100)).toFixed(2));;
-    const sumPrice = Number((orderItem.price * orderItem.quantity).toFixed(2));
 
     return (
         <div className="block-cart-item__header">
-            <div key={orderItem.id} className="cart-item__header" data-id={orderItem.id}>
+            <div key={orderItem.id} className={`cart-item__header ${orderItem.selected === false ? 'cart-item-blure__header' : ''}`} data-id={orderItem.id}>
                 <div className="cart-item__image">
                     <button className="cart-item__checkbox-select"
                             onClick={() => toggleSelect(orderItem.id)}
@@ -43,7 +42,7 @@ const HeaderOrder = (props) => {
                 </div>
             </div>
             <div className="cart__quantity-wrapper">
-                <div className="cart__quantity">
+                <div className="cart-header__quantity">
                     <button
                         className="cart__quantity-btn--minus"
                         onClick={() => minus(orderItem)}

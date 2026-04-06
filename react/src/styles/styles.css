@@ -183,7 +183,7 @@ header{
     display: flex;
 }
 
-.product__card {
+.product__card{
     flex-basis: 272px;
     box-sizing: border-box;
     height: 349px;
@@ -191,6 +191,71 @@ header{
     position: relative;
     overflow: hidden;
     background: white;
+    border-radius: 4px;
+}
+
+.products-favorite__list{
+    gap: 16px;
+    color: #414141;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px 12px;
+}
+
+.product-favorite__card{
+    width: 160px;
+    height: 343px;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 4px;
+}
+
+.product-header--card__img{
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+}
+
+.product__card-promo,
+.product-header__card-price-regular,
+.product-header__card-discription{
+    font-size: 12px;
+}
+
+.product-header__card-discription{
+    margin-left: 10px;
+}
+
+.product-header__card-price-discont{
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.product__card-price-discont-text,
+.product__card-price-regular-text{
+    font-size: 8px;
+}
+
+
+
+.cart-header-favorite__filter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #70C05B;
+    border-radius: 4px;
+    color: white;
+    width: 128px;
+    height: 32px;
+    margin-left: 12px;
+    font-size: 12px;
+}
+
+.cart-image__img{
+    width: 120px;
+    height: 80px;
+    object-fit: contain;
 }
 
 .product-card__favorite{
@@ -201,6 +266,11 @@ header{
     height: 32px;
     padding: 0;
     cursor: pointer;
+}
+
+.product-card__favorite.active{
+    background-color: #FF6633;
+    border-radius: 100%;
 }
 
 
@@ -238,13 +308,13 @@ header{
 .product__card-rating{
     display: flex;
     gap: 4px;
-    padding: 0 8px 8px 8px;
+    padding: 0 8px 8px 2px;
 }
 
 .product-card__add-to-cart,
-.product-card__added-to-cart{
+.product-card__added-to-cart,
+.product-header-card__add{
     position: absolute;
-    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: block;
@@ -254,6 +324,21 @@ header{
     padding: 2px 70px;
     background: none;
     border: solid 1px #70C05B;
+}
+
+.product-header-card__add{
+    width: 144px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card__add-to-cart.active,
+.product-header-card__add.active{
+    background-color: #FF6633;
+    color: white;
+    border: none;
 }
 
 .product-card__added-to-cart{
@@ -769,6 +854,11 @@ header{
     margin-bottom: 60px;
 }
 
+.cart-title-header{
+    font-size: 42px;
+    font-weight: bold;
+}
+
 .cart__actions{
     display: flex;
     align-items: center;
@@ -787,10 +877,17 @@ header{
 }
 /*cart__item*/
 
-.block-cart-item__header{
+.block-cart-item__header,
+.cart-item-blure__header{
     background: white;
     width: 336px;
     margin: 16px 12px 24px 12px;
+}
+
+.cart-item-blure__header{
+    opacity: 0.5;
+    transition: box-shadow 0.9s ease;
+    margin: 16px 12px 0 0;
 }
 
 .cart-item__header{
@@ -799,7 +896,10 @@ header{
     align-items: center;
     padding: 10px 0;
     font-size: 12px;
+    border-radius: 14px;
 }
+
+
 
 .cart-item__amount,
 .cart__sum-price-number{
@@ -810,13 +910,19 @@ header{
     z-index: 2000;
 }
 
-.cart-head{
-    margin-left: 12px;
-    margin-top: 8px;
+.cart-head__header{
+    display: flex;
+    align-items: center;
+    margin: 8px 0 8px 12px;
 }
 
 .cart-head__cart--text,
 .cart-head__main{
+    font-size: 16px;
+}
+
+.cart-head-header__cart--text,
+.cart-head-header__main{
     font-size: 8px;
 }
 
@@ -831,15 +937,15 @@ header{
     align-items: center;
 }
 
-.cart-title{
-    font-size: 42px;
-    font-weight: 700;
+.cart-actions__header{
+    display: flex;
+    font-size: 12px;
+    margin-left: 20px;
 }
 
-.cart-head__header{
+.product-card__image{
     display: flex;
-    align-items: center;
-    margin: 8px 0 8px 12px;
+    justify-content: center;
 }
 
 .cart__Drawer{
@@ -848,22 +954,25 @@ header{
     right: 80px;
     width: 360px;
     min-width: 100px;
-    height: 450px;
+    height: fit-content;
     background-color: #FBF8EC;
     z-index: 1000;
     box-shadow: 0 10px 30px rgba(255, 102, 51, 0.16),
     10px 0 30px rgba(255, 102, 51, 0.07);
 }
 
-.cart__item,
+.cart-item,
 .cart-item-blure{
     margin-top: 24px;
     background: white;
-    /*width: 876px;*/
+    width: 876px;
     display: flex;
-    align-items: center;
     padding: 10px 0;
+    align-items: center;
+    transition: box-shadow 0.8s ease;
+    border-radius: 4px;
 }
+
 
 .cart-item-blure{
     opacity: 0.5;
@@ -881,10 +990,7 @@ header{
     align-items: center;
 }
 
-.cart-image__img{
-    width: 120px;
-    height: 80px;
-}
+
 
 .cart-item__checkbox-select{
     position: absolute;
@@ -923,8 +1029,9 @@ header{
 .cart__quantity-wrapper{
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
+    padding: 8px 0 8px 8px;
 }
-
 
 .cart__quantity{
     width: 100%;
@@ -933,10 +1040,23 @@ header{
     display: flex;
     align-items: center;
     margin-right: 16px;
+    border-radius: 14px;
+}
+
+.cart-header__quantity{
+    width: 100%;
+    max-width: 141px;
+    background-color: #70C05B;
+    display: flex;
+    align-items: center;
+    border-radius: 14px;
 }
 
 .cart__quantity-btn--minus,
 .cart__quantity-btn--plus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 8px;
     width: 100%;
     height: 100%;
@@ -963,14 +1083,7 @@ header{
     font-size: 18px;
 }
 
-.cart-item{
-    margin-top: 24px;
-    background: white;
-    width: 876px;
-    display: flex;
-    padding: 10px 0;
-    transition: box-shadow 0.8s ease;
-}
+
 
 .cart-item:hover{
     box-shadow: 0 8px 16px rgba(255, 102, 51, 0.2);
@@ -996,6 +1109,14 @@ header{
     height: 470px;
     padding: 35px 0 0 0;
 }
+
+.header-making-order{
+    margin-left: 12px;
+    margin-top: 32px;
+    width: 336px;
+    padding-bottom: 40px;
+}
+
 .making-order__bonus-toggle{
     display: flex;
     margin-bottom: 20px;
@@ -1004,18 +1125,20 @@ header{
 }
 .making-order__accumulated{
     color: #8F8F8F;
-    margin-bottom: 50px;
 }
+
 .making-order__summary{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 50px;
 }
 .making-order__summary-left,
 .making-order__summary-right{
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+.making-order__summary-right{
+    align-items: flex-end;
 }
 .making-order__summary-left,
 .making-order__total--result,
@@ -1041,7 +1164,9 @@ header{
     font-weight: bold;
     font-size: 24px;
 }
-.making-order__min-limit{
+
+.making-order__min-limit.active,
+.header-making-order__min-limit.active{
     padding: 3px 8px;
     background-color: #D80000;
     color: white;
@@ -1049,8 +1174,15 @@ header{
     width: 210px;
     margin-top: 24px;
     margin-bottom: 16px;
+    border-radius: 4px;
 }
+
+.header-making-order__min-limit.active {
+    width: 100%;
+}
+
 .making-order__button,
+.header-making-order__button,
 .making-order__pay--online,
 .making-order__pay--offline{
     color: #FF6633;
@@ -1058,6 +1190,37 @@ header{
     width: 272px;
     height: 60px;
     font-size: 24px;
+}
+
+.making-order__button.active,
+.header-making-order__button.active{
+    color: white;
+    background-color: #FF6633;
+}
+
+.go-cart{
+    margin-top: 16px;
+    text-align: center;
+    color: white;
+    background-color: #FF6633;
+    border-radius: 4px;
+}
+
+.go-cart button{
+    color: white;
+}
+
+.header-making-order__button,
+.header-making-order__min-limit{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.header-making-order__button{
+    height: 40px;
+    font-size: 16px;
+    align-items: center;
 }
 
 .making-order__pay--online{
@@ -1382,12 +1545,17 @@ header{
 }
 
 .making-order__toggle.active .making-order__toggle-circle{
-    transform: translateX(24px);;
+    transform: translateX(24px);
 }
-/*.making-order__toggle{*/
-/*    transition: 0.3s ease;*/
-/*    transform: translateX(100%);*/
-/*}*/
+
+.making-order__toggle.active{
+    background-color: #70C05B;
+}
+
+.horizontal-line{
+    opacity: 0.2;
+    margin: 24px 0;
+}
 
 
     /*footer*/

@@ -1,4 +1,4 @@
-import CartHead from "./CartHead.jsx";
+import HeaderCartHead from "./HeaderCartHead.jsx";
 import CartOrder from "./CartOrder.jsx";
 import React from 'react';
 import CartMakingOrder from "./CartMakingOrder.jsx";
@@ -25,10 +25,11 @@ const Cart = ({   items = [],
             <p className="cart-head__cart--text">Корзина</p>
         </div>
 
-        <CartHead
+        <HeaderCartHead
             ordersQuantity={ordersQuantity}
             selectAll={selectAll}
             deleteItems={deleteItems}
+            orders={orders}
         />
 
         <div className="container-block-cart">
@@ -44,7 +45,10 @@ const Cart = ({   items = [],
                     />
                 ))}
             </div>
-            <CartMakingOrder/>
+            <CartMakingOrder
+                ordersQuantity={ordersQuantity}
+                orders={orders}
+            />
         </div>
 
     </section>

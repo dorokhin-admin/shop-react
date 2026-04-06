@@ -7,7 +7,7 @@ const CartOrder = (props) => {
     const sumPrice = Number((orderItem.price * orderItem.quantity).toFixed(2));
 
     return (
-            <div key={orderItem.id} className="cart-item" data-id={orderItem.id}>
+            <div key={orderItem.id} className={`cart-item ${orderItem.selected === false ? 'cart-item-blure' : ''}`} data-id={orderItem.id}>
                 <div className="cart-item__image">
                     <button className="cart-item__checkbox-select"
                     onClick={() => toggleSelect(orderItem.id)}

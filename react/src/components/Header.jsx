@@ -9,7 +9,10 @@ class Header extends Component {
         const {
             items,
             orders,
+            favorites,
+            totalFavorites,
             addToCart,
+            addToFavorite,
             filterProduct,
             plus,
             minus,
@@ -17,6 +20,8 @@ class Header extends Component {
             ordersQuantity,
             selectAll,
             deleteItems,
+            removeFromCart,
+            removeFromFavorite,
         } = this.props;//в классе так
 
         return (
@@ -34,11 +39,18 @@ class Header extends Component {
                             <HeaderNav
                                 items={items}
                                 orders={orders}
+                                favorites={favorites}
+                                totalFavorites={totalFavorites}
                                 addToCart={addToCart}
+                                addToFavorite={addToFavorite}
                                 plus={plus}
                                 minus={minus}
                                 toggleSelect={toggleSelect}
                                 ordersQuantity={ordersQuantity}
+                                deleteItems={deleteItems}
+                                selectAll={selectAll}
+                                removeFromCart={removeFromCart}
+                                removeFromFavorite={removeFromFavorite}
                             />
                     </div>
                 </div>
