@@ -99,7 +99,33 @@ header{
      padding: 8px 12px;
     cursor: pointer;
     position: relative;
+    color: #414141;
+    transition: color 500ms ease, transform 500ms ease;
 }
+
+.header__link--cart.active{
+    color: red;
+    transform: scale(1.1);
+    z-index: 1000;
+}
+
+.header__nav{
+    position: relative;
+}
+
+ .cart-Drawer{
+    position: absolute;
+    top: 60px;
+    right: 80px;
+    width: 320px;
+    min-width: 100px;
+    height: 450px;
+    background-color: #FBF8EC;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(255, 102, 51, 0.16),
+                10px 0 30px rgba(255, 102, 51, 0.07);
+ }
+
 
 .header__link-counter{
     position: absolute;

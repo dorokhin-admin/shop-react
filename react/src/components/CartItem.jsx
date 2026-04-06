@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-const CartItem = ({items = []}) => {
+const CartItem = ({items = [], addToCart}) => {
         return (
             <>
                 {items.map(product => {
@@ -44,8 +44,11 @@ const CartItem = ({items = []}) => {
                                                                                        alt="minus"/>
                                     </button>
                                     <p className="cart__quantity-number">{product.quantity}</p>
-                                    <button className="cart__quantity-btn--plus"><img src="src/IMAGES/plus.png"
-                                                                                      alt="plus"/>
+                                    <button
+                                        className="cart__quantity-btn--plus"
+                                        onClick={() => addToCart(product)}
+                                    >
+                                        <img src="src/IMAGES/plus.png" alt="plus"/>
                                     </button>
                                 </div>
                                 <div className="cart__sum-price">
