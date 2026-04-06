@@ -103,8 +103,7 @@ header{
     transition: color 500ms ease, transform 500ms ease;
 }
 
-.header__link--cart.active{
-    color: red;
+.header__link--cart.active img{
     transform: scale(1.1);
     z-index: 1000;
 }
@@ -113,7 +112,7 @@ header{
     position: relative;
 }
 
- .cart-Drawer{
+ .cart__Drawer{
     position: absolute;
     top: 60px;
     right: 80px;
@@ -125,6 +124,7 @@ header{
     box-shadow: 0 10px 30px rgba(255, 102, 51, 0.16),
                 10px 0 30px rgba(255, 102, 51, 0.07);
  }
+
 
 
 .header__link-counter{
@@ -831,8 +831,7 @@ header{
     height: 80px;
 }
 
-.cart-item__checkbox-select,
-.cart-item__checkbox-empty{
+.cart-item__checkbox-select{
     position: absolute;
     top: -18px;
     left: 8px;
@@ -1022,7 +1021,6 @@ header{
 
 
 .block-cart{
-    display: flex;
     gap: 40px;
     width: 1300px;
     flex-wrap: nowrap;

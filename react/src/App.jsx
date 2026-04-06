@@ -20,6 +20,154 @@ class App extends React.Component {//делаем через формат кла
                     title:'Г/Ц Блинчики с мясом вес,',
                     country:'Россия',
                     quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:2,
+                    imgSrc: 'src/IMAGES/milk.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:3,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                },
+                {
+                    id:4,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                }
+            ],
+        };
+
+        this.addToCart = this.addToCart.bind(this);//чтобы метод ниже мог работать с состояниями, данными в массив items
+    }
+
+   deleteItems = () => {
+       this.setState({
+           orders:  []
+       });
+   }
+
+    addToCart = (item) => {
+        let isInArray = false
+
+        this.state.orders.forEach(order => {
+            if(order.id === item.id){
+                isInArray = true
+            }
+        })
+        if(!isInArray){
+            this.setState(
+                {orders: [...this.state.orders, {...item, selected: true}]}
+            );
+        }
+    }
+
+    filterProduct = (product) => {
+        console.log(product);
+    }
+
+    plus = (orderItem) => {
+       this.setState((prevState) => ({
+           orders:  prevState.orders.map(order => {
+                if(order.id === orderItem.id){
+                    return [...order, order.quantity++];
+                }
+           })
+       }))
+    }
+
+    toggleSelect = (id) => {
+        this.setState(
+            {
+                orders: this.state.orders.map(order => {
+                    if(order.id === id) {
+                        return {
+                            ...order, selected: !order.selected
+                        }
+                    }
+                    return order;
+                })
+            }
+        )
+    }
+
+    render() {
+      return (
+          <div>
+            <Header
+                items={this.state.items}
+                orders={this.state.orders}
+                addToCart={this.addToCart}
+                filterProduct={this.filterProduct}
+            />
+              <div className="container">
+                <Products
+                    items={this.state.items}
+                    addToCart ={this.addToCart}
+                />
+                <Cart
+                    items={this.state.items}
+                    orders={this.state.orders}
+                    addToCart ={this.addToCart}
+                    plus={this.plus}
+                    deleteItems={this.deleteItems}
+                    toggleSelect={this.toggleSelect}
+                />
+              </div>
+            <Footer/>
+          </div>
+          )
+        }
+
+
+}
+
+export default App
+import React from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Products from "./components/Products.jsx";
+import Cart from "./components/Cart.jsx";
+
+class App extends React.Component {//делаем через формат класса с конструктором, а можно через хук useState
+    constructor(props) {
+        super(props);//для передачи пропсов в конструктор родительского класса
+        this.state = {
+            orders: [],
+            items: [
+                {
+                    id:1,
+                    imgSrc: 'src/IMAGES/blini.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
                     currency: 'RUB'
                 },
                 {

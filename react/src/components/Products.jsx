@@ -46,7 +46,7 @@ const Products = ({items, addToCart}) => {
                         </div>
                         <ProductButtonInCart
                             addToCart={addToCart}
-                            items={items}
+                            item={product}
                         />
                         <button className="product-card__added-to-cart">
                             В корзине

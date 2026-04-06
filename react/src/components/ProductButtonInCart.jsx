@@ -5,20 +5,16 @@ class ProductButtonInCart extends Component {
 
         const {
             addToCart,
-            items
+            item
         } = this.props;
 
         return (
-            <>
-            {items.map(item => (
-                        <button
-                            key={item.id}
-                            className="product-card__add-to-cart"
-                             onClick={() => console.log(item.id)}>
-                        В корзину
-                    </button>
-            ))}
-            </>
+            <button
+            key={item.id}
+            className="product-card__add-to-cart"
+            onClick={() => addToCart(item)}>
+                В корзину
+            </button>
         );
     }
 }
