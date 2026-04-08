@@ -4,6 +4,8 @@ const CartHead = (props) => {
     const { //в функции так
         total,
         done,
+        ordersQuantity,
+        selectAll,
         deleteItems,
     } = props
 
@@ -13,7 +15,7 @@ const CartHead = (props) => {
             <div className="cart__header">
                 <div className="cart-head__cart">
                     <h1 className="cart-title">Корзина</h1>
-                    <div className="cart-head__cart-wrapper">{total}</div>
+                    <div className="cart-head__cart-wrapper">{ordersQuantity()}</div>
                 </div>
                 <div className="cart__actions">
                     {hasItem && (
@@ -21,7 +23,7 @@ const CartHead = (props) => {
                                                           className="cart__select"/></button>
                     )}
                     {hasItem && (
-                        <button className="cart-select-all">Выделить всё</button>
+                        <button className="cart-select-all" onClick={selectAll}>Выделить всё</button>
                     )}
                     {hasItem && (
                         <button className="cart-delete-all" onClick={deleteItems}>Удалить выбранные</button>

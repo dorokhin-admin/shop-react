@@ -1,20 +1,56 @@
 import React, {useState} from 'react';
-import CartOrder from "./CartOrder.jsx";
+import HeaderOrder from "./HeaderOrder.jsx";
+import HeaderCartHead from "./HeaderCartHead.jsx";
 
 
 
-const HeaderNav = ({items =[], orders, addToCart}) => {
+const HeaderNav = ({   items = [],
+                       orders = [],
+                       addToCart,
+                       plus,
+                       minus,
+                       selectAll,
+                       deleteItems,
+                       toggleSelect,
+                       ordersQuantity,
+                   }) => {
 
     let [cartOpen, setCartOpen] = useState(false);
     const totalOrders = orders.length
 
     const showOrders = () => {
         return orders.map((orderItem, index) => (
-            <CartOrder
+            <React.Fragment key={orderItem.id}>
+                <div className="cart-head__header">
+                    <a className="cart-head__main">Главная</a>
+                    <img src="src/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
+                    <p className="cart-head__cart--text">Корзина</p>
+                </div>
+
+                <div className="cart__actions">
+                        <button className="cart__select"><img src="src/IMAGES/Checkbox%20(1).png" alt=""
+                                className="cart__select"/></button>
+                        <button className="cart-select-all" onClick={selectAll}>Выделить всё</button>
+                        <button className="cart-delete-all" onClick={deleteItems}>Удалить выбранные</button>
+                </div>
+
+                <HeaderCartHead
+                ordersQuantity={ordersQuantity}
+                selectAll={selectAll}
+                deleteItems={deleteItems}
+            />
+
+            <HeaderOrder
                 key={`${orderItem.id} - ${index}`}
                 orderItem={orderItem}
                 addToCart={addToCart}
+                plus={plus}
+                minus={minus}
+                toggleSelect={toggleSelect}
+                total={totalOrders}
+                ordersQuantity={ordersQuantity}
             />
+          </React.Fragment>
         ))
     }
 
