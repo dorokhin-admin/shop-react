@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
-class HeaderFieldSearch extends Component {
-    render() {
-        const {
-            filterProduct
-        } = this.props;
-        return (
+const HeaderFieldSearch  = ({searchQuery,
+                            setSearchQuery,
+                            newOrderInputRef,
+                            ref}) => {
+
+    return (
             <div className='header__search'>
                 <label
                     className='header__search-label'
@@ -17,7 +17,9 @@ class HeaderFieldSearch extends Component {
                     id='search-input'
                     type="text"
                     placeholder="Найти товар"
-                    onChange={(e) => filterProduct(e.target.value)}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    ref={newOrderInputRef}
                 />
                 <button>
                     <img src="src/IMAGES/search.png"
@@ -26,6 +28,5 @@ class HeaderFieldSearch extends Component {
             </div>
         );
     }
-}
 
 export default HeaderFieldSearch;

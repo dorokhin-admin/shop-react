@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
 
-class ProductButtonInCart extends Component {
+class HeaderProductButtonInCart extends Component {
     render() {
 
         const {
             addToCart,
-            product,
+            item,
             isActive,
             removeFromCart,
         } = this.props;
 
         return (
             <button
-            className={`product-card__add-to-cart ${isActive ? 'active' : ''}`}
+            className={`product-header-card__add ${isActive ? 'active' : ''}`}
             onClick={() =>{
                 if(isActive) {
-                removeFromCart(product.id);
+                removeFromCart(item.id);
             }else{
-                addToCart(product)
+                addToCart(item)
                 }
             }}
                >
@@ -27,4 +27,4 @@ class ProductButtonInCart extends Component {
     }
 }
 
-export default ProductButtonInCart;
+export default HeaderProductButtonInCart;

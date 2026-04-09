@@ -1,44 +1,62 @@
-import React, {Component} from 'react';
+import React, {PureComponent } from 'react';
 import HeaderFieldSearch from "./HeaderFieldSearch.jsx";
 import HeaderButtonCatalog from "./HeaderButtonCatalog.jsx";
 import HeaderNav from "./HeaderNav.jsx";
 
-class Header extends Component {
+class Header extends PureComponent  {
+
     render() {
 
         const {
             items,
             orders,
+            favorites,
+            totalFavorites,
             addToCart,
-            filterProduct,
+            addToFavorite,
             plus,
             minus,
             toggleSelect,
             ordersQuantity,
             selectAll,
             deleteItems,
+            removeFromCart,
+            removeFromFavorite,
+            searchQuery,
+            setSearchQuery,
+            newOrderInputRef,
         } = this.props;//в классе так
-
         return (
             <header>
                 <div className="container">
+                    <button onClick={() => setSearchQuery("test")}>Тест рендера</button>
+
                     <div className='header__inner'>
                         <img className='header__logo-icon' src="src/IMAGES/Group.png" alt="header__logo-iconо"/>
                         <h1 className="header__logo-text">СЕВЕРЯНОЧКА</h1>
                         <div className='header__controls'>
                             <HeaderButtonCatalog/>
                             <HeaderFieldSearch
-                                filterProduct={filterProduct}
+                                searchQuery={searchQuery}
+                                setSearchQuery={setSearchQuery}
+                                newOrderInputRef={newOrderInputRef}
                             />
                         </div>
                             <HeaderNav
                                 items={items}
                                 orders={orders}
+                                favorites={favorites}
+                                totalFavorites={totalFavorites}
                                 addToCart={addToCart}
+                                addToFavorite={addToFavorite}
                                 plus={plus}
                                 minus={minus}
                                 toggleSelect={toggleSelect}
                                 ordersQuantity={ordersQuantity}
+                                deleteItems={deleteItems}
+                                selectAll={selectAll}
+                                removeFromCart={removeFromCart}
+                                removeFromFavorite={removeFromFavorite}
                             />
                     </div>
                 </div>
