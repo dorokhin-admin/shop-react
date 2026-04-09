@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import HeaderFavoriteOrder from "./HeaderFavoriteOrder.jsx";
 
 const HeaderFavorite = ({   orders = [],
@@ -11,6 +11,9 @@ const HeaderFavorite = ({   orders = [],
                         }) => {
     let [isOpen, setOpen] = React.useState(false);
     const favoritesLength = favorites.length
+
+    console.log('HeaderFavorite rendered') //вот чтобы не выходило при заугрзке страницы
+    //и существуют оптимизационные инструм
 
     return (
 
@@ -65,4 +68,4 @@ const HeaderFavorite = ({   orders = [],
     );
 };
 
-export default HeaderFavorite;
+export default memo(HeaderFavorite);

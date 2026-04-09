@@ -237,7 +237,11 @@ header{
     font-size: 8px;
 }
 
+.product__empty-message{
+    padding: 16px;
+    font-size: 32px;
 
+}
 
 .cart-header-favorite__filter{
     display: flex;
@@ -939,6 +943,7 @@ header{
 
 .cart-actions__header{
     display: flex;
+    white-space: nowrap;
     font-size: 12px;
     margin-left: 20px;
 }

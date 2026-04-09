@@ -1,12 +1,21 @@
 import React, {Component, useState} from 'react';
 import ProductButtonInCart from "./ProductButtonInCart.jsx";
 
-const Products = ({items, orders, addToCart,favorites, addToFavorite,removeFromCart, removeFromFavorite}) => {
-
+const Products = ({items,
+                      orders,
+                      addToCart,
+                      favorites,
+                      addToFavorite,
+                      removeFromCart,
+                      removeFromFavorite,
+                      filterItems}) => {
+    if(filterItems.length === 0) {
+        return <div className='product__empty-message'>Таких продуктов нет :(</div>;
+    }
 
     return (
         <div className="products__list">
-            {items.map(product => {
+            {filterItems.map(product => {
                 const discontPrice = product.price - (product.price * product.promo) / 100;
                 const isActive = orders.some(order => order.id === product.id);
                 const isFavorite = favorites.some(favorite => favorite.id === product.id);
@@ -62,7 +71,7 @@ const Products = ({items, orders, addToCart,favorites, addToFavorite,removeFromC
                             isActive={isActive}
                             addToCart={addToCart}
                             removeFromCart={removeFromCart}
-                            item={product}
+                            product={product}
                         />
                         <button className="product-card__added-to-cart">
                             В корзине

@@ -5,7 +5,7 @@ class ProductButtonInCart extends Component {
 
         const {
             addToCart,
-            item,
+            product,
             isActive,
             removeFromCart,
         } = this.props;
@@ -15,9 +15,9 @@ class ProductButtonInCart extends Component {
             className={`product-card__add-to-cart ${isActive ? 'active' : ''}`}
             onClick={() =>{
                 if(isActive) {
-                removeFromCart(item.id);
+                removeFromCart(product.id);
             }else{
-                addToCart(item)
+                addToCart(product)
                 }
             }}
                >
