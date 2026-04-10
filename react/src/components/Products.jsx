@@ -1,10 +1,9 @@
 import React, {Component, useState} from 'react';
 import ProductButtonInCart from "./ProductButtonInCart.jsx";
 
-const Products = ({items,
-                      orders,
+const Products = ({     orderSet,
                       addToCart,
-                      favorites,
+                      favoriteSet,
                       addToFavorite,
                       removeFromCart,
                       removeFromFavorite,
@@ -17,8 +16,8 @@ const Products = ({items,
         <div className="products__list">
             {filterItems.map(product => {
                 const discontPrice = product.price - (product.price * product.promo) / 100;
-                const isActive = orders.some(order => order.id === product.id);
-                const isFavorite = favorites.some(favorite => favorite.id === product.id);
+                const isActive = orderSet.has(product.id);
+                const isFavorite = favoriteSet.has(product.id);
 
 
                 return (
