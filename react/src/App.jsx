@@ -1,1 +1,669 @@
-import Header from "./components/Header.jsx";import Footer from "./components/Footer.jsx";import Products from "./components/Products.jsx";import Cart from "./components/Cart.jsx";import React, {useState, useEffect, useRef, useCallback, useMemo} from "react";import HeaderNav from "./components/HeaderNav.jsx";import HeaderHero from "./components/HeaderHero.jsx";//React.Memo чтоб компонент не ререндерился без необходимости//UseMemo  чтобы кешировать вычисления//useCallback чтобы стабилизировать функцииconst App = () =>  {// делаем через хук useState, а можно через формат класса с конструктором    console.log('App rendered')    //constructor(props) {    //super(props);для передачи пропсов в конструктор родительского класса    const [orders, setOrders] = useState(()=> {        const savedOrders = localStorage.getItem("orders");        return savedOrders ? JSON.parse(savedOrders) : [];    });    const [favorites, setFavorites] = useState([]);    // const [items, setItems] = useState([items]);    // useEffect(() => {    //     const saveOrders = localStorage.getItem("orders");    //     if(saveOrders){    //         setOrders(JSON.parse(saveOrders))    //     }    //  }, [])    const [items, setItems] = useState([                { id:1,                    imgSrc: 'src/IMAGES/blini.png',                    promo: 10,                    priceDiscontText: 'С картой',                    price: 50.50,                    priceText: 'Обычная',                    title:'кускус',                    country:'Россия',                    quantity: 1,                    currency: '₽',                },                {                    id:2,                    imgSrc: 'src/IMAGES/milk.png',                    promo: 10,                    priceDiscontText: 'С картой',                    price: 50.50,                    priceText: 'Обычная',                    title:'Г/Ц Блинчики с мясом вес,',                    country:'Россия',                    quantity: 1,                    currency: '₽',                },                {                    id:3,                    imgSrc: 'src/IMAGES/kolbasi.png',                    promo: 10,                    priceDiscontText: 'С картой',                    price: 50.50,                    priceText: 'Обычная',                    title:'Г/Ц Блинчики с мясом вес,',                    country:'Россия',                    quantity: 1,                    currency: '₽',                },                {                    id:4,                    imgSrc: 'src/IMAGES/image(3).png',                    promo: 10,                    priceDiscontText: 'С картой',                    price: 50.50,                    priceText: 'Обычная',                    title:'Г/Ц Блинчики с мясом вес,',                    country:'Россия',                    quantity: 1,                    currency: '₽',                }        ]);        // this.addToCart = this.addToCart.bind(this);//чтобы в классе метод ниже мог работать с состояниями, данными в массив items        // this.addToFavorite=this.addToFavorite.bind(this);        // this.ordersQuantity = this.ordersQuantity.bind(this);    useEffect(() => {        localStorage.setItem("orders", JSON.stringify(orders))    }, [orders])//выполняется каждый раз при изменении того что во втором аргументе,    //в этом случае зависимость от orders, без второго аргумента эффект будет выполняться после изменения любого состояния или рендера    const [searchQuery, setSearchQuery] = useState("");    const clearSearchQuery = searchQuery.trim().toLowerCase();    const filterItems = clearSearchQuery.length > 0    ? items.filter((item) => item.title.toLowerCase().includes(clearSearchQuery))    : items;    const newOrderInputRef = useRef(null);    useEffect(()=>{        newOrderInputRef.current.focus();//скопировать потом это в место где надо чтобы после курсор обратно вернулся в этот input    }, [])    // const addToCart = (item) => {    //         const isInArray = orders.some(order => order.id === item.id);    //         if(!isInArray){    //             setOrders([...orders, {...item, selected: true}]);    //         }    //     }    const addToCart = useCallback((item) => {//функция стабилизирована,        // не создаётся заново, и при этом всегда работает с актуальными данными.      setOrders(prev =>//Без useCallback          // Каждый рендер App создаёт новую функцию addToCart, ссылка на функцию меняется          prev.some(order => order.id === item.id)            ? prev            : ([...prev, {...item, selected: true}])      )    }, [])//благодаря prev в setOrders функция не зависит от текущего состояния,    // поэтому можно безопасно оставить зависимости пустыми    const  addToFavorite = useCallback((item) => {        setFavorites(prev =>        prev.some(fav => fav.id === item.id)            ? prev            : ([...prev, {...item, selected: true}])            )        }, []) //с prev можно пустой массив - он читает актуальное значение    const removeFromCart = useCallback((id) => {            setOrders(prev =>            prev.filter(order => order.id !== id)            )        },[])    const removeFromFavorite = useCallback((id) => {            setFavorites(prev =>            prev.filter(fav => fav.id !== id)            )        },[])    // const  plus = (orderItem) => {    //     setOrders(prev => prev    //         .map(order =>  order.id === orderItem.id    //             ? {...order,  quantity: order.quantity+1}    //             : order    //         ));    //     }        const plus = useCallback((orderItem) => {            setOrders((prev) =>                prev.map(order => order.id === orderItem.id                ? {...order, quantity: orderItem.quantity + 1}                : order                )           )        }, [])    const    minus = useCallback((orderItem) => {            setOrders((prev) =>            prev.map(order => order.id === orderItem.id                ? {...order, quantity: Math.max(orderItem.quantity - 1, 0)}                : order                )                .filter(order => order.quantity > 0)            )        },[])    const  toggleSelect = useCallback((id) => {            setOrders(prev=>            prev.map(order => order.id === id                ? {...order, selected: !order.selected}                : order                )            )        }, [])    const  deleteItems = useCallback(() => {            setOrders((prev) =>            prev.filter(order => order.selected === false))        },[])    const   selectAll = useCallback(() => {        setOrders(prev => prev            .map(order => ({...order, selected: true}))        )        },[])    // Мемоизированные вычисления, закешировать ВЫЧИСЛЕНИЕ    const orderSet = useMemo(() => {        return new Set(orders.map (o => o.id))    }, [orders])    const favoriteSet = useMemo(() => {        return new Set(favorites.map (f => f.id))    }, [favorites])    const  memoOrdersQuantity = useMemo(() => {         return orders.reduce( (acc, curr) => {                return acc + curr.quantity;            },0)        }, [orders])//читают текущее значение переменной из замыкания → нужны зависимости    const   memoFavoritesQuantity = useMemo(() => {            return favorites.reduce( (acc, curr) => {                return acc + curr.quantity;            }, 0)        }, [favorites])    return (          <div>          <header>            <div className="container">                  <div className='header__inner'>                    <Header                        searchQuery={searchQuery}                        setSearchQuery={setSearchQuery}                        newOrderInputRef={newOrderInputRef}                    />                      <HeaderNav                          items={items}                          orders={orders}                          favorites={favorites}                          totalFavorites={memoFavoritesQuantity}                          addToCart={addToCart}                          addToFavorite={addToFavorite}                          plus={plus}                          minus={minus}                          toggleSelect={toggleSelect}                          ordersQuantity={memoOrdersQuantity}                          deleteItems={deleteItems}                          selectAll={selectAll}                          removeFromCart={removeFromCart}                          removeFromFavorite={removeFromFavorite}                      />                  </div>                      <HeaderHero/>              </div>          </header>              <div className="container">            <Products                items={items}                orderSet={orderSet}                addToCart ={addToCart}                removeFromFavorite={removeFromFavorite}                addToFavorite={addToFavorite}                favoriteSet={favoriteSet}                removeFromCart={removeFromCart}                filterItems={filterItems}            />            <Cart                items={items}                orders={orders}                addToCart ={addToCart}                plus={plus}                minus={minus}                selectAll={selectAll}                deleteItems={deleteItems}                toggleSelect={toggleSelect}                ordersQuantity={memoOrdersQuantity}            />          </div>            <Footer/>          </div>          )}export default App
+import React from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Products from "./components/Products.jsx";
+import Cart from "./components/Cart.jsx";
+
+class App extends React.Component {//делаем через формат класса с конструктором, а можно через хук useState
+    constructor(props) {
+        super(props);//для передачи пропсов в конструктор родительского класса
+        this.state = {
+            orders: [],
+            items: [
+                {
+                    id:1,
+                    imgSrc: 'src/IMAGES/blini.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:2,
+                    imgSrc: 'src/IMAGES/milk.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:3,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                },
+                {
+                    id:4,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                }
+            ],
+        };
+
+        this.addToCart = this.addToCart.bind(this);//чтобы метод ниже мог работать с состояниями, данными в массив items
+        this.ordersQuantity = this.ordersQuantity.bind(this);
+    }
+
+
+    addToCart = (item) => {
+        let isInArray = false
+
+        this.state.orders.forEach(order => {
+            if(order.id === item.id){
+                isInArray = true
+            }
+        })
+        if(!isInArray){
+            this.setState(
+                {orders: [...this.state.orders, {...item, selected: true}]}
+            );
+        }
+    }
+
+    filterProduct = (product) => {
+        console.log(product);
+    }
+
+    plus = (orderItem) => {
+       this.setState((prevState) => ({
+           orders:  prevState.orders.map(order => {
+                if(order.id === orderItem.id){
+                    return {...order, quantity: order.quantity + 1};
+                }
+                return order;
+           })
+       }))
+    }
+
+    minus = (orderItem) => {
+        this.setState((prevState) => ({
+            orders: prevState.orders
+                .map(order => {
+                if(order.id === orderItem.id && order.quantity > 0){
+                    return {...order, quantity: order.quantity - 1};
+                } return order;
+            })
+                .filter(order => {
+                    return !(order.id === orderItem.id && order.quantity === 0)
+                })
+        }))
+    }
+
+    toggleSelect = (id) => {
+        this.setState(
+            {
+                orders: this.state.orders.map(order => {
+                    if(order.id === id) {
+                        return {
+                            ...order, selected: !order.selected
+                        }
+                    }
+                    return order;
+                })
+            }
+        )
+    }
+
+    deleteItems = () => {
+     this.setState({
+         orders: this.state.orders.filter(order => {
+             return order.selected === false
+         })
+     })
+    }
+
+    selectAll = () => {
+        this.setState({
+            orders: this.state.orders.map(order => {
+                 if(order.selected === false) {
+                     return {...order, selected: true}
+                 }
+                 return order;
+            })
+        })
+    }
+
+    ordersQuantity = () => {
+        return this.state.orders.reduce((acc, cur) => {
+            return  acc + cur.quantity;
+        }, 0);
+    }
+
+    render() {
+      return (
+          <div>
+            <Header
+                items={this.state.items}
+                orders={this.state.orders}
+                addToCart={this.addToCart}
+                plus={this.plus}
+                minus={this.minus}
+                selectAll={this.selectAll}
+                deleteItems={this.deleteItems}
+                toggleSelect={this.toggleSelect}
+                filterProduct={this.filterProduct}
+                ordersQuantity={this.ordersQuantity}
+            />
+              <div className="container">
+                <Products
+                    items={this.state.items}
+                    addToCart ={this.addToCart}
+                />
+                <Cart
+                    items={this.state.items}
+                    orders={this.state.orders}
+                    addToCart ={this.addToCart}
+                    plus={this.plus}
+                    minus={this.minus}
+                    selectAll={this.selectAll}
+                    deleteItems={this.deleteItems}
+                    toggleSelect={this.toggleSelect}
+                    ordersQuantity={this.ordersQuantity}
+                />
+              </div>
+            <Footer/>
+          </div>
+          )
+        }
+
+
+}
+
+export default App
+import React from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Products from "./components/Products.jsx";
+import Cart from "./components/Cart.jsx";
+
+class App extends React.Component {//делаем через формат класса с конструктором, а можно через хук useState
+    constructor(props) {
+        super(props);//для передачи пропсов в конструктор родительского класса
+        this.state = {
+            orders: [],
+            items: [
+                {
+                    id:1,
+                    imgSrc: 'src/IMAGES/blini.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:2,
+                    imgSrc: 'src/IMAGES/milk.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:3,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                },
+                {
+                    id:4,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                }
+            ],
+        };
+
+        this.addToCart = this.addToCart.bind(this);//чтобы метод ниже мог работать с состояниями, данными в массив items
+    }
+
+   deleteItems = () => {
+       this.setState({
+           orders:  []
+       });
+   }
+
+    addToCart = (item) => {
+        let isInArray = false
+
+        this.state.orders.forEach(order => {
+            if(order.id === item.id){
+                isInArray = true
+            }
+        })
+        if(!isInArray){
+            this.setState(
+                {orders: [...this.state.orders, {...item, selected: true}]}
+            );
+        }
+    }c
+
+    filterProduct = (product) => {
+        console.log(product);
+    }
+
+    plus = (orderItem) => {
+       this.setState((prevState) => ({
+           orders:  prevState.orders.map(order => {
+                if(order.id === orderItem.id){
+                    return [...order, order.quantity++];
+                }
+           })
+       }))
+    }
+
+    toggleSelect = (id) => {
+        this.setState(
+            {
+                orders: this.state.orders.map(order => {
+                    if(order.id === id) {
+                        return {
+                            ...order, selected: !order.selected
+                        }
+                    }
+                    return order;
+                })
+            }
+        )
+    }
+
+    render() {
+      return (
+          <div>
+            <Header
+                items={this.state.items}
+                orders={this.state.orders}
+                addToCart={this.addToCart}
+                filterProduct={this.filterProduct}
+            />
+              <div className="container">
+                <Products
+                    items={this.state.items}
+                    addToCart ={this.addToCart}
+                />
+                <Cart
+                    items={this.state.items}
+                    orders={this.state.orders}
+                    addToCart ={this.addToCart}
+                    plus={this.plus}
+                    deleteItems={this.deleteItems}
+                    toggleSelect={this.toggleSelect}
+                />
+              </div>
+            <Footer/>
+          </div>
+          )
+        }
+
+
+}
+
+export default App
+import React from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Products from "./components/Products.jsx";
+import Cart from "./components/Cart.jsx";
+
+class App extends React.Component {//делаем через формат класса с конструктором, а можно через хук useState
+    constructor(props) {
+        super(props);//для передачи пропсов в конструктор родительского класса
+        this.state = {
+            orders: [],
+            items: [
+                {
+                    id:1,
+                    imgSrc: 'src/IMAGES/blini.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:2,
+                    imgSrc: 'src/IMAGES/milk.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB',
+                },
+                {
+                    id:3,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                },
+                {
+                    id:4,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB',
+                }
+            ],
+        };
+
+        this.addToCart = this.addToCart.bind(this);//чтобы метод ниже мог работать с состояниями, данными в массив items
+    }
+
+   deleteItems = () => {
+       this.setState({
+           orders:  []
+       });
+   }
+
+    addToCart = (item) => {
+        let isInArray = false
+
+        this.state.orders.forEach(order => {
+            if(order.id === item.id){
+                isInArray = true
+            }
+        })
+        if(!isInArray){
+            this.setState(
+                {orders: [...this.state.orders, {...item, selected: true}]}
+            );
+        }
+    }
+
+    filterProduct = (product) => {
+        console.log(product);
+    }
+
+    plus = (orderItem) => {
+       this.setState((prevState) => ({
+           orders:  prevState.orders.map(order => {
+                if(order.id === orderItem.id){
+                    return [...order, order.quantity++];
+                }
+           })
+       }))
+    }
+
+    toggleSelect = (id) => {
+        this.setState(
+            {
+                orders: this.state.orders.map(order => {
+                    if(order.id === id) {
+                        return {
+                            ...order, selected: !order.selected
+                        }
+                    }
+                    return order;
+                })
+            }
+        )
+    }
+
+    render() {
+      return (
+          <div>
+            <Header
+                items={this.state.items}
+                orders={this.state.orders}
+                addToCart={this.addToCart}
+                filterProduct={this.filterProduct}
+            />
+              <div className="container">
+                <Products
+                    items={this.state.items}
+                    addToCart ={this.addToCart}
+                />
+                <Cart
+                    items={this.state.items}
+                    orders={this.state.orders}
+                    addToCart ={this.addToCart}
+                    plus={this.plus}
+                    deleteItems={this.deleteItems}
+                    toggleSelect={this.toggleSelect}
+                />
+              </div>
+            <Footer/>
+          </div>
+          )
+        }
+
+
+}
+
+export default App
+import React from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Products from "./components/Products.jsx";
+import Cart from "./components/Cart.jsx";
+
+class App extends React.Component {//делаем через формат класса с конструктором, а можно через хук useState
+    constructor(props) {
+        super(props);//для передачи пропсов в конструктор родительского класса
+        this.state = {
+            orders: [],
+            items: [
+                {
+                    id:1,
+                    imgSrc: 'src/IMAGES/blini.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB'
+                },
+                {
+                    id:2,
+                    imgSrc: 'src/IMAGES/milk.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB'
+                },
+                {
+                    id:3,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB'
+                },
+                {
+                    id:4,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB'
+                }
+            ],
+        };
+
+        this.addToCart = this.addToCart.bind(this);//чтобы метод ниже мог работать с состояниями, данными в массив items
+    }
+
+   deleteItems = (id) => {
+       this.setState({
+           items:  this.state.items.filter(item => item.id === id)});
+   }
+
+    render() {
+      return (
+          <div>
+            <Header items={this.state.items} />
+              <div className="container">
+                <Products
+                    items={this.state.items}
+                    addToCart ={this.addToCart}
+                />
+                <Cart
+                    items={this.state.items}
+                    addToCart ={this.addToCart}
+                    deleteItems={this.deleteItems}
+                />
+              </div>
+            <Footer/>
+          </div>
+          )
+        }
+
+        addToCart = (item) => {
+            this.setState({orders: [...this.state.orders, item]});
+        }
+}
+
+export default App
+import React from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Products from "./components/Products.jsx";
+import Cart from "./components/Cart.jsx";
+
+class App extends React.Component {//делаем через формат класса с конструктором, а можно через хук useState
+    constructor(props) {
+        super(props);//для передачи пропсов в конструктор родительского класса
+        this.state = {
+            items: [
+                {
+                    id:1,
+                    imgSrc: 'src/IMAGES/blini.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB'
+                },
+                {
+                    id:2,
+                    imgSrc: 'src/IMAGES/milk.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                    currency: 'RUB'
+                },
+                {
+                    id:3,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB'
+                },
+                {
+                    id:4,
+                    imgSrc: 'src/IMAGES/kolbasi.png',
+                    promo: 10,
+                    priceDiscontText: 'С картой',
+                    price: 50.50,
+                    priceText: 'Обычная',
+                    title:'Г/Ц Блинчики с мясом вес,',
+                    country:'Россия',
+                    quantity: 1,
+                     currency: 'RUB'
+                }
+            ],
+        };
+    }
+
+   deleteItem = (id) => {
+       this.setState({
+           items:  this.state.items.filter(item => item.id !== id)});
+   }console.log
+
+    render() {
+      return (
+          <div>
+            <Header items={this.state.items} />
+              <div className="container">
+                <Products items={this.state.items}/>
+                <Cart items={this.state.items}/>
+              </div>
+            <Footer/>
+          </div>
+          )
+        }
+}
+
+export default App
