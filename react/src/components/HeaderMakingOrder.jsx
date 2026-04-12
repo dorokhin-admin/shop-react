@@ -1,7 +1,6 @@
 import React from 'react';
 
 const HeaderMakingOrder = ({ordersQuantity,orders}) => {
-
     const sumResult = orders.reduce((sum, order) => sum + order.price * order.quantity, 0);
     const sumPromo = orders.reduce((acc, order) => acc + order.quantity * ((order.price * order.promo) / 100), 0);
     const discontSumPrice = orders.reduce((acc, order) =>

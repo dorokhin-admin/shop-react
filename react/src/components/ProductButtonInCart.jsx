@@ -1,14 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class ProductButtonInCart extends Component {
-    render() {
-
-        const {
-            addToCart,
-            product,
-            isActive,
-            removeFromCart,
-        } = this.props;
+const ProductButtonInCart = ({isActive, removeFromCart, addToCart, product }) => {
 
         return (
             <button
@@ -24,7 +16,6 @@ class ProductButtonInCart extends Component {
                 {isActive ? 'В корзине' : 'В корзину'}
             </button>
         );
-    }
 }
 
 export default ProductButtonInCart;

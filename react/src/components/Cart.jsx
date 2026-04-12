@@ -1,21 +1,16 @@
 import HeaderCartHead from "./HeaderCartHead.jsx";
 import CartOrder from "./CartOrder.jsx";
-import React from 'react';
+import React, {useMemo} from 'react';
 import CartMakingOrder from "./CartMakingOrder.jsx";
+import {useShopStore} from "../store/useShopStore.js";
 
-const Cart = ({   items = [],
-                  orders = [],
-                  cartOpen,
-                  addToCart,
-                  plus,
-                  minus,
-                  selectAll,
-                  deleteItems,
-                  toggleSelect,
-                  ordersQuantity
-              }) => {
-
-
+const Cart = () => {
+    const orders = useShopStore(state => state.orders);
+    const plus = useShopStore(state => state.plus);
+    const minus = useShopStore(state => state.minus);
+    const toggleSelect = useShopStore(state => state.toggleSelect);
+    const ordersQuantity = useShopStore(state => state.getTotalQuantity());
+    const addToCart = useShopStore(state => state.addToCart);
 
     return (
     <section className="page page--cart">
@@ -26,17 +21,13 @@ const Cart = ({   items = [],
         </div>
 
         <HeaderCartHead
-            ordersQuantity={ordersQuantity}
-            selectAll={selectAll}
-            deleteItems={deleteItems}
-            orders={orders}
         />
 
         <div className="container-block-cart">
             <div className={`block-cart ${orders.length>0 ? 'active' : ''}`}>
                 {orders.map((orderItem, index) => (
                     <CartOrder
-                        key={`${orderItem.id} - ${index}`}
+                        key={orderItem.id}
                         orderItem={orderItem}
                         addToCart={addToCart}
                         plus={plus}

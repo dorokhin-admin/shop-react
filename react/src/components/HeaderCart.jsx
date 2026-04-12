@@ -2,16 +2,11 @@ import React, {useState} from 'react';
 import HeaderMakingOrder from "./HeaderMakingOrder.jsx";
 import HeaderOrder from "./HeaderOrder.jsx";
 import HeaderCartHead from "./HeaderCartHead.jsx";
+import {useShopStore} from "../store/useShopStore.js";
 
-const HeaderCart = ({   orders = [],
-                        addToCart,
-                        plus,
-                        minus,
-                        selectAll,
-                        deleteItems,
-                        toggleSelect,
-                        ordersQuantity,
-                                        }) => {
+const HeaderCart = () => {
+    const orders = useShopStore(state => state.orders);
+    const ordersQuantity = useShopStore(state => state.getTotalQuantity());
 
     let [cartOpen, setCartOpen] = useState(false);
     const totalOrders = orders.length
@@ -37,26 +32,18 @@ const HeaderCart = ({   orders = [],
                         </div>
 
                         <HeaderCartHead
-                            ordersQuantity={ordersQuantity}
-                            selectAll={selectAll}
-                            deleteItems={deleteItems}
                         />
 
-                        {orders.map((orderItem, index) => (
+                        {orders.map((orderItem) => (
                             <HeaderOrder
-                                key={`${orderItem.id} - ${index}`}
                                 orderItem={orderItem}
-                                addToCart={addToCart}
-                                plus={plus}
-                                minus={minus}
-                                toggleSelect={toggleSelect}
-                                total={totalOrders}
+                                key={orderItem.id}
                             />
                         ))}
 
                         <HeaderMakingOrder
-                            ordersQuantity={ordersQuantity}
                             orders={orders}
+                            ordersQuantity={ordersQuantity}
                         />
                     </>
                    ) : (

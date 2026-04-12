@@ -1,13 +1,12 @@
 import React from 'react';
 
-const CartOrder = (props) => {
-    const {orderItem, addToCart, toggleSelect, plus, minus} = props;
-    const discontPrice = orderItem.price - (orderItem.price * orderItem.promo) / 100;
+const CartOrder = ({orderItem, plus, minus, toggleSelect}) => {
+    const discontPrice = Number((orderItem.price * (1 - orderItem.promo / 100)).toFixed(2));
     const discontSumPrice = Number((orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100)).toFixed(2));;
     const sumPrice = Number((orderItem.price * orderItem.quantity).toFixed(2));
 
     return (
-            <div key={orderItem.id} className={`cart-item ${orderItem.selected === false ? 'cart-item-blure' : ''}`} data-id={orderItem.id}>
+            <div className={`cart-item ${orderItem.selected === false ? 'cart-item-blure' : ''}`} data-id={orderItem.id}>
                 <div className="cart-item__image">
                     <button className="cart-item__checkbox-select"
                     onClick={() => toggleSelect(orderItem.id)}
@@ -48,14 +47,14 @@ const CartOrder = (props) => {
                     <div className="cart__quantity">
                         <button
                             className="cart__quantity-btn--minus"
-                            onClick={() => minus(orderItem)}
+                            onClick={() => minus(orderItem.id)}
                         >
                             <img src="src/IMAGES/minus.png"  alt="minus"/>
                         </button>
                         <p className="cart__quantity-number">{orderItem.quantity}</p>
                         <button
                             className="cart__quantity-btn--plus"
-                            onClick={() => plus(orderItem)}
+                            onClick={() => plus(orderItem.id)}
                         >
                             <img src="src/IMAGES/plus.png" alt="plus"/>
                         </button>
