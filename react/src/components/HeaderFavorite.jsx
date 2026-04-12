@@ -1,16 +1,12 @@
-import React, {memo} from 'react';
 import HeaderFavoriteOrder from "./HeaderFavoriteOrder.jsx";
+import {useShopStore} from "../store/useShopStore.js";
+import React, {useState} from "react";
 
-const HeaderFavorite = ({   orders = [],
-                            favorites =[],
-                            totalFavorites,
-                            addToCart,
-                            addToFavorite,
-                            removeFromCart,
-                            removeFromFavorite,
-                        }) => {
-    let [isOpen, setOpen] = React.useState(false);
-    const favoritesLength = favorites.length
+const HeaderFavorite = () => {
+    const favorites = useShopStore(state => state.favorites);
+    const addToCart = useShopStore(state => state.addToCart);
+
+    let [isOpen, setOpen] = useState(false);
 
     console.log('HeaderFavorite rendered') //вот чтобы не выходило при заугрзке страницы
     //и существуют оптимизационные инструм
@@ -21,12 +17,12 @@ const HeaderFavorite = ({   orders = [],
         onClick={() => setOpen(prev => !prev)}>
         <img className='heart' src='src/IMAGES/heart.png' alt="header__link--favorite"/>
         <span className='header__link-text'>Избранное</span>
-        <p className="header__link-counter">{totalFavorites}</p>
+        <p className="header__link-counter">{favorites.length}</p>
         { isOpen && (
             <div className={`cart__Drawer ${isOpen && 'active'}`}
                 onClick={(e) => e.stopPropagation()}
             >
-                {favoritesLength ? (
+                {favorites.length ? (
                     <>
                         <div className="cart-head__header">
                             <a className="cart-head-header__main">Главная</a>
@@ -37,7 +33,7 @@ const HeaderFavorite = ({   orders = [],
                         <div className="cart-header__header">
                             <div className="cart-head__cart">
                                 <h1 className="cart-title-header">Избранное</h1>
-                                <div className="cart-head__cart-wrapper">{totalFavorites}</div>
+                                <div className="cart-head__cart-wrapper">{favorites.length}</div>
                             </div>
                         </div>
 
@@ -48,12 +44,8 @@ const HeaderFavorite = ({   orders = [],
                         </button></div>
 
                             <HeaderFavoriteOrder
-                                orders={orders}
                                 favorites={favorites}
                                 addToCart={addToCart}
-                                addToFavorite={addToFavorite}
-                                removeFromCart={removeFromCart}
-                                removeFromFavorite={removeFromFavorite}
                             />
                     </>
                 ) : (
@@ -68,4 +60,4 @@ const HeaderFavorite = ({   orders = [],
     );
 };
 
-export default memo(HeaderFavorite);
+export default HeaderFavorite;

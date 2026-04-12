@@ -1,15 +1,17 @@
 import React from 'react';
 import HeaderProductButtonInCart from "./HeaderProductButtonInCart.jsx";
+import {useShopStore} from "../store/useShopStore.js";
 
-const HeaderFavoriteOrder = (props) => {
-    const {orders,favorites, addToCart, addToFavorite, removeFromCart,removeFromFavorite} = props;
+const HeaderFavoriteOrder = () => {
+
+    const favorites = useShopStore(state => state.favorites);
+    const addToFavorite = useShopStore(state => state.addToFavorite);
+    const removeFromFavorite = useShopStore(state => state.removeFromFavorite);
 
     return (
         <div className="products-favorite__list">
             {favorites.map(product => {
                 const discontPrice = product.price - (product.price * product.promo) / 100;
-                const isActive = orders.some(order => order.id === product.id);
-                const isFavorited = favorites.some(favorite => favorite.id === product.id)
 
                 return (
                     <article
@@ -26,7 +28,7 @@ const HeaderFavoriteOrder = (props) => {
                         </div>
                         <button className="product-card__favorite"
                                 onClick={() => {
-                                    if (isFavorited) {
+                                    if (favorites.some(favorite => favorite.id === product.id)) {
                                         removeFromFavorite(product.id)
                                     }else {
                                         addToFavorite(product)
@@ -54,10 +56,7 @@ const HeaderFavoriteOrder = (props) => {
                             <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
                         </div>
                         <HeaderProductButtonInCart
-                            isActive={isActive}
-                            addToCart={addToCart}
-                            removeFromCart={removeFromCart}
-                            item={product}
+                            product={product}
                         />
                     </article>
                 )

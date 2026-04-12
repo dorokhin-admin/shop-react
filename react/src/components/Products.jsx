@@ -1,13 +1,21 @@
-import React, {Component, useState} from 'react';
 import ProductButtonInCart from "./ProductButtonInCart.jsx";
+import {useShopStore} from "../store/useShopStore.js";
 
-const Products = ({     orderSet,
-                      addToCart,
-                      favoriteSet,
-                      addToFavorite,
-                      removeFromCart,
-                      removeFromFavorite,
-                      filterItems}) => {
+const Products = ({items}) => {
+    const searchQuery = useShopStore(state => state.searchQuery);
+    const orders = useShopStore(state => state.orders);
+    const addToCart = useShopStore(state => state.addToCart);
+    const removeFromCart = useShopStore(state => state.removeFromCart);
+    const favorites = useShopStore(state => state.favorites);
+    const addToFavorite = useShopStore(state => state.addToFavorite);
+    const removeFromFavorite = useShopStore(state => state.removeFromFavorite);
+
+
+    const clearSearchQuery = searchQuery.trim().toLowerCase();
+    const filterItems = clearSearchQuery.length > 0
+        ? items.filter((item) => item.title.toLowerCase().includes(clearSearchQuery))
+        : items;
+
     if(filterItems.length === 0) {
         return <div className='product__empty-message'>Таких продуктов нет :(</div>;
     }
@@ -16,9 +24,8 @@ const Products = ({     orderSet,
         <div className="products__list">
             {filterItems.map(product => {
                 const discontPrice = product.price - (product.price * product.promo) / 100;
-                const isActive = orderSet.has(product.id);
-                const isFavorite = favoriteSet.has(product.id);
-
+                const isActive = orders.some(order => order.id === product.id)
+                const isFavorite = favorites.some(favorite => favorite.id === product.id)
 
                 return (
                     <article

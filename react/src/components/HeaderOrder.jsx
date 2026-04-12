@@ -1,13 +1,17 @@
 import React from 'react';
+import {useShopStore} from "../store/useShopStore.js";
 
-const HeaderOrder = (props) => {
-    const {orderItem, toggleSelect, plus, minus} = props;
+const HeaderOrder = ({orderItem}) => {
+    const plus = useShopStore(state => state.plus);
+    const minus = useShopStore(state => state.minus);
+    const toggleSelect = useShopStore(state => state.toggleSelect);
+
     const discontPrice = orderItem.price - (orderItem.price * orderItem.promo) / 100;
-    const discontSumPrice = Number((orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100)).toFixed(2));;
+    const discontSumPrice = (orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100)).toFixed(2);
 
     return (
         <div className="block-cart-item__header">
-            <div key={orderItem.id} className={`cart-item__header ${orderItem.selected === false ? 'cart-item-blure__header' : ''}`} data-id={orderItem.id}>
+            <div  className={`cart-item__header ${!orderItem.selected ? 'cart-item-blure__header' : ''}`}>
                 <div className="cart-item__image">
                     <button className="cart-item__checkbox-select"
                             onClick={() => toggleSelect(orderItem.id)}
@@ -45,14 +49,14 @@ const HeaderOrder = (props) => {
                 <div className="cart-header__quantity">
                     <button
                         className="cart__quantity-btn--minus"
-                        onClick={() => minus(orderItem)}
+                        onClick={() => minus(orderItem.id)}
                     >
                         <img src="src/IMAGES/minus.png"  alt="minus"/>
                     </button>
                     <p className="cart__quantity-number">{orderItem.quantity}</p>
                     <button
                         className="cart__quantity-btn--plus"
-                        onClick={() => plus(orderItem)}
+                        onClick={() => plus(orderItem.id)}
                     >
                         <img src="src/IMAGES/plus.png" alt="plus"/>
                     </button>

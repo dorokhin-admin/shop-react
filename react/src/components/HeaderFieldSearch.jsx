@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import {useShopStore} from "../store/useShopStore.js";
 
-const HeaderFieldSearch  = ({searchQuery,
-                            setSearchQuery,
-                            newOrderInputRef,
-                            ref}) => {
+const HeaderFieldSearch  = () => {
+
+    const searchQuery = useShopStore(state=>state.searchQuery);
+    const setSearchQuery = useShopStore(state=>state.setSearchQuery);
 
     return (
             <div className='header__search'>
@@ -19,7 +19,6 @@ const HeaderFieldSearch  = ({searchQuery,
                     placeholder="Найти товар"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    ref={newOrderInputRef}
                 />
                 <button>
                     <img src="src/IMAGES/search.png"

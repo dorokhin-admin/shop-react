@@ -1,11 +1,12 @@
 import React from 'react';
+import {useShopStore} from "../store/useShopStore.js";
 
-const HeaderCart = (props) => {
-    const { //в функции так
-        ordersQuantity,
-        selectAll,
-        deleteItems,
-    } = props
+const HeaderCart = () => {
+
+    const ordersQuantity = useShopStore(state =>
+        state.getTotalQuantity(state));
+    const selectAll = useShopStore(state => state.selectAll);
+    const deleteItems  = useShopStore(state => state.deleteItems );
 
     return (
         <>

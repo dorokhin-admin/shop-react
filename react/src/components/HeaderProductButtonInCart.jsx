@@ -1,23 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {useShopStore} from "../store/useShopStore.js";
 
-class HeaderProductButtonInCart extends Component {
-    render() {
+const HeaderProductButtonInCart = ({product}) => {
 
-        const {
-            addToCart,
-            item,
-            isActive,
-            removeFromCart,
-        } = this.props;
+    const orders = useShopStore(state => state.orders);
+    const addToCart = useShopStore(state => state.addToCart);
+    const removeFromCart = useShopStore(state => state.removeFromCart)
+    const isActive = orders.some(order => order.id === product.id)
 
         return (
             <button
             className={`product-header-card__add ${isActive ? 'active' : ''}`}
             onClick={() =>{
                 if(isActive) {
-                removeFromCart(item.id);
+                removeFromCart(product.id);
             }else{
-                addToCart(item)
+                addToCart(product)
                 }
             }}
                >
@@ -25,6 +23,5 @@ class HeaderProductButtonInCart extends Component {
             </button>
         );
     }
-}
 
 export default HeaderProductButtonInCart;
