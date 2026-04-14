@@ -1,7 +1,7 @@
 import ProductButtonInCart from "./ProductButtonInCart.jsx";
 import {useShopStore} from "../store/useShopStore.js";
 
-const Products = ({items}) => {
+const Products = ({items,}) => {
     const searchQuery = useShopStore(state => state.searchQuery);
     const orders = useShopStore(state => state.orders);
     const addToCart = useShopStore(state => state.addToCart);

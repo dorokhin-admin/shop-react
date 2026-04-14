@@ -4,59 +4,19 @@ import Products from "./components/Products.jsx";
 import Cart from "./components/Cart.jsx";
 import HeaderNav from "./components/HeaderNav.jsx";
 import HeaderHero from "./components/HeaderHero.jsx";
+import React, {useEffect, useState} from "react";
 
+const App = () =>  {
 
-const OldApp = () =>  {
+    const [items, setItems] = useState( []);
 
-    const items =[
-        { id:1,
-            imgSrc: 'src/IMAGES/blini.png',
-            promo: 10,
-            priceDiscontText: 'С картой',
-            price: 50.50,
-            priceText: 'Обычная',
-            title:'кускус',
-            country:'Россия',
-            quantity: 1,
-            currency: '₽',
-        },
-        {
-            id:2,
-            imgSrc: 'src/IMAGES/milk.png',
-            promo: 10,
-            priceDiscontText: 'С картой',
-            price: 50.50,
-            priceText: 'Обычная',
-            title:'Г/Ц Блинчики с мясом вес,',
-            country:'Россия',
-            quantity: 1,
-            currency: '₽',
-        },
-        {
-            id:3,
-            imgSrc: 'src/IMAGES/kolbasi.png',
-            promo: 10,
-            priceDiscontText: 'С картой',
-            price: 50.50,
-            priceText: 'Обычная',
-            title:'Г/Ц Блинчики с мясом вес,',
-            country:'Россия',
-            quantity: 1,
-            currency: '₽',
-        },
-        {
-            id:4,
-            imgSrc: 'src/IMAGES/image(3).png',
-            promo: 10,
-            priceDiscontText: 'С картой',
-            price: 50.50,
-            priceText: 'Обычная',
-            title:'Г/Ц Блинчики с мясом вес,',
-            country:'Россия',
-            quantity: 1,
-            currency: '₽',
-        }
-    ];
+    useEffect(() => {
+        fetch("http://localhost:3001/items")
+            .then(res => res.json())
+            .then(data => {
+                setItems(data);
+        })
+    }, [])
 
     return (
         <div>
@@ -74,11 +34,12 @@ const OldApp = () =>  {
                 <Products
                    items={items}
                 />
-                <Cart />
+                <Cart
+                />
             </div>
             <Footer/>
         </div>
     )
 }
 
-export default OldApp
+export default App
