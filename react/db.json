@@ -1,0 +1,51 @@
+{
+  "items":[
+    { "id":1,
+      "imgSrc": "src/IMAGES/blini.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.50,
+      "priceText": "Обычная",
+      "title":"кускус",
+      "country":"Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id":2,
+      "imgSrc": "src/IMAGES/milk.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.50,
+      "priceText": "Обычная",
+      "title":"Г/Ц Блинчики с мясом вес,",
+      "country":"Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id":3,
+      "imgSrc": "src/IMAGES/kolbasi.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.50,
+      "priceText": "Обычная",
+      "title":"Г/Ц Блинчики с мясом вес,",
+      "country":"Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id":4,
+      "imgSrc": "src/IMAGES/image(3).png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.50,
+      "priceText": "Обычная",
+      "title":"Г/Ц Блинчики с мясом вес,",
+      "country":"Россия",
+      "quantity": 1,
+      "currency": "₽"
+    }
+  ]
+}
