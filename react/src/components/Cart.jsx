@@ -25,7 +25,7 @@ const Cart = () => {
 
         <div className="container-block-cart">
             <div className={`block-cart ${orders.length>0 ? 'active' : ''}`}>
-                {orders.map((orderItem, index) => (
+                {orders.map((orderItem) => (
                     <CartOrder
                         key={orderItem.id}
                         orderItem={orderItem}

@@ -24,7 +24,7 @@ const Products = ({items,}) => {
         <div className="products__list">
             {filterItems.map(product => {
                 const discontPrice = product.price - (product.price * product.promo) / 100;
-                const isActive = orders.some(order => order.id === product.id)
+                const isActive = orders.some(order => order.productId  === product.id)
                 const isFavorite = favorites.some(favorite => favorite.id === product.id)
 
                 return (
