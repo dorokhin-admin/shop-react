@@ -1,25 +1,50 @@
-export const cartSlice = (set, get) => ({
-    orders: [],
+const cartSlice = (set, get) => ({
 
-    addToCart: (item) =>
-        set((state) => {
-            if (state.orders.some(o => o.id === item.id)) {
-                return state;
-            }
-            return {
-                orders: [...state.orders, { ...item, selected: true }],
-            };
-        }),
+    addToCart: async (item) => {
+        const state = get();
 
-    removeFromCart: (id) =>
+        if (state.orders.some(o => o.productId === item.id)) return;
+
+        const res = await fetch('http://localhost:3001/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ...item,
+                selected: true,
+                quantity: 1,
+                productId: item.id,
+            })
+        });
+
+        const newOrder = await res.json();
+
         set((state) => ({
-            orders: state.orders.filter(o => o.id !== id)
-        })),
+            orders: [...state.orders, newOrder]
+        }));
+    },
+
+    removeFromCart: async (productId) => {
+        const state = get();
+        const order = state.orders.find(o => o.productId === productId);
+        if (!order) return;
+
+        await fetch(`http://localhost:3001/orders/${order.id}`, {
+            method: 'DELETE',
+        });
+
+        set((state) => ({
+            orders: state.orders.filter(o => o.productId !== productId)
+        }));
+    },
 
     plus: (id) =>
         set((state) => ({
             orders: state.orders.map(o =>
-                o.id === id ? { ...o, quantity: o.quantity + 1 } : o
+                o.id === id
+                    ? { ...o, quantity: o.quantity + 1 }
+                    : o
             )
         })),
 
@@ -61,3 +86,4 @@ export const cartSlice = (set, get) => ({
     },
 
 });
+export default cartSlice

@@ -5,17 +5,21 @@ import Cart from "./components/Cart.jsx";
 import HeaderNav from "./components/HeaderNav.jsx";
 import HeaderHero from "./components/HeaderHero.jsx";
 import React, {useEffect, useState} from "react";
+import {useShopStore} from "./store/useShopStore.js";
 
 const App = () =>  {
-
     const [items, setItems] = useState( []);
 
     useEffect(() => {
         fetch("http://localhost:3001/items")
             .then(res => res.json())
-            .then(data => {
-                setItems(data);
-        })
+            .then(data => setItems(data))
+    }, [])
+
+    useEffect(() => {
+
+        useShopStore.setState({orders: []})
+        useShopStore.getState().fetchOrders();
     }, [])
 
     return (

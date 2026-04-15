@@ -4,9 +4,9 @@ const CartOrder = ({orderItem, plus, minus, toggleSelect}) => {
     const discontPrice = Number((orderItem.price * (1 - orderItem.promo / 100)).toFixed(2));
     const discontSumPrice = Number((orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100)).toFixed(2));;
     const sumPrice = Number((orderItem.price * orderItem.quantity).toFixed(2));
-
     return (
-            <div className={`cart-item ${orderItem.selected === false ? 'cart-item-blure' : ''}`} data-id={orderItem.id}>
+
+            <div className={`cart-item ${orderItem.selected === false ? 'cart-item-blure' : ''}`} >
                 <div className="cart-item__image">
                     <button className="cart-item__checkbox-select"
                     onClick={() => toggleSelect(orderItem.id)}

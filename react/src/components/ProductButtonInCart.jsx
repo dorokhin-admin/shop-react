@@ -1,7 +1,6 @@
 import React from 'react';
-import products from "./Products.jsx";
 
-const ProductButtonInCart = ({isActive, removeFromCart, addToCart, product , setOrders}) => {
+const ProductButtonInCart = ({isActive, removeFromCart, addToCart, product , }) => {
 
         return (
             <button
