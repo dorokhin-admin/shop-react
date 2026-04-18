@@ -3,8 +3,7 @@ import {useShopStore} from "../store/useShopStore.js";
 
 const HeaderCart = () => {
 
-    const ordersQuantity = useShopStore(state =>
-        state.getTotalQuantity(state));
+    const ordersQuantity = useShopStore(state => state.getTotalQuantity());
     const selectAll = useShopStore(state => state.selectAll);
     const deleteItems  = useShopStore(state => state.deleteItems );
 
