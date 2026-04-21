@@ -34,7 +34,7 @@ const CartOrder = ({orderItem, plus, minus, toggleSelect}) => {
                         </div>
                         <div className="cartcart__usual-card">
                             <div className="cart-price__usual-card">
-                                <p className="cart-item__amount--regular">50,50 </p>
+                                <p className="cart-item__amount--regular">{orderItem.price} </p>
                                 <p className="cart__price-currency--regular">{orderItem.currency}</p>
                                 <p className="cart-item__unit">за шт.</p>
                             </div>

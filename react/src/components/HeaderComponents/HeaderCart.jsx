@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import HeaderMakingOrder from "./HeaderMakingOrder.jsx";
 import HeaderOrder from "./HeaderOrder.jsx";
 import HeaderCartHead from "./HeaderCartHead.jsx";
-import {useShopStore} from "../store/useShopStore.js";
+import {useShopStore} from "../../store/useShopStore.js";
 
 const HeaderCart = () => {
     const orders = useShopStore(state => state.orders);

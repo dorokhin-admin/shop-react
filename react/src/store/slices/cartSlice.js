@@ -1,3 +1,5 @@
+import ordersAPI from "../../api/ordersAPI.jsx";
+
 const cartSlice = (set, get) => ({
 
     addToCart: async (item) => {
@@ -5,18 +7,7 @@ const cartSlice = (set, get) => ({
 
         if (state.orders.some(o => o.productId === item.id)) return;
 
-        const res = await fetch('http://localhost:3001/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...item,
-                selected: true,
-                quantity: 1,
-                productId: item.id,
-            })
-        });
+        const res = await ordersAPI.addToCart(item);
 
         const newOrder = await res.json();
 
@@ -25,65 +16,64 @@ const cartSlice = (set, get) => ({
         }));
     },
 
-    removeFromCart: async (id) => {
+    removeFromCart: async (orderId) => {
         const state = get();
-        const order = state.orders.find(o => o.id === id);
+        const order = state.orders.find(o => o.id === orderId);
         if (!order) return;
 
-        await fetch(`http://localhost:3001/orders/${order.id}`, {
-            method: 'DELETE',
-        });
+        await ordersAPI.removeFromCart(orderId)
 
         set((state) => ({
-            orders: state.orders.filter(o => o.id !== order.id)
+            orders: state.orders.filter(o => o.id !== orderId)
         }));
     },
 
-    plus: (id) => {
+    plus: async (orderId) => {
+        // 1. изменить сервер
+        const state = get();//чтобы прочитать актуальное сост стора ниже в нашем случае orders, без него при плюса не будет меня в реальном времени
+
+        const order = state.orders.find(o => o.id === orderId);
+        if (!order) return;
+
+        const newQuantity = order.quantity + 1;
+
+        await ordersAPI.plus(orderId, newQuantity);
+
+        // 2. изменить Zustand для перерисовки UI
         set((state) =>(
             { orders: state.orders
-                    .map(order => order.id === id
-                        ? {...order, quantity: order.quantity + 1}
+                    .map(order => order.id === orderId
+                        ? {...order, quantity: newQuantity}
                         : order
                     )
             }
         ))
     },
 
-        minus: async (id) => {
+        minus: async (orderId) => {
             const state = get();
 
-            const order = state.orders.find(o => o.id === id);
+            const order = state.orders.find(o => o.id === orderId);
             if (!order) return;
 
             const newQuantity = order.quantity - 1;
 
             // 1. если стало 0 — удалить
             if (newQuantity <= 0) {
-                await fetch(`http://localhost:3001/orders/${order.id}`, {
-                    method: 'DELETE',
-                });
+                await ordersAPI.removeFromCart(orderId);
 
             set((state) => ({
-                orders: state.orders.filter(o => o.id !== id)
+                orders: state.orders.filter(o => o.id !== orderId)
             }))
                 return
             }
 
             // 2. если больше 0 — обновить на сервере
-            await fetch(`http://localhost:3001/orders/${order.id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    quantity: newQuantity
-                })
-            });
+            await ordersAPI.minus(orderId, newQuantity);
 
             set((state) => ({
                 orders: state.orders.map(o =>
-                    o.id === id
+                    o.id === orderId
                     ? { ...o, quantity: newQuantity}
                     : o
                 )
@@ -94,20 +84,28 @@ const cartSlice = (set, get) => ({
     //productId - в корзине
     //order.id - на сервере
 
+
+    deleteItems: () => {
+        const isConfirmed = confirm('Are you sure you want to delete?');
+        if (isConfirmed) {
+
+            const state = get();
+
+            const selectedOrders = state.orders.filter(o => o.selected);
+            ordersAPI.deleteItems(selectedOrders)
+            set({
+                orders: state.orders.filter(o => !o.selected)
+            })
+        }
+    },
+
+    //локальные методы
     toggleSelect: (id) => {
         set((state) => {
             return {
                 orders: state.orders.map(order => order.id === id
                     ? {...order, selected: !order.selected}
                     : order)
-            }
-        })
-    },
-
-    deleteItems: () => {
-        set((state) => {
-            return {
-                orders: state.orders.filter(order => !order.selected)
             }
         })
     },

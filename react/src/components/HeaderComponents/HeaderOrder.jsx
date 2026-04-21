@@ -1,5 +1,5 @@
 import React from 'react';
-import {useShopStore} from "../store/useShopStore.js";
+import {useShopStore} from "../../store/useShopStore.js";
 
 const HeaderOrder = ({orderItem}) => {
     const plus = useShopStore(state => state.plus);

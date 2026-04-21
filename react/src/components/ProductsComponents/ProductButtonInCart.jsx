@@ -1,13 +1,13 @@
 import React from 'react';
 
-const ProductButtonInCart = ({isActive, removeFromCart, addToCart, product , }) => {
+const ProductButtonInCart = ({isActive, removeFromCart, addToCart, product , order}) => {
 
         return (
             <button
             className={`product-card__add-to-cart ${isActive ? 'active' : ''}`}
             onClick={() =>{
                 if(isActive) {
-                removeFromCart(product.id);
+                removeFromCart(order.id);
             }else{
                 addToCart(product)
                 }
