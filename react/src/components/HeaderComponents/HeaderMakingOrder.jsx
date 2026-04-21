@@ -1,26 +1,19 @@
-import React, {useState} from 'react';
-import {useShopStore} from "../store/useShopStore.js";
-import { shallow } from 'zustand/shallow';
+import React from 'react';
+import RouterLink from "../RouterLink.jsx";
 
-const CartMakingOrder = () => {
-    const orders = useShopStore(state => state.orders);
-    const ordersQuantity = useShopStore(state => state.getTotalQuantity());
+const HeaderMakingOrder = ({ordersQuantity,orders}) => {
+    const sumResult = orders.reduce((sum, order) => sum + order.price * order.quantity, 0);
+    const sumPromo = orders.reduce((acc, order) => acc + order.quantity * ((order.price * order.promo) / 100), 0);
+    const discontSumPrice = orders.reduce((acc, order) =>
+        acc + order.price * order.quantity * (1 - order.promo / 100),0);
+    const bonus = discontSumPrice * 0.1;
 
     const [isActive, setActive] = React.useState(false);
-
-    const sumResult = orders.reduce((sum, o) => sum + o.price * o.quantity, 0);
-
-    const sumPromo = orders.reduce(
-        (acc, o) => acc + o.quantity * (o.price * o.promo / 100),
-        0
-    );
-
-    const discontSumPrice = orders.reduce(
-        (acc, o) => acc + o.price * o.quantity * (1 - o.promo / 100),
-        0
-    );
-
-    const bonus = discontSumPrice * 0.1;
+    const toggleActive = () => {
+        if(discontSumPrice >= 1000){
+            setActive(prev => !prev)
+        }
+    };
 
     const bonusAmount = 200;
     const maxBonusUsage = Math.max(0, discontSumPrice - 1000);//1000 - минимальный порог
@@ -30,19 +23,8 @@ const CartMakingOrder = () => {
     const finalPrice = discontSumPrice - appliedBonus;
     const canOrder = finalPrice >= 1000;
 
-    React.useEffect(() => {
-        if (discontSumPrice < 1000) {
-            setActive(false);
-        }
-    }, [discontSumPrice]);
-    const toggleActive = () => {
-        if (discontSumPrice >= 1000) {
-            setActive(prev => !prev);
-        }
-    };
-
     return (
-        <div className="making-order">
+        <div className="header-making-order">
             <div className="making-order__bonus-toggle">
                 <button className={`making-order__toggle ${isActive ? 'active' : ''}`} onClick={toggleActive}>
                     <div className="making-order__toggle-circle"></div>
@@ -75,10 +57,17 @@ const CartMakingOrder = () => {
                 <span className="making-order__bonus-text">Вы получаете {bonus.toFixed(0)} <span
                     className="product__bonus-text--bold">бонусов</span></span>
             </div>
-            <p className={`making-order__min-limit ${finalPrice <= 1000 ? 'active' : 'hidden'}`}>Минимальная сумма заказа 1000р</p>
-            <button className={`making-order__button ${canOrder ? 'active' : ''}`} disabled={!canOrder}>Оформить заказ</button>
+            <div className="down-header-block">
+                <p className={`header-making-order__min-limit ${finalPrice <= 1000 ? 'active' : 'hidden'}`}>Минимальная сумма заказа 1000р</p>
+                <button className={`header-making-order__button ${canOrder ? 'active' : ''}`} disabled={!canOrder}>Оформить заказ</button>
+            </div>
+            <div className='go-cart'>
+                <RouterLink
+                to={'/cart'}
+                aria-label='go to cart'
+            >Перейти в корзину</RouterLink></div>
         </div>
     );
 };
 
-export default CartMakingOrder;
+export default HeaderMakingOrder;

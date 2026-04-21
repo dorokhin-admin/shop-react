@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderProductButtonInCart from "./HeaderProductButtonInCart.jsx";
-import {useShopStore} from "../store/useShopStore.js";
+import {useShopStore} from "../../store/useShopStore.js";
 
 const HeaderFavoriteOrder = () => {
 

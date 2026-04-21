@@ -1,5 +1,5 @@
 import HeaderFavoriteOrder from "./HeaderFavoriteOrder.jsx";
-import {useShopStore} from "../store/useShopStore.js";
+import {useShopStore} from "../../store/useShopStore.js";
 import React, {useState} from "react";
 
 const HeaderFavorite = () => {
@@ -7,9 +7,6 @@ const HeaderFavorite = () => {
     const addToCart = useShopStore(state => state.addToCart);
 
     let [isOpen, setOpen] = useState(false);
-
-    console.log('HeaderFavorite rendered') //вот чтобы не выходило при заугрзке страницы
-    //и существуют оптимизационные инструм
 
     return (
 

@@ -7,7 +7,7 @@
       "priceDiscontText": "С картой",
       "price": 50.5,
       "priceText": "Обычная",
-      "title": "кускус",
+      "title": "Г/Ц Блинчики с мясом вес,",
       "country": "Россия",
       "quantity": 1,
       "currency": "₽"
@@ -49,21 +49,6 @@
       "currency": "₽"
     }
   ],
-  "orders": [
-    {
-      "id": "OlcSaEhSoaw",
-      "imgSrc": "src/IMAGES/image(3).png",
-      "promo": 10,
-      "priceDiscontText": "С картой",
-      "price": 50.5,
-      "priceText": "Обычная",
-      "title": "Г/Ц Блинчики с мясом вес,",
-      "country": "Россия",
-      "quantity": 1,
-      "currency": "₽",
-      "selected": true,
-      "productId": "4"
-    }
-  ],
+  "orders": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

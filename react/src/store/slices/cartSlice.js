@@ -18,7 +18,7 @@ const cartSlice = (set, get) => ({
 
     removeFromCart: async (orderId) => {
         const state = get();
-        const order = state.orders.find(o => o.productId === orderId);
+        const order = state.orders.find(o => o.id === orderId);
         if (!order) return;
 
         await ordersAPI.removeFromCart(orderId)

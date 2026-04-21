@@ -1,4 +1,4 @@
-import {useShopStore} from "../store/useShopStore.js";
+import {useShopStore} from "../../store/useShopStore.js";
 
 const HeaderFieldSearch  = () => {
 
