@@ -1,31 +1,50 @@
 import React from 'react';
+import {useShopStore} from "../../store/useShopStore.js";
+import {useParams} from "react-router-dom";
 
-const OneProductProductMeta = () => {
+const OneProductProductMeta = ({items}) => {
+    const {id} = useParams();
+
+    const favorites = useShopStore(state => state.favorites);
+    const addToFavorite = useShopStore(state => state.addToFavorite);
+    const removeFromFavorite = useShopStore(state => state.removeFromFavorite);
+
+    const product = items.find(item => item.id ===id);
+    const isFavorite = favorites.some(favorite => favorite.id === product.id)
+
     return (
     <>
     <span className="product__title">Масло ПРОСТОКВАШИНО сливочное в/с 82% фольга без змж, Россия, 180 г</span>
         <div className="product__meta">
                 <span className="product__sku">арт. 371431</span>
                 <div className="product__rating">
-                    <img className="product__star" src="src/IMAGES/star.png" alt="star"/>
-                    <img className="product__star" src="src/IMAGES/star.png" alt="star"/>
-                    <img className="product__star" src="src/IMAGES/star.png" alt="star"/>
-                    <img className="product__star" src="src/IMAGES/star.png" alt="star"/>
-                    <img className="product__star" src="src/IMAGES/star.png" alt="star"/>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
                     <span className="feedback-wrapper">3 отзыва</span>
                 </div>
 
                 <div className="product__share">
-                    <img src="src/IMAGES/share-2.png" alt="share"
+                    <img src="/IMAGES/share-2.png" alt="share"
                          className="product__share-icon"/>
                     <a className="product__share-text">Поделиться</a>
                 </div>
 
-                <div className="product__favorite">
-                    <img src="src/IMAGES/heart.png" alt="heart"
+                <button className={`product__favorite ${isFavorite ? 'active' : ''}`}
+                        onClick={() =>{
+                            if(isFavorite){
+                                removeFromFavorite(product.id);
+                            }else{
+                                addToFavorite(product);
+                        }
+                }}
+                >
+                    <img src="/IMAGES/heart.png" alt="heart"
                          className="product__favorite-icon"/>
                     <a className="product__favorite-text">В избраное</a>
-                </div>
+                </button>
         </div>
     </>
     );

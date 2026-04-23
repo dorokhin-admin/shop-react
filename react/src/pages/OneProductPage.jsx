@@ -8,7 +8,7 @@ import OneProductProducts from "../components/OneProductComponents/OneProductPro
 import OneProductsFeedbacks from "../components/OneProductComponents/OneProductsFeedbacks.jsx";
 import OneProductProductsSale from "../components/OneProductComponents/OneProductProductsSale.jsx";
 
-const oneProductPage = ({items}) => {
+const OneProductPage = ({items}) => {
     return (
         <>
             <header>
@@ -24,7 +24,9 @@ const oneProductPage = ({items}) => {
                     <OneProductBreadcrumbs/>
 
                     <section className="product">
-                       <OneProductProductMeta/>
+                       <OneProductProductMeta
+                            items={items}
+                       />
                         <OneProductProductContent
                             items={items}
                         />
@@ -53,4 +55,4 @@ const oneProductPage = ({items}) => {
     )
 }
 
-export default oneProductPage;
+export default OneProductPage;

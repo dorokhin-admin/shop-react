@@ -12,7 +12,7 @@ const HeaderFavorite = () => {
 
     <div className='header__link header__link--favorite'
         onClick={() => setOpen(prev => !prev)}>
-        <img className='heart' src='src/IMAGES/heart.png' alt="header__link--favorite"/>
+        <img className='heart' src="/IMAGES/heart.png"  alt="header__link--favorite"/>
         <span className='header__link-text'>Избранное</span>
         <p className="header__link-counter">{favorites.length}</p>
         { isOpen && (
@@ -23,7 +23,7 @@ const HeaderFavorite = () => {
                     <>
                         <div className="cart-head__header">
                             <a className="cart-head-header__main">Главная</a>
-                            <img src="src/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
+                            <img src="/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
                             <p className="cart-head-header__cart--text">Избранное</p>
                         </div>
 

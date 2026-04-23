@@ -1,16 +1,10 @@
-import Header from "./components/HeaderComponents/Header.jsx";
-import Footer from "./components/Footer.jsx";
-import Products from "./components/ProductsComponents/Products.jsx";
-import Cart from "./components/CartComponents/Cart.jsx";
-import HeaderNav from "./components/HeaderComponents/HeaderNav.jsx";
-import HeaderHero from "./components/HeaderComponents/HeaderHero.jsx";
 import React, {useEffect, useState} from "react";
 import {useShopStore} from "./store/useShopStore.js";
 
-import Router from "./Router.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import ProductsPage from "./pages/ProductsPage.jsx";
 import OneProductPage from "./pages/OneProductPage.jsx";
+import { Route, Routes} from "react-router-dom";
 
 
 const App = () =>  {
@@ -26,26 +20,28 @@ const App = () =>  {
         useShopStore.setState({orders: []})
         useShopStore.getState().fetchOrders();
     }, [])
+            //Route - что показать по этому адресу
+        return (
+            <Routes>
+                <Route
+                    path='/'
+                    element={<ProductsPage
+                    items={items}
+                />}/>
+                <Route
+                    path='/cart'
+                    element={<CartPage/>}/>
+                <Route
+                    path='/product/:id'
+                    element={<OneProductPage
+                    items={items}
+                />}/>
+                <Route
+                    path='*'
+                    element={ <div>404 Page not found</div>}/>
+            </Routes>
 
-    const routes = {
-        '*': () => <div>404 Page not found</div>,
-        '/': () =>
-            <ProductsPage
-            items={items}
-            />,
-        '/cart': () => <CartPage/>,//по адресу символ слеша будем отображать корзину и тд
-        '/oneProductPage': () =>
-            <OneProductPage
-            items={items}
-            />,
-    }
-
-    return (
-        <div>
-            <Router routes={routes}/>
-        </div>
-
-    )
+        )
 }
 
 export default App

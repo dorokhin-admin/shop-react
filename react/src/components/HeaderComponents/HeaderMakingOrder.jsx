@@ -53,7 +53,7 @@ const HeaderMakingOrder = ({ordersQuantity,orders}) => {
                 <p className="making-order__total--priсe">{finalPrice.toFixed(2)} ₽</p>
             </div>
             <div className="making-order__bonus">
-                <img src="src/IMAGES/smile.png" alt="smile"/>
+                <img src="/IMAGES/smile.png" alt="smile"/>
                 <span className="making-order__bonus-text">Вы получаете {bonus.toFixed(0)} <span
                     className="product__bonus-text--bold">бонусов</span></span>
             </div>
