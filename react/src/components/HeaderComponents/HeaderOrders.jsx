@@ -6,7 +6,7 @@ const HeaderOrders = () => {
     return (
         <div className={`header__link header__link--orders ${isOpen && 'active'}`}
              onClick={() => setOpen(prevState => !prevState)}>
-            <img className='orderImg' src='src/IMAGES/Frame%20211%20(3).png'
+            <img className='orderImg' src='/IMAGES/Frame%20211%20(3).png'
                  alt="header__link--orders"/>
             <span className='header__link-text'>Заказы</span>
             {isOpen && (

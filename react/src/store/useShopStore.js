@@ -14,9 +14,6 @@ export const useShopStore = create((set, get) => ({
     fetchOrders: async () => {
         const res = await fetch('http://localhost:3001/orders');
         const data = await res.json();
-
-        console.log("FROM BACKEND:", data);
-
         set({ orders: data });
     },
 

@@ -18,10 +18,10 @@ const HeaderOrder = ({orderItem}) => {
                     >
                         {orderItem.selected === true
                             ? <img
-                                src="src/IMAGES/Checkbox%20(2).png"
+                                src="/IMAGES/Checkbox%20(2).png"
                                 alt="have Checkbox"/>
                             : <img
-                                src="src/IMAGES/Checkbox%20(3).png"
+                                src="/IMAGES/Checkbox%20(3).png"
                                 alt="no Checkbox"/>}
                     </button>
                     <img src={orderItem.imgSrc} alt="cart-image"
@@ -51,14 +51,14 @@ const HeaderOrder = ({orderItem}) => {
                         className="cart__quantity-btn--minus"
                         onClick={() => minus(orderItem.id)}
                     >
-                        <img src="src/IMAGES/minus.png"  alt="minus"/>
+                        <img src="/IMAGES/minus.png"  alt="minus"/>
                     </button>
                     <p className="cart__quantity-number">{orderItem.quantity}</p>
                     <button
                         className="cart__quantity-btn--plus"
                         onClick={() => plus(orderItem.id)}
                     >
-                        <img src="src/IMAGES/plus.png" alt="plus"/>
+                        <img src="/IMAGES/plus.png" alt="plus"/>
                     </button>
                 </div>
                 <div className="cart__sum-price">

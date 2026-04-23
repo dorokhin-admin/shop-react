@@ -21,7 +21,7 @@ const HeaderFieldSearch  = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button>
-                    <img src="src/IMAGES/search.png"
+                    <img src="/IMAGES/search.png"
                          alt="header__search-input"
                     /></button>
             </div>

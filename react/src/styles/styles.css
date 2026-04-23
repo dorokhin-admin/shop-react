@@ -141,7 +141,7 @@ header{
 .hero{
     position: relative;
     height: 200px;
-    background-image: url('src/IMAGES/pattern2.png');
+    background-image: url('/IMAGES/pattern2.png');
     display: flex;
     align-items: center;
 }
@@ -155,7 +155,8 @@ header{
 
 .hero__image-cart{
     position: absolute;
-    padding-left: 250px;
+    left: 25%;
+    transform: translateX(-50%);
 }
 
 .hero__caption{
@@ -297,6 +298,10 @@ header{
     border-radius: 100%;
 }
 
+.product__favorite.active img{
+    background-color: #f8b69f;
+    border-radius: 100%;
+}
 
 .product-card__image{
     position: relative;
@@ -576,7 +581,10 @@ header{
 .product__star{
     width: 16px;
     height: 16px;
+    display: flex;
+    text-align: center;
 }
+
 
 /*product__content*/
 .product__content{
@@ -589,6 +597,10 @@ header{
     flex-direction: column;
     gap: 16px;
     flex-shrink: 0;
+}
+
+.product__content__image img{
+    height: 86px;
 }
 /*product__purchase
 */
@@ -742,8 +754,14 @@ header{
 .feedback-wrapper-text{
    font-weight: bold;
     font-size: 18px;
-    padding-left: 16px;
+    margin-left: 16px;
     white-space: nowrap;
+}
+
+.product__image img{
+    width: 504px;
+    height: 496px;
+    object-fit: contain;
 }
 
 .stars{

@@ -2,7 +2,7 @@
   "items": [
     {
       "id": "1",
-      "imgSrc": "src/IMAGES/blini.png",
+      "imgSrc": "/IMAGES/blini.png",
       "promo": 10,
       "priceDiscontText": "С картой",
       "price": 50.5,
@@ -14,7 +14,7 @@
     },
     {
       "id": "2",
-      "imgSrc": "src/IMAGES/milk.png",
+      "imgSrc": "/IMAGES/milk.png",
       "promo": 10,
       "priceDiscontText": "С картой",
       "price": 50.5,
@@ -26,7 +26,7 @@
     },
     {
       "id": "3",
-      "imgSrc": "src/IMAGES/kolbasi.png",
+      "imgSrc": "/IMAGES/kolbasi.png",
       "promo": 10,
       "priceDiscontText": "С картой",
       "price": 50.5,
@@ -38,7 +38,7 @@
     },
     {
       "id": "4",
-      "imgSrc": "src/IMAGES/image(3).png",
+      "imgSrc": "/IMAGES/image(3).png",
       "promo": 10,
       "priceDiscontText": "С картой",
       "price": 50.5,

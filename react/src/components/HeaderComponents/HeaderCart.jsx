@@ -15,7 +15,7 @@ const HeaderCart = () => {
         <div className={`header__link header__link--cart ${cartOpen && 'active'}`}
              onClick={() => setCartOpen(prev => !prev)}
         >
-            <img src='src/IMAGES/shopping-cart.png' alt="header__link--cart"/>
+            <img src='/IMAGES/shopping-cart.png' alt="header__link--cart"/>
             <p className='header__link-text'>Корзина</p>
             <p className="header__link-counter">{ordersQuantity}</p>
             {cartOpen &&(
@@ -27,7 +27,7 @@ const HeaderCart = () => {
                     <>
                         <div className="cart-head__header">
                             <a className="cart-head-header__main">Главная</a>
-                            <img src="src/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
+                            <img src="/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
                             <p className="cart-head-header__cart--text">Корзина</p>
                         </div>
 

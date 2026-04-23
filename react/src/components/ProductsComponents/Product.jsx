@@ -1,6 +1,7 @@
 import React from 'react';
-import ProductButtonInCart from "./ProductButtonInCart.jsx";
+import ProductButtonInCart from "../UI/ProductButtonInCart.jsx";
 import {useShopStore} from "../../store/useShopStore.js";
+import { Link } from "react-router-dom";
 
 
 const Product = ({product}) => {
@@ -15,18 +16,21 @@ const Product = ({product}) => {
     const isActive = orders.some(order => order.productId  === product.id)
     const isFavorite = favorites.some(favorite => favorite.id === product.id)
     const order = orders.find(order => order.productId  === product.id)
+    //link - куда перейти
     return (
             <article
-                className={`product__card ${isActive ? "product__card--in-cart" : ''} `}>
+                className={`product__card ${isActive ? "product__card--in-cart" : ''}`}>
                 <div className="product-card__image">
-                    <img className="product-card__img"
-                         src={product.imgSrc}
-                         alt="product"
-                    />
-                    <p className="product__card-promo"
+                    <Link  to={`/product/${product.id}`}>
+                        <img className="product-card__img"
+                             src={product.imgSrc}
+                             alt={product.title}
+                        />
+                    </Link>
+                     <p className="product__card-promo"
                        data-promo={product.promo}>
                         -{product.promo}%
-                    </p>
+                     </p>
                 </div>
 
                 <button className={`product-card__favorite ${isFavorite ? 'active' : ''}`}
@@ -37,7 +41,7 @@ const Product = ({product}) => {
                                 addToFavorite(product);
                             }
                         }}>
-                    <img src="src/IMAGES/Button.png" alt="favorite"/>
+                    <img src="/IMAGES/Button.png" alt="favorite"/>
                 </button>
 
                 <div className="product__card-price">
@@ -54,11 +58,11 @@ const Product = ({product}) => {
                 <p className="product__card-discription">{product.title}</p>
                 <p className="product__card-discription">{product.country}</p>
                 <div className="product__card-rating">
-                    <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                    <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                    <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                    <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                    <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                    <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
                 </div>
                 <ProductButtonInCart
                     isActive={isActive}

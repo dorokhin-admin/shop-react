@@ -14,9 +14,9 @@ const HeaderNav = () => {
             <HeaderCart />
 
                 <button  className='header__profile'>
-                    <img src="src/IMAGES/avatar.png" alt="avatar"/>
+                    <img src="/IMAGES/avatar.png"  alt="avatar"/>
                     <span className="header__profile-name">Алексей</span>
-                    <img src='src/IMAGES/chevron-down.png' alt="avatar"/>
+                    <img src="/IMAGES/chevron-down.png" alt="down"/>
                 </button>
         </div>
     );

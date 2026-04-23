@@ -23,7 +23,7 @@ const Cart = () => {
                 > Главная
                 </RouterLink>
             </a>
-            <img src="src/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
+            <img src="/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
             <p className="cart-head__cart--text">Корзина</p>
         </div>
 

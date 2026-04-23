@@ -34,7 +34,7 @@ const HeaderFavoriteOrder = () => {
                                         addToFavorite(product)
                                     }
                                 }}>
-                            <img src="src/IMAGES/Button.png" alt="favorite"/>
+                            <img src="/IMAGES/Button.png" alt="favorite"/>
                         </button>
                         <div className="product__card-price">
                             <div className="">
@@ -49,11 +49,11 @@ const HeaderFavoriteOrder = () => {
                         <p className="product-header__card-discription">{product.title}</p>
                         <p className="product-header__card-discription">{product.country}</p>
                         <div className="product__card-rating">
-                            <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                            <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                            <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                            <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
-                            <button className="product__star" ><img src="src/IMAGES/star.png" alt="star"/></button>
+                            <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                            <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                            <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                            <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
+                            <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
                         </div>
                         <HeaderProductButtonInCart
                             product={product}
