@@ -1,14 +1,10 @@
 import React from 'react';
 import RouterLink from "../RouterLink.jsx";
 import {selectCartTotals} from "../../store/selectors/cartCalculations.jsx";
+import {useNavigate} from "react-router-dom";
 
-const HeaderMakingOrder = ({ordersQuantity,orders}) => {
+const HeaderMakingOrder = ({ordersQuantity,cart}) => {
     const [isActive, setActive] = React.useState(false);
-    const toggleActive = () => {
-        if(discontSumPrice >= 1000){
-            setActive(prev => !prev)
-        }
-    };
 
     const {
         sumResult,
@@ -19,8 +15,19 @@ const HeaderMakingOrder = ({ordersQuantity,orders}) => {
         finalPrice,
         canOrder,
         bonusAmount,
-        handleClick,
-    } = selectCartTotals(orders);
+    } = selectCartTotals(cart);
+
+    const toggleActive = () => {
+        if(discontSumPrice >= 1000){
+            setActive(prev => !prev)
+        }
+    };
+
+    const navigate = useNavigate();
+    const handleClick = () => {
+        if(!canOrder) return;
+        navigate('/delivery');
+    }
 
     return (
         <div className="header-making-order">

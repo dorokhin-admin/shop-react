@@ -5,11 +5,11 @@ import HeaderCartHead from "./HeaderCartHead.jsx";
 import {useShopStore} from "../../store/useShopStore.js";
 
 const HeaderCart = () => {
-    const orders = useShopStore(state => state.orders);
+    const cart = useShopStore(state => state.cart);
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
 
     let [cartOpen, setCartOpen] = useState(false);
-    const totalOrders = orders.length
+    const totalOrders = cart.length
 
     return (
         <div className={`header__link header__link--cart ${cartOpen && 'active'}`}
@@ -34,7 +34,7 @@ const HeaderCart = () => {
                         <HeaderCartHead
                         />
 
-                        {orders.map((orderItem) => (
+                        {cart.map((orderItem) => (
                             <HeaderOrder
                                 orderItem={orderItem}
                                 key={orderItem.id}
@@ -42,7 +42,7 @@ const HeaderCart = () => {
                         ))}
 
                         <HeaderMakingOrder
-                            orders={orders}
+                            cart={cart}
                             ordersQuantity={ordersQuantity}
                         />
                     </>
