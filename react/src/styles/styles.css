@@ -11,7 +11,7 @@ body{
 }
 
 .container{
-    max-width: 1300px;
+    max-width: 1208px;
     margin: 0 auto;
 }
 
@@ -44,9 +44,10 @@ header{
     box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
-.header__logo-icon{
-    margin-right: 11px;
-    height: 32px;
+.header__logo-button{
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .title{
@@ -171,21 +172,26 @@ header{
     color: #414141;
 }
 
-/*-------------------- Main --------------------*/
 .page--home{
     padding-top: 72px;
 }
 
-/* Заголовки секций */
-.section-title{
+.articles--header-block{
     margin-top: 60px;
-    font-size: 36px;
-    font-weight: 700;
-    color: #414141;
     margin-bottom: 40px;
 }
 
-/*-------------------- Products --------------------*/
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #414141;
+}
+
+.section-more-title{
+    color: #606060;
+    font-size: 16px;
+}
+
 .products__list{
     margin-top: 40px;
     gap: 40px;
@@ -199,13 +205,13 @@ header{
     flex-basis: 272px;
     box-sizing: border-box;
     height: 349px;
-    white-space: nowrap;
     position: relative;
     overflow: hidden;
     background: white;
     border-radius: 4px;
     transition: box-shadow 0.8s ease;
 }
+
 
 .product__card:hover{
     box-shadow: 0 8px 16px rgba(255, 102, 51, 0.2)
@@ -330,8 +336,19 @@ header{
     padding: 8px;
 }
 
-.product__card-discription{
+.product__card-title {
     padding: 0 8px 8px 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    line-height: 24px;
+    max-height: calc(24px * 2);
+
+    min-width: 0;
 }
 
 .product__card-rating{
@@ -431,14 +448,40 @@ header{
 }
 
 .article-card{
-    margin-top: 40px;
     position: relative;
 }
 
 .paragraph-article{
     position: absolute;
-    bottom: 20px;
+    top: 175px;
     left: 15px;
+}
+
+.articles--header-block{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.articles--header-block-right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.articles--header-block img{
+    width: 24px;
+    height: 24px;
+}
+
+.article-card__button{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    padding: 12px 40px;
+    background-color: #70C05B;
+    margin-top: 10px;
 }
 .article-card__date,
 .product__card-price-discont-text,
@@ -456,11 +499,6 @@ header{
     color: #414141;
 }
 
-.article-card__button{
-    color: white;
-    padding: 12px 40px;
-    background-color: #70C05B;
-}
 
 .breadcrumbs{
     padding-top: 30px;
@@ -1016,6 +1054,10 @@ header{
     border-radius: 4px;
 }
 
+.delivery__block-cart{
+    display: flex;
+    gap: 40px;
+}
 
 .cart-item-blure{
     opacity: 0.5;

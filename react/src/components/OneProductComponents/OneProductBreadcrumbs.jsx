@@ -1,12 +1,13 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 const OneProductBreadcrumbs = () => {
     return (
         <div className="breadcrumbs">
-            <a className='breadcrumbs__link breadcrumbs__link--current' href="#">Главная</a>
+            <Link className='breadcrumbs__link breadcrumbs__link--current' to={'/'}>Главная</Link>
             <span className="breadcrumbs__separator"><img src="/IMAGES/chevron-right.png"
                                                           alt="chevron"/></span>
-            <a className="breadcrumbs__link breadcrumbs__link--current" href="#">Каталог</a>
+            <Link className="breadcrumbs__link breadcrumbs__link--current" to={'/catalog'}>Каталог</Link>
             <span className="breadcrumbs__separator"><img src="/IMAGES/chevron-right.png"
                                                           alt="chevron"/></span>
             <a className="breadcrumbs__link breadcrumbs__link--current" href="#">Молоко, сыр, яйцо</a>

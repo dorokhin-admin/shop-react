@@ -5,7 +5,9 @@ import CartPage from "./pages/CartPage.jsx";
 import ProductsPage from "./pages/ProductsPage.jsx";
 import OneProductPage from "./pages/OneProductPage.jsx";
 import { Route, Routes} from "react-router-dom";
-
+import MainPage from "./pages/MainPage.jsx";
+import CatalogPage from "./pages/CatalogPage.jsx";
+import DeliveryPage from "./pages/DeliveryPage.jsx";
 
 const App = () =>  {
     const [items, setItems] = useState( []);
@@ -25,9 +27,15 @@ const App = () =>  {
             <Routes>
                 <Route
                     path='/'
-                    element={<ProductsPage
+                    element={<MainPage
                     items={items}
-                />}/>
+                    />}
+                />
+                <Route
+                    path='/catalog'
+                    element={<CatalogPage
+                    />}
+                />
                 <Route
                     path='/cart'
                     element={<CartPage/>}/>
@@ -35,7 +43,20 @@ const App = () =>  {
                     path='/product/:id'
                     element={<OneProductPage
                     items={items}
-                />}/>
+                    />}
+                />
+                <Route
+                    path='/delivery'
+                    element={<DeliveryPage
+                        items={items}
+                    />}
+                />
+                <Route
+                    path='/catalog/:categoryId'
+                    element={<ProductsPage
+                        items={items}
+                    />}
+                />
                 <Route
                     path='*'
                     element={ <div>404 Page not found</div>}/>

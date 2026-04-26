@@ -3,7 +3,7 @@ import CartOrder from "./CartOrder.jsx";
 import React, {useMemo} from 'react';
 import CartMakingOrder from "./CartMakingOrder.jsx";
 import {useShopStore} from "../../store/useShopStore.js";
-import RouterLink from "../RouterLink.jsx";
+import {Link} from "react-router-dom";
 
 const Cart = () => {
     const orders = useShopStore(state => state.orders);
@@ -16,13 +16,12 @@ const Cart = () => {
     return (
     <section className="page page--cart">
         <div className="cart-head">
-            <a className="cart-head__main">
-                <RouterLink
-                    to={'/'}
-                    aria-label='go to main'
-                > Главная
-                </RouterLink>
-            </a>
+            <Link
+                className="cart-head__main"
+                to={'/'}
+                aria-label='go to main'
+            > Главная
+            </Link>
             <img src="/IMAGES/chevron-right.png" alt="chevron" className="arrow"/>
             <p className="cart-head__cart--text">Корзина</p>
         </div>
