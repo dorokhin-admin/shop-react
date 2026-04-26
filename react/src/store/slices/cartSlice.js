@@ -7,7 +7,7 @@ const cartSlice = (set, get) => ({
     addToCart: async (item) => {
         const state = get();
 
-        if (state.cart.some(o => o.productId  === item.id)) return;
+        if (state.cart.some(i => i.productId  === item.id)) return;
 
         const res = await cartAPI.addToCart(item);
 
@@ -22,78 +22,65 @@ const cartSlice = (set, get) => ({
 //     //productId - в корзине
 //     //order.id - на сервере
 
-    removeFromCart: async (orderId) => {
+    removeFromCart: async (cartItemId) => {
         const state = get();
-        const order = state.cart.find(o => o.id === orderId);
-        if (!order) return;
+        const cartItem = state.cart.find(cartItem => cartItem.id === cartItemId);
+        if (!cartItem) return;
 
-        await cartAPI.removeFromCart(orderId)
+        await cartAPI.removeFromCart(cartItemId)
 
         set((state) => ({
-            cart: state.cart.filter(o => o.id !== orderId)
+            cart: state.cart.filter(cartItem => cartItem.id !== cartItemId)
         }));
     },
 
-    plus: async (orderId) => {
+    plus: async (cartItemId) => {
         // 1. изменить сервер
         const state = get();//чтобы прочитать актуальное сост стора ниже в нашем случае orders, без него при плюса не будет меня в реальном времени
 
-        const order = state.cart.find(o => o.id === orderId);
-        if (!order) return;
+        const cartItem = state.cart.find(cartItem => cartItem.id === cartItemId);
+        if (!cartItem) return;
 
-        const newQuantity = order.quantity + 1;
+        const newQuantity = cartItem.quantity + 1;
 
-        await cartAPI.plus(orderId, newQuantity);
-
-        // 2. изменить Zustand для перерисовки UI
+        await cartAPI.plus(cartItemId, newQuantity);
+        // 2. изменить Zustand (локалку) для перерисовки UI
         set((state) =>(
             { cart: state.cart
-                    .map(order => order.id === orderId
-                        ? {...order, quantity: newQuantity}
-                        : order
+                    .map(cartItem => cartItem.id === cartItemId
+                        ? {...cartItem, quantity: newQuantity}
+                        : cartItem
                     )
             }
         ))
     },
 
-    minus: async (orderId) => {
+    minus: async (cartItemId) => {
         const state = get();
 
-        const order = state.cart.find(o => o.id === orderId);
-        if (!order) return;
+        const cartItem = state.cart.find(cartItem => cartItem.id === cartItemId);
+        if (!cartItem) return;
 
-        const newQuantity = order.quantity - 1;
-
+        const newQuantity = cartItem.quantity - 1;
         // 1. если стало 0 — удалить
         if (newQuantity <= 0) {
-            await cartAPI.removeFromCart(orderId);
+            await cartAPI.removeFromCart(cartItemId);
 
             set((state) => ({
-                cart: state.cart.filter(o => o.id !== orderId)
+                cart: state.cart.filter(cartItem => cartItem.id !== cartItemId)
             }))
             return
         }
-
         // 2. если больше 0 — обновить на сервере
-        await cartAPI.minus(orderId, newQuantity);
+        await cartAPI.minus(cartItemId, newQuantity);
 
         set((state) => ({
-            cart: state.cart.map(o =>
-                o.id === orderId
-                    ? { ...o, quantity: newQuantity}
-                    : o
+            cart: state.cart.map(cartItem =>
+                cartItem.id === cartItemId
+                    ? { ...cartItem, quantity: newQuantity}
+                    : cartItem
             )
         }))
-    },
-
-    toggleSelect: (id) => {
-        set((state) => ({
-            cart: state.cart.map(order =>
-                order.id === id
-                    ? { ...order, selected: !order.selected }
-                    : order
-            )
-        }));
     },
 
     deleteItems: () => {
@@ -111,6 +98,16 @@ const cartSlice = (set, get) => ({
         });
     },
 
+    toggleSelect: (id) => {
+        set((state) => ({
+            cart: state.cart.map(order =>
+                order.id === id
+                    ? { ...order, selected: !order.selected }
+                    : order
+            )
+        }));
+    },
+
     selectAll: () => {
         set((state) => ({
             cart: state.cart.map(order => ({
@@ -121,123 +118,3 @@ const cartSlice = (set, get) => ({
     },
 });
 export default cartSlice
-
-// import ordersAPI from "../../api/ordersAPI.jsx";
-//
-// const cartSlice = (set, get) => ({
-//     addToCart: async (item) => {
-//         const state = get();
-//
-//         if (state.orders.some(o => o.id === item.id)) return;
-//
-//         const res = await ordersAPI.addToCart(item);
-//
-//         const newOrder = await res.json();
-//
-//         set((state) => ({
-//             orders: [...state.orders, newOrder]
-//         }));
-//     },
-//
-//     removeFromCart: async (orderId) => {
-//         const state = get();
-//         const order = state.orders.find(o => o.id === orderId);
-//         if (!order) return;
-//
-//         await ordersAPI.removeFromCart(orderId)
-//
-//         set((state) => ({
-//             orders: state.orders.filter(o => o.id !== orderId)
-//         }));
-//     },
-//
-//     plus: async (orderId) => {
-//         // 1. изменить сервер
-//         const state = get();//чтобы прочитать актуальное сост стора ниже в нашем случае orders, без него при плюса не будет меня в реальном времени
-//
-//         const order = state.orders.find(o => o.id === orderId);
-//         if (!order) return;
-//
-//         const newQuantity = order.quantity + 1;
-//
-//         await ordersAPI.plus(orderId, newQuantity);
-//
-//         // 2. изменить Zustand для перерисовки UI
-//         set((state) =>(
-//             { orders: state.orders
-//                     .map(order => order.id === orderId
-//                         ? {...order, quantity: newQuantity}
-//                         : order
-//                     )
-//             }
-//         ))
-//     },
-//
-//     minus: async (orderId) => {
-//         const state = get();
-//
-//         const order = state.orders.find(o => o.id === orderId);
-//         if (!order) return;
-//
-//         const newQuantity = order.quantity - 1;
-//
-//         // 1. если стало 0 — удалить
-//         if (newQuantity <= 0) {
-//             await ordersAPI.removeFromCart(orderId);
-//
-//             set((state) => ({
-//                 orders: state.orders.filter(o => o.id !== orderId)
-//             }))
-//             return
-//         }
-//
-//         // 2. если больше 0 — обновить на сервере
-//         await ordersAPI.minus(orderId, newQuantity);
-//
-//         set((state) => ({
-//             orders: state.orders.map(o =>
-//                 o.id === orderId
-//                     ? { ...o, quantity: newQuantity}
-//                     : o
-//             )
-//         }))
-//     },
-//
-
-//
-//
-//     deleteItems: () => {
-//         const isConfirmed = confirm('Are you sure you want to delete?');
-//         if (isConfirmed) {
-//
-//             const state = get();
-//
-//             const selectedOrders = state.orders.filter(o => o.selected);
-//             ordersAPI.deleteItems(selectedOrders)
-//             set({
-//                 orders: state.orders.filter(o => !o.selected)
-//             })
-//         }
-//     },
-//
-//     //локальные методы
-//     toggleSelect: (id) => {
-//         set((state) => {
-//             return {
-//                 orders: state.orders.map(order => order.id === id
-//                     ? {...order, selected: !order.selected}
-//                     : order)
-//             }
-//         })
-//     },
-//
-//     selectAll: () => {
-//         set((state) => {
-//             return {
-//                 orders: state.orders.map(order => ({...order, selected: true}))
-//             }
-//         })
-//     },
-//
-// });
-// export default cartSlice

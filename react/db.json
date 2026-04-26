@@ -79,7 +79,149 @@
       "currency": "₽"
     }
   ],
-  "cart": [],
-  "orders": [],
+  "cart": [
+    {
+      "id": "4PrA-b6_T5w",
+      "category": "candy",
+      "imgSrc": "/IMAGES/blini.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Г/Ц Блинчики с мясом вес,",
+      "country": "Россия",
+      "quantity": 29,
+      "currency": "₽",
+      "selected": true,
+      "productId": "2"
+    },
+    {
+      "id": "J6Yzkl7iWM0",
+      "category": "milk",
+      "imgSrc": "/IMAGES/milk.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+      "country": "Россия",
+      "quantity": 23,
+      "currency": "₽",
+      "selected": true,
+      "productId": "3"
+    }
+  ],
+  "orders": [
+    {
+      "id": "xR08cHt3yaQ",
+      "time": "22:56:05",
+      "items": [
+        {
+          "id": "WhuKC3Dwz5Q",
+          "category": "milk",
+          "imgSrc": "/IMAGES/milk.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+          "country": "Россия",
+          "quantity": 23,
+          "currency": "₽",
+          "selected": true,
+          "productId": "3"
+        }
+      ]
+    },
+    {
+      "id": "6Cy70JONiDc",
+      "time": "23:33:01",
+      "items": [
+        {
+          "id": "4PrA-b6_T5w",
+          "category": "candy",
+          "imgSrc": "/IMAGES/blini.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Г/Ц Блинчики с мясом вес,",
+          "country": "Россия",
+          "quantity": 29,
+          "currency": "₽",
+          "selected": true,
+          "productId": "2"
+        }
+      ]
+    },
+    {
+      "id": "fohSMs6Lkts",
+      "time": "23:33:53",
+      "items": [
+        {
+          "id": "J6Yzkl7iWM0",
+          "category": "milk",
+          "imgSrc": "/IMAGES/milk.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+          "country": "Россия",
+          "quantity": 23,
+          "currency": "₽",
+          "selected": true,
+          "productId": "3"
+        }
+      ]
+    },
+    {
+      "id": "3ZHz5avrxc0",
+      "time": "23:33:56",
+      "items": []
+    },
+    {
+      "id": "IY4UGCt2OjU",
+      "time": "23:34:00",
+      "items": []
+    },
+    {
+      "id": "rCRFAI7TvkY",
+      "time": "23:45:41",
+      "items": [
+        {
+          "id": "4PrA-b6_T5w",
+          "category": "candy",
+          "imgSrc": "/IMAGES/blini.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Г/Ц Блинчики с мясом вес,",
+          "country": "Россия",
+          "quantity": 29,
+          "currency": "₽",
+          "selected": true,
+          "productId": "2"
+        },
+        {
+          "id": "J6Yzkl7iWM0",
+          "category": "milk",
+          "imgSrc": "/IMAGES/milk.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+          "country": "Россия",
+          "quantity": 23,
+          "currency": "₽",
+          "selected": true,
+          "productId": "3"
+        }
+      ],
+      "total": 2626
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

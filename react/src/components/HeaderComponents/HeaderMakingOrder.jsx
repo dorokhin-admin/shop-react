@@ -4,7 +4,7 @@ import {selectCartTotals} from "../../store/selectors/cartCalculations.jsx";
 import {useNavigate} from "react-router-dom";
 
 const HeaderMakingOrder = ({ordersQuantity,cart}) => {
-    const [isActive, setActive] = React.useState(false);
+    const [isBonusActive, setBonusActive] = React.useState(false);
 
     const {
         sumResult,
@@ -15,11 +15,17 @@ const HeaderMakingOrder = ({ordersQuantity,cart}) => {
         finalPrice,
         canOrder,
         bonusAmount,
-    } = selectCartTotals(cart);
+    } = selectCartTotals(cart,isBonusActive);
+
+    React.useEffect(() => {
+        if (discontSumPrice < 1000) {
+            setBonusActive(false);
+        }
+    }, [discontSumPrice]);
 
     const toggleActive = () => {
-        if(discontSumPrice >= 1000){
-            setActive(prev => !prev)
+        if (discontSumPrice >= 1000) {
+            setBonusActive(prev => !prev);
         }
     };
 
@@ -32,7 +38,7 @@ const HeaderMakingOrder = ({ordersQuantity,cart}) => {
     return (
         <div className="header-making-order">
             <div className="making-order__bonus-toggle">
-                <button className={`making-order__toggle ${isActive ? 'active' : ''}`} onClick={toggleActive}>
+                <button className={`making-order__toggle ${isBonusActive ? 'active' : ''}`} onClick={toggleActive}>
                     <div className="making-order__toggle-circle"></div>
                 </button>
                 <p className="making-order__writeoff">Списать {appliedBonus.toFixed(0)} ₽ </p>

@@ -11,6 +11,7 @@ const OrdersSlices = (set, get) => ({
             id: Date.now(),
             time: new Date().toLocaleTimeString(),
             items: cart,
+            total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
         };
 
         // 👉 отправляем на сервер
@@ -19,8 +20,11 @@ const OrdersSlices = (set, get) => ({
         // 👉 обновляем Zustand
         set(state => ({
             orders: [...state.orders, newOrder],
-            cart: [],
         }));
+    },
+
+    clearCart: () => {
+        set({cart: []})
     },
 
     fetchCart: async () => {
