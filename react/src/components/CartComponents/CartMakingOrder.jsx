@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useShopStore} from "../../store/useShopStore.js";
 import { useNavigate} from "react-router-dom";
 import {selectCartTotals} from "../../store/selectors/cartCalculations.jsx";
 
 const CartMakingOrder = () => {
-    const orders = useShopStore(state => state.orders);
+    const cart = useShopStore(state => state.cart);
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
 
-    const [isActive, setActive] = React.useState(false);
+    const [isBonusActive, setBonusActive] = React.useState(false);
 
     const {
         sumResult,
@@ -18,25 +18,30 @@ const CartMakingOrder = () => {
         finalPrice,
         canOrder,
         bonusAmount,
-        handleClick,
-    } = selectCartTotals(orders);
+    } = selectCartTotals(cart, isBonusActive);
 
     React.useEffect(() => {
         if (discontSumPrice < 1000) {
-            setActive(false);
+            setBonusActive(false);
         }
     }, [discontSumPrice]);
 
     const toggleActive = () => {
         if (discontSumPrice >= 1000) {
-            setActive(prev => !prev);
+            setBonusActive(prev => !prev);
         }
     };
+
+    const navigate = useNavigate();
+    const handleClick = () => {
+        if(!canOrder) return;
+        navigate('/delivery');
+    }
 
     return (
         <div className="making-order">
             <div className="making-order__bonus-toggle">
-                <button className={`making-order__toggle ${isActive ? 'active' : ''}`} onClick={toggleActive}>
+                <button className={`making-order__toggle ${isBonusActive ? 'active' : ''}`} onClick={toggleActive}>
                     <div className="making-order__toggle-circle"></div>
                 </button>
                 <p className="making-order__writeoff">Списать {appliedBonus.toFixed(0)} ₽ </p>

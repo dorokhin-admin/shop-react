@@ -1,7 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {useShopStore} from "../../store/useShopStore.js";
 
-const CartItem = ({items = [], addToCart}) => {
-        return (
+const CartItem = ({items = []}) => {
+    const plus = useShopStore(state => state.plus);
+    const minus = useShopStore(state => state.minus);
+
+    return (
             <>
                 {items.map(product => {
                     const discontSumPrice = product.price * product.quantity * (1 - product.promo / 100);
@@ -40,13 +44,16 @@ const CartItem = ({items = [], addToCart}) => {
                             </div>
                             <div className="cart__quantity-wrapper">
                                 <div className="cart__quantity">
-                                    <button className="cart__quantity-btn--minus"><img src="/IMAGES/minus.png"
-                                                                                       alt="minus"/>
+                                    <button
+                                        className="cart__quantity-btn--minus"
+                                        onClick={minus}
+                                    >
+                                        <img src="/IMAGES/minus.png" alt="minus"/>
                                     </button>
                                     <p className="cart__quantity-number">{product.quantity}</p>
                                     <button
                                         className="cart__quantity-btn--plus"
-                                        onClick={() => addToCart(product)}
+                                        onClick={() => plus(product.id)}
                                     >
                                         <img src="/IMAGES/plus.png" alt="plus"/>
                                     </button>
