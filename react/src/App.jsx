@@ -8,6 +8,7 @@ import { Route, Routes} from "react-router-dom";
 import MainPage from "./pages/MainPage.jsx";
 import CatalogPage from "./pages/CatalogPage.jsx";
 import DeliveryPage from "./pages/DeliveryPage.jsx";
+import ManagerPage from "./pages/ManagerPage.jsx";
 
 const App = () =>  {
     const [items, setItems] = useState( []);
@@ -19,8 +20,13 @@ const App = () =>  {
     }, [])
 
     useEffect(() => {
-        useShopStore.setState({orders: []})
+        useShopStore.setState({
+            orders: [],
+            cart:[]
+        })
         useShopStore.getState().fetchOrders();
+        useShopStore.getState().fetchCart();
+
     }, [])
             //Route - что показать по этому адресу
         return (
@@ -55,6 +61,11 @@ const App = () =>  {
                     path='/catalog/:categoryId'
                     element={<ProductsPage
                         items={items}
+                    />}
+                />
+                <Route
+                    path='/manager'
+                    element={<ManagerPage
                     />}
                 />
                 <Route

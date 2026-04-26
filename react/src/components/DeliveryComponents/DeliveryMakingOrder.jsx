@@ -1,10 +1,12 @@
 import React, {useMemo} from 'react';
 import {useShopStore} from "../../store/useShopStore.js";
 import {selectCartTotals} from "../../store/selectors/cartCalculations.jsx";
+import fakePaymentAPI from "../../api/paymentAPI.js";
 
 const DeliveryMakingOrder = () => {
     const orders = useShopStore(state => state.orders);
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
+    const createOrderFromCart = useShopStore(state => state.createOrderFromCart);
 
     const [isActive, setActive] = React.useState(false);
 
@@ -29,6 +31,20 @@ const DeliveryMakingOrder = () => {
             setActive(prev => !prev);
         }
     };
+
+    const handlePay = async () => {
+        try {
+            const res = await fakePaymentAPI({amount: finalPrice });
+            if (res?.success) {
+                createOrderFromCart();
+            }else {
+                alert('оплата не прошла');
+            }
+        } catch (error) {
+            console.error("Payment error:", error);
+            alert("Ошибка оплаты");
+        }
+    }
     return (
         <div className="making-order">
             <div className="making-order__bonus-toggle">
@@ -59,8 +75,12 @@ const DeliveryMakingOrder = () => {
                 <span className="making-order__bonus-text">Вы получаете {bonus.toFixed(0)} <span
                     className="product__bonus-text--bold">бонусов</span></span>
             </div>
-            <button className="making-order__pay--online">Оплатить на сайте</button>
-            <button className="making-order__pay--offline">Оплатить при получении</button>
+            <button className="making-order__pay--online"
+                    onClick={handlePay}
+            >Оплатить на сайте</button>
+            <button className="making-order__pay--offline"
+                    onClick={createOrderFromCart}
+            >Оплатить при получении</button>
         </div>
     );
 };

@@ -6,7 +6,7 @@ import {useShopStore} from "../../store/useShopStore.js";
 import {Link} from "react-router-dom";
 
 const Cart = () => {
-    const orders = useShopStore(state => state.orders);
+    const cart  = useShopStore(state => state.cart );
     const plus = useShopStore(state => state.plus);
     const minus = useShopStore(state => state.minus);
     const toggleSelect = useShopStore(state => state.toggleSelect);
@@ -30,8 +30,8 @@ const Cart = () => {
         />
 
         <div className="container-block-cart">
-            <div className={`block-cart ${orders.length>0 ? 'active' : ''}`}>
-                {orders.map((orderItem) => (
+            <div className={`block-cart ${cart .length>0 ? 'active' : ''}`}>
+                {cart .map((orderItem) => (
                     <CartOrder
                         key={orderItem.id}
                         orderItem={orderItem}
@@ -44,7 +44,7 @@ const Cart = () => {
             </div>
             <CartMakingOrder
                 ordersQuantity={ordersQuantity}
-                orders={orders}
+                orders={cart }
             />
         </div>
 

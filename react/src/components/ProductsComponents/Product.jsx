@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const Product = ({product}) => {
-    const orders = useShopStore(state => state.orders);
+    const cart = useShopStore(state => state.cart);
     const addToCart = useShopStore(state => state.addToCart);
     const removeFromCart = useShopStore(state => state.removeFromCart);
     const favorites = useShopStore(state => state.favorites);
@@ -13,9 +13,9 @@ const Product = ({product}) => {
     const removeFromFavorite = useShopStore(state => state.removeFromFavorite);
 
     const discontPrice = product.price - (product.price * product.promo) / 100;
-    const isActive = orders.some(order => order.productId  === product.id)
+    const isActive = cart.some(item => item.productId   === product.id)
     const isFavorite = favorites.some(favorite => favorite.id === product.id)
-    const order = orders.find(order => order.productId  === product.id)
+    const order = cart.find(item => item.productId   === product.id)
     //link - куда перейти
     return (
             <article

@@ -5,6 +5,14 @@ const headers = {
 }
 
 const ordersAPI = {
+    createOrder: (order) => {
+        return fetch(URL, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(order)
+        });
+    },
+
     addToCart: (item) => {
         return fetch(URL, {
             method: 'POST',

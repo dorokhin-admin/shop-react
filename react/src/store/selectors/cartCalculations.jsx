@@ -1,14 +1,13 @@
-import {useNavigate} from "react-router-dom";
 
-export const selectCartTotals = (orders, isBonusActive) => {
-    const sumResult = orders.reduce((sum, o) => sum + o.price * o.quantity, 0);
+export const selectCartTotals = (cart, isBonusActive) => {
+    const sumResult = cart.reduce((sum, o) => sum + o.price * o.quantity, 0);
 
-    const sumPromo = orders.reduce(
+    const sumPromo = cart.reduce(
         (acc, o) => acc + o.quantity * (o.price * o.promo / 100),
         0
     );
 
-    const discontSumPrice = orders.reduce(
+    const discontSumPrice = cart.reduce(
         (acc, o) => acc + o.price * o.quantity * (1 - o.promo / 100),
         0
     );
@@ -26,12 +25,7 @@ export const selectCartTotals = (orders, isBonusActive) => {
 
     const canOrder = finalPrice >= 1000;
 
-    const navigate = useNavigate();
-    const handleClick = () => {
-        if(!canOrder) return;
-        navigate('/delivery');
 
-    }
 
     return {
         sumResult,
@@ -42,6 +36,5 @@ export const selectCartTotals = (orders, isBonusActive) => {
         finalPrice,
         canOrder,
         bonusAmount,
-        handleClick,
     };
 };
