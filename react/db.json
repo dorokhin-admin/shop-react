@@ -2,6 +2,7 @@
   "items": [
     {
       "id": "1",
+      "category": "candy",
       "imgSrc": "/IMAGES/blini.png",
       "promo": 10,
       "priceDiscontText": "С картой",
@@ -14,7 +15,8 @@
     },
     {
       "id": "2",
-      "imgSrc": "/IMAGES/milk.png",
+      "category": "candy",
+      "imgSrc": "/IMAGES/blini.png",
       "promo": 10,
       "priceDiscontText": "С картой",
       "price": 50.5,
@@ -26,24 +28,52 @@
     },
     {
       "id": "3",
-      "imgSrc": "/IMAGES/kolbasi.png",
+      "category": "milk",
+      "imgSrc": "/IMAGES/milk.png",
       "promo": 10,
       "priceDiscontText": "С картой",
       "price": 50.5,
       "priceText": "Обычная",
-      "title": "Г/Ц Блинчики с мясом вес,",
+      "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
       "country": "Россия",
       "quantity": 1,
       "currency": "₽"
     },
     {
       "id": "4",
+      "category": "meat",
+      "imgSrc": "/IMAGES/kolbasi.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Колбаса сырокопченая МЯСНАЯ ИСТОРИЯ Сальчичон и Тоскан",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id": "5",
+      "category": "meat",
+      "imgSrc": "/IMAGES/kolbasi.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Колбаса сырокопченая МЯСНАЯ ИСТОРИЯ Сальчичон и Тоскан",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id": "6",
+      "category": "milk",
       "imgSrc": "/IMAGES/image(3).png",
       "promo": 10,
       "priceDiscontText": "С картой",
       "price": 50.5,
       "priceText": "Обычная",
-      "title": "Г/Ц Блинчики с мясом вес,",
+      "title": "Масло ПРОСТОКВАШИНО сливочное в/с 82% фольга без змж, 180 г",
       "country": "Россия",
       "quantity": 1,
       "currency": "₽"

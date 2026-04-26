@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useMemo} from 'react';
 import {useShopStore} from "../../store/useShopStore.js";
-import { useNavigate} from "react-router-dom";
 import {selectCartTotals} from "../../store/selectors/cartCalculations.jsx";
 
-const CartMakingOrder = () => {
+const DeliveryMakingOrder = () => {
     const orders = useShopStore(state => state.orders);
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
 
@@ -18,7 +17,6 @@ const CartMakingOrder = () => {
         finalPrice,
         canOrder,
         bonusAmount,
-        handleClick,
     } = selectCartTotals(orders);
 
     React.useEffect(() => {
@@ -26,13 +24,11 @@ const CartMakingOrder = () => {
             setActive(false);
         }
     }, [discontSumPrice]);
-
     const toggleActive = () => {
         if (discontSumPrice >= 1000) {
             setActive(prev => !prev);
         }
     };
-
     return (
         <div className="making-order">
             <div className="making-order__bonus-toggle">
@@ -42,8 +38,6 @@ const CartMakingOrder = () => {
                 <p className="making-order__writeoff">Списать {appliedBonus.toFixed(0)} ₽ </p>
             </div>
             <p className="making-order__accumulated">На карте накоплено {bonusAmount} ₽</p>
-
-            <hr className="horizontal-line"/>
 
             <div className="making-order__summary">
                 <div className="making-order__summary-left">
@@ -56,8 +50,6 @@ const CartMakingOrder = () => {
                 </div>
             </div>
 
-            <hr className="horizontal-line"/>
-
             <div className="making-order__total">
                 <p className="making-order__total--result">Итог</p>
                 <p className="making-order__total--priсe">{finalPrice.toFixed(2)} ₽</p>
@@ -67,14 +59,10 @@ const CartMakingOrder = () => {
                 <span className="making-order__bonus-text">Вы получаете {bonus.toFixed(0)} <span
                     className="product__bonus-text--bold">бонусов</span></span>
             </div>
-            <p className={`making-order__min-limit ${finalPrice <= 1000 ? 'active' : 'hidden'}`}>Минимальная сумма заказа 1000р</p>
-            <button className={`making-order__button ${canOrder ? 'active' : ''}`}
-                disabled={!canOrder}
-                onClick={handleClick}
-            >Оформить заказ
-            </button>
+            <button className="making-order__pay--online">Оплатить на сайте</button>
+            <button className="making-order__pay--offline">Оплатить при получении</button>
         </div>
     );
 };
 
-export default CartMakingOrder;
+export default DeliveryMakingOrder;

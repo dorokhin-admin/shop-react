@@ -10,10 +10,10 @@ const CartItem = ({items = [], addToCart}) => {
                         <div key={product.id} className="cart-item" data-id={product.id}>
                             <div className="cart-item__image">
                                 <button className="cart-item__checkbox-select active"><img
-                                    src="src/IMAGES/Checkbox%20(2).png"
+                                    src="/IMAGES/Checkbox%20(2).png"
                                     alt="Checkbox"/></button>
                                 <button className="cart-item__checkbox-empty hidden"><img
-                                    src="src/IMAGES/Checkbox%20(3).png"
+                                    src="/IMAGES/Checkbox%20(3).png"
                                     alt="Checkbox"/></button>
                                 <img src={product.imgSrc} alt="cart-image" className="cart-image__img"/>
                             </div>
@@ -40,7 +40,7 @@ const CartItem = ({items = [], addToCart}) => {
                             </div>
                             <div className="cart__quantity-wrapper">
                                 <div className="cart__quantity">
-                                    <button className="cart__quantity-btn--minus"><img src="src/IMAGES/minus.png"
+                                    <button className="cart__quantity-btn--minus"><img src="/IMAGES/minus.png"
                                                                                        alt="minus"/>
                                     </button>
                                     <p className="cart__quantity-number">{product.quantity}</p>
@@ -48,7 +48,7 @@ const CartItem = ({items = [], addToCart}) => {
                                         className="cart__quantity-btn--plus"
                                         onClick={() => addToCart(product)}
                                     >
-                                        <img src="src/IMAGES/plus.png" alt="plus"/>
+                                        <img src="/IMAGES/plus.png" alt="plus"/>
                                     </button>
                                 </div>
                                 <div className="cart__sum-price">

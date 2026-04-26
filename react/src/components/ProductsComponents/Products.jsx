@@ -1,17 +1,25 @@
 import {useShopStore} from "../../store/useShopStore.js";
 import Product from "./Product.jsx";
+import {useParams} from "react-router-dom";
 
 const Products = ({items,}) => {
     const searchQuery = useShopStore(state => state.searchQuery);
 
+    const {categoryId} = useParams();
+
     const clearSearchQuery = searchQuery.trim().toLowerCase();
-    const filterItems = clearSearchQuery.length > 0
-        ? items.filter((item) => item.title.toLowerCase().includes(clearSearchQuery))
-        : items;
+
+    const filterItems = items
+        .filter(item => item.category === categoryId)
+        .filter(item =>
+            clearSearchQuery.length > 0
+            ? item.title.toLowerCase().includes(clearSearchQuery)
+            : items);
 
     if(filterItems.length === 0) {
         return <div className='product__empty-message'>Таких продуктов нет :(</div>;
     }
+
 
     return (
         <div className="products__list">

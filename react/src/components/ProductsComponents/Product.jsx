@@ -55,8 +55,7 @@ const Product = ({product}) => {
                     </div>
                 </div>
 
-                <p className="product__card-discription">{product.title}</p>
-                <p className="product__card-discription">{product.country}</p>
+                <p className="product__card-title">{product.title}<br/>{product.country}</p>
                 <div className="product__card-rating">
                     <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>
                     <button className="product__star" ><img src="/IMAGES/star.png" alt="star"/></button>

@@ -1,13 +1,8 @@
 import React from 'react';
 import RouterLink from "../RouterLink.jsx";
+import {selectCartTotals} from "../../store/selectors/cartCalculations.jsx";
 
 const HeaderMakingOrder = ({ordersQuantity,orders}) => {
-    const sumResult = orders.reduce((sum, order) => sum + order.price * order.quantity, 0);
-    const sumPromo = orders.reduce((acc, order) => acc + order.quantity * ((order.price * order.promo) / 100), 0);
-    const discontSumPrice = orders.reduce((acc, order) =>
-        acc + order.price * order.quantity * (1 - order.promo / 100),0);
-    const bonus = discontSumPrice * 0.1;
-
     const [isActive, setActive] = React.useState(false);
     const toggleActive = () => {
         if(discontSumPrice >= 1000){
@@ -15,13 +10,17 @@ const HeaderMakingOrder = ({ordersQuantity,orders}) => {
         }
     };
 
-    const bonusAmount = 200;
-    const maxBonusUsage = Math.max(0, discontSumPrice - 1000);//1000 - минимальный порог
-    const appliedBonus = isActive
-        ? Math.min(bonusAmount, maxBonusUsage)//возвращает меньшую сумму
-        : 0;
-    const finalPrice = discontSumPrice - appliedBonus;
-    const canOrder = finalPrice >= 1000;
+    const {
+        sumResult,
+        sumPromo,
+        discontSumPrice,
+        bonus,
+        appliedBonus,
+        finalPrice,
+        canOrder,
+        bonusAmount,
+        handleClick,
+    } = selectCartTotals(orders);
 
     return (
         <div className="header-making-order">
@@ -59,7 +58,10 @@ const HeaderMakingOrder = ({ordersQuantity,orders}) => {
             </div>
             <div className="down-header-block">
                 <p className={`header-making-order__min-limit ${finalPrice <= 1000 ? 'active' : 'hidden'}`}>Минимальная сумма заказа 1000р</p>
-                <button className={`header-making-order__button ${canOrder ? 'active' : ''}`} disabled={!canOrder}>Оформить заказ</button>
+                <button className={`header-making-order__button ${canOrder ? 'active' : ''}`}
+                        disabled={!canOrder}
+                        onClick={handleClick}
+                >Оформить заказ</button>
             </div>
             <div className='go-cart'>
                 <RouterLink
