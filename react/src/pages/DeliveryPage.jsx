@@ -8,6 +8,48 @@ import {Link} from "react-router-dom";
 
 const DeliveryPage = () => {
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
+
+    const timeSlots = [
+        { label: "8:00 - 14:00", start: 8, end: 14 },
+        { label: "14:00 - 18:00", start: 14, end: 18 },
+        { label: "18:00 - 20:00", start: 18, end: 20 },
+        { label: "20:00 - 22:00", start: 20, end: 22 },
+    ];
+
+    const getInitialTimeSlot = () => {
+        const now = new Date();
+        const currentHour = now.getHours();
+
+        const availableSlot = timeSlots.find(slot => currentHour < slot.end);
+
+        return availableSlot ? availableSlot.label : timeSlots[0].label;
+    };
+
+    const [form, setForm] = React.useState({
+        city: "Усть-Ижма",
+        street: "",
+        house: "",
+        float: "",
+        additionally: "",
+        date: "20.02.2021",
+        time: getInitialTimeSlot()
+    });
+
+
+    const now = new Date();
+    const currentHour = now.getHours();
+
+
+    const getTimeClass = (slot) => {
+        const isPast = currentHour >= slot.end;
+        const isSelected = form.time === slot.label;
+
+        if (isSelected) return "delivery__time--green";
+        if (isPast) return "delivery__time--block";
+
+        return "delivery__time--transparent";
+    };
+
     return (
         <>
             <header>
@@ -46,23 +88,40 @@ const DeliveryPage = () => {
                                 </div>
                                 <div className="delivery__field">
                                     <p className="delivery__label">Улица</p>
-                                    <textarea className='delivery__input' name="delivery__street" id="1" cols="20"
-                                              rows="1"></textarea>
+                                    <textarea className='delivery__input' name="delivery__street" id="1" cols="20" rows="1"
+                                                value={form.street}
+                                                onChange={(e) => {
+                                                    setForm(prev => ({...prev, street: e.target.value}))
+                                                }}
+                                    ></textarea>
                                 </div>
                                 <div className="delivery__field">
                                     <p className="delivery__label">Дом</p>
-                                    <textarea className='delivery__input' name="delivery__house" id="2" cols="3"
-                                              rows="1"></textarea>
+                                    <textarea className='delivery__input' name="delivery__house" id="2" cols="3" rows="1"
+                                              value={form.house}
+                                              onChange={(e) => {
+                                                  setForm(prev => ({...prev, house: e.target.value}))
+                                              }}
+                                    ></textarea>
                                 </div>
                                 <div className="delivery__field">
                                     <p className="delivery__label">Квартира</p>
-                                    <textarea className='delivery__input' name="delivery__float" id="3" cols="4"
-                                              rows="1"></textarea>
+                                    <textarea className='delivery__input' name="delivery__float" id="3" cols="4"  rows="1"
+                                              value={form.float}
+                                              onChange={(e) => {
+                                                  setForm(prev => ({...prev, float: e.target.value}))
+
+                                              }}
+                                    ></textarea>
                                 </div>
                                 <div className="delivery__field">
                                     <p className="delivery__label">Дополнительно</p>
-                                    <textarea className='delivery__input' name="delivery__additionally" id="4" cols="10"
-                                              rows="1"></textarea>
+                                    <textarea className='delivery__input' name="delivery__additionally" id="4" cols="10" rows="1"
+                                              value={form.additionally}
+                                              onChange={(e) => {
+                                                  setForm(prev => ({...prev, additionally: e.target.value}))
+                                              }}
+                                    ></textarea>
                                 </div>
                             </div>
 
@@ -77,10 +136,20 @@ const DeliveryPage = () => {
                                 <div className="delivery__field">
                                     <p className="delivery__label">Время</p>
                                     <div className="delivery__time">
-                                        <button className='delivery__time--transparent'>8:00 - 14:00</button>
-                                        <button className='delivery__time--green'>14:00 - 18:00</button>
-                                        <button className='delivery__time--block'>18:00 - 20:00</button>
-                                        <button className='delivery__time--block'>20:00 - 22:00</button>
+                                        <div className="delivery__time">
+                                            {timeSlots.map((slot) => (
+                                                <button
+                                                    key={slot.label}
+                                                    className={getTimeClass(slot)}
+                                                    onClick={() =>
+                                                        ! (currentHour >= slot.end) &&
+                                                        setForm(prev => ({ ...prev, time: slot.label }))
+                                                    }
+                                                >
+                                                    {slot.label}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

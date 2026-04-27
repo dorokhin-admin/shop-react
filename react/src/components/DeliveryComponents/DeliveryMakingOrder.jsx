@@ -8,6 +8,7 @@ const DeliveryMakingOrder = () => {
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
     const createOrderFromCart = useShopStore(state => state.createOrderFromCart);
 
+
     const [isBonusActive, setBonusActive] = React.useState(false);
 
     const {
@@ -36,6 +37,7 @@ const DeliveryMakingOrder = () => {
     const handlePay = async () => {
         try {
             const res = await fakePaymentAPI({amount: finalPrice });
+            console.log(finalPrice);
             if (res?.success) {
                 await createOrderFromCart();
                 // clearCart();
@@ -78,11 +80,13 @@ const DeliveryMakingOrder = () => {
                     className="product__bonus-text--bold">бонусов</span></span>
             </div>
             <button className="making-order__pay--online"
+                    type="button"
                     onClick={handlePay}
             >Оплатить на сайте</button>
             <button className="making-order__pay--offline"
+                    type="button"
                     onClick={async () => {
-                            await  createOrderFromCart
+                            await  createOrderFromCart()
                             // clearCart();
                     }}
             >Оплатить при получении</button>

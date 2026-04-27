@@ -7,6 +7,46 @@ import {useShopStore} from "../store/useShopStore.js";
 
 const ManagerPage = () => {
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
+    const orders = useShopStore(state => state.orders)
+
+    const getNormaliedTime = (date) => {
+        const hours = new Date(date).getHours();
+
+        if(hours >= 18) {
+            return {time: '11:00', nextDay: true}
+        }
+        if (hours < 11) {
+            return { time: "14:00", nextDay: false };
+        }
+        if (hours < 14) {
+            return { time: "16:00", nextDay: false };
+        }
+        if (hours < 16) {
+            return { time: "18:00", nextDay: false };
+        }
+        return { time: "18:00", nextDay: false };
+    }
+
+    const normalizeOrderDate = (orderDate) => {
+        const {time, nextDay} = getNormaliedTime(orderDate);
+
+        const date = new Date(orderDate);
+
+        if(nextDay) {
+            date.setDate(date.getDate() + 1);
+        }
+
+        const [hours, minutes] = time.split(":");
+
+        date.setHours(Number(hours));
+        date.setMinutes(Number(minutes));
+        date.setSeconds(0);
+
+        return {
+            ...date,
+            labelTime: time
+        }
+    }
     return (
         <>
             <header>
@@ -51,6 +91,52 @@ const ManagerPage = () => {
                     </div>
 
                     <div className="orders">
+                        {orders.map(order => (
+                            <div className="order" key={order.id}>
+                                <div className="order__time" >
+                                    <img src="/IMAGES/Frame%20211%20(2).png" alt="time" className="order__time-img"/>
+                                    <h1 className="order__time-title">{order.time}</h1>
+                                </div>
+                                <div className="order__district">
+                                    <button className="order__district-first">
+                                        <p className="cart__date-text">Усть-Ижма</p>
+                                        <p className="cart__date-quantity">3</p></button>
+                                    <button className="order__district-next">
+                                        <p className="cart__date-text">Галово</p>
+                                        <p className="cart__date-quantity">2</p></button>
+                                </div>
+                                <div className="order-items">
+                                    {order.items.map((item, index) => (
+                                        <div className="order__item" key={`${item.id}-${index}`}>
+                                            <h1 className="order__item-value">{item.id.slice(-4)}</h1>
+                                            <div className="order__item-deliveryman">
+                                                <img src="/IMAGES/avatar.png" alt="avatar"/>
+                                                <p className="">Дмитрий</p>
+                                            </div>
+                                            <div className="order__item-telephone">
+                                                <img src="/IMAGES/phone.png" alt="phone" className=""/>
+                                                <p className="order__item-contact">+79128883443</p>
+                                            </div>
+                                            <button className="order__item-new">
+                                                <img src="/IMAGES/bag.png" alt="bag"/>
+                                                <p className="order__item-new-text">Новый</p>
+                                                <img src="/IMAGES/chevron-down.png" alt="down"/>
+                                            </button>
+                                            <button className="order__item-upload">
+                                                <img src="/IMAGES/upload.png" alt="upload"/>
+                                                <p className="order__item-status-text">Выгрузить в 1с</p>
+                                            </button>
+                                            <button className="order__item-chat">
+                                                <img src="/IMAGES/Button%20(4).png" alt="chat"/>
+                                            </button>
+                                        </div>
+                                        ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="orders">
                         <div className="order">
                             <div className="order__time">
                                 <img src="/IMAGES/Frame%20211%20(2).png" alt="time" className="order__time-img"/>
@@ -87,28 +173,7 @@ const ManagerPage = () => {
                                     <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
                                                                               alt="chat"/></button>
                                 </div>
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-confirmed">
-                                        <img src="/IMAGES/check-circle.png" alt="check"/>
-                                        <p className="order__item-confirmed-text">Подтвержден</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
+
                                 <div className="order__item">
                                     <h1 className="order__item-value">222</h1>
                                     <div className="order__item-deliveryman">
@@ -133,169 +198,8 @@ const ManagerPage = () => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="order">
-                            <div className="order__time">
-                                <img src="/IMAGES/Frame%20211%20(2).png" alt="time" className="order__time-img"/>
-                                <h1 className="order__time-title">14:00</h1>
-                            </div>
-                            <div className="order__district">
-                                <button className="order__district-first">
-                                    <p className="cart__date-text">Усть-Ижма</p>
-                                    <p className="cart__date-quantity">3</p></button>
-                                <button className="order__district-next">
-                                    <p className="cart__date-text">Галово</p>
-                                    <p className="cart__date-quantity">2</p></button>
-                            </div>
-                            <div className="order-items">
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-confirmed">
-                                        <img src="/IMAGES/check-circle.png" alt="check"/>
-                                        <p className="order__item-confirmed-text">Подтвержден</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-confirmed">
-                                        <img src="/IMAGES/check-circle.png" alt="check"/>
-                                        <p className="order__item-confirmed-text">Подтвержден</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-refund">
-                                        <img src="/IMAGES/alert-triangle.png" alt="check"/>
-                                        <p className="order__item-refund-text">Возврат</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="order">
-                            <div className="order__time">
-                                <img src="/IMAGES/Frame%20211%20(2).png" alt="time" className="order__time-img"/>
-                                <h1 className="order__time-title">18:00</h1>
-                            </div>
-                            <div className="order__district">
-                                <button className="order__district-first">
-                                    <p className="cart__date-text">Усть-Ижма</p>
-                                    <p className="cart__date-quantity">3</p></button>
-                                <button className="order__district-next">
-                                    <p className="cart__date-text">Галово</p>
-                                    <p className="cart__date-quantity">2</p></button>
-                            </div>
-                            <div className="order-items">
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-confirmed">
-                                        <img src="/IMAGES/check-circle.png" alt="check"/>
-                                        <p className="order__item-confirmed-text">Подтвержден</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-confirmed">
-                                        <img src="/IMAGES/check-circle.png" alt="check"/>
-                                        <p className="order__item-confirmed-text">Подтвержден</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="src/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-new">
-                                        <img src="/IMAGES/bag.png" alt="bag"/>
-                                        <p className="order__item-new-text">Новый</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-upload">
-                                        <img src="/IMAGES/upload.png" alt="upload"/>
-                                        <p className="order__item-status-text">Выгрузить в 1с</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-                            </div>
                             <div className="order__products">
                                 <div className="order__product">
                                     <article className="product-card">
