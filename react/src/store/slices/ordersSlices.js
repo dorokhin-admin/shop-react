@@ -2,7 +2,7 @@ import ordersAPI from "../../api/ordersAPI.jsx";
 
 const OrdersSlices = (set, get) => ({
     orders: [],
-    cart: [], // ← важно, чтобы cart был в store
+    cart: [], 
 
     createOrderFromCart: async () => {
         const cart = get().cart;
@@ -14,10 +14,9 @@ const OrdersSlices = (set, get) => ({
             total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
         };
 
-        // 👉 отправляем на сервер
+        
         await ordersAPI.createOrder(newOrder);
 
-        // 👉 обновляем Zustand
         set(state => ({
             orders: [...state.orders, newOrder],
         }));
@@ -42,40 +41,3 @@ const OrdersSlices = (set, get) => ({
     }
 });
 export default OrdersSlices;
-
-
-// const OrdersSlices = () => ({
-//     cart: [],
-//
-//     createOrderFromCart: () => {
-//         const cart = get().cart;
-//
-//         const newOrder = {
-//             id: Date.now(),
-//             time: new Date().toLocaleTimeString(),
-//             districts: [],
-//             items: cart.map(item => ({
-//                 id: item.id,
-//                 value: item.price,
-//                 driver: "—",
-//                 phone: "—",
-//                 status: "new",
-//             })),
-//             products: cart,
-//         };
-//
-//         set(state => ({
-//             orders: [...state.orders, newOrder],
-//             cart: [],
-//         }));
-//     },
-//
-//     fetchOrders: async () => {
-//         const res = await fetch("http://localhost:3001/cart");
-//         const data = await res.json();
-//
-//         set({ cart: data });
-//     }
-// });
-//
-// export default OrdersSlices;
