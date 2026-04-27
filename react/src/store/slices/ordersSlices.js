@@ -2,10 +2,13 @@ import ordersAPI from "../../api/ordersAPI.jsx";
 
 const OrdersSlices = (set, get) => ({
     orders: [],
+<<<<<<< feature/manager
+=======
     cart: [], 
+>>>>>>> main
 
     createOrderFromCart: async () => {
-        const cart = get().cart;
+        const cart = get().cart; // ✅ вот так получаем cart
 
         const newOrder = {
             id: Date.now(),
@@ -40,4 +43,8 @@ const OrdersSlices = (set, get) => ({
         set({ orders: data });
     }
 });
+<<<<<<< feature/manager
 export default OrdersSlices;
+=======
+export default OrdersSlices;
+>>>>>>> main
