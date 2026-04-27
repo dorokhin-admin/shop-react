@@ -2,6 +2,10 @@ import ordersAPI from "../../api/ordersAPI.jsx";
 
 const OrdersSlices = (set, get) => ({
     orders: [],
+<<<<<<< feature/manager
+=======
+    cart: [], 
+>>>>>>> main
 
     createOrderFromCart: async () => {
         const cart = get().cart; // ✅ вот так получаем cart
@@ -13,10 +17,9 @@ const OrdersSlices = (set, get) => ({
             total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
         };
 
-        // 👉 отправляем на сервер
+        
         await ordersAPI.createOrder(newOrder);
 
-        // 👉 обновляем Zustand
         set(state => ({
             orders: [...state.orders, newOrder],
         }));
@@ -40,4 +43,8 @@ const OrdersSlices = (set, get) => ({
         set({ orders: data });
     }
 });
+<<<<<<< feature/manager
 export default OrdersSlices;
+=======
+export default OrdersSlices;
+>>>>>>> main
