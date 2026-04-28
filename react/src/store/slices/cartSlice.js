@@ -35,8 +35,8 @@ const cartSlice = (set, get) => ({
     },
 
     plus: async (cartItemId) => {
-        // 1. изменить сервер
-        const state = get();//чтобы прочитать актуальное сост стора ниже в нашем случае orders, без него при плюса не будет меня в реальном времени
+        
+        const state = get();
 
         const cartItem = state.cart.find(cartItem => cartItem.id === cartItemId);
         if (!cartItem) return;
@@ -44,7 +44,7 @@ const cartSlice = (set, get) => ({
         const newQuantity = cartItem.quantity + 1;
 
         await cartAPI.plus(cartItemId, newQuantity);
-        // 2. изменить Zustand (локалку) для перерисовки UI
+        
         set((state) =>(
             { cart: state.cart
                     .map(cartItem => cartItem.id === cartItemId
@@ -62,7 +62,7 @@ const cartSlice = (set, get) => ({
         if (!cartItem) return;
 
         const newQuantity = cartItem.quantity - 1;
-        // 1. если стало 0 — удалить
+        
         if (newQuantity <= 0) {
             await cartAPI.removeFromCart(cartItemId);
 
@@ -71,7 +71,7 @@ const cartSlice = (set, get) => ({
             }))
             return
         }
-        // 2. если больше 0 — обновить на сервере
+        
         await cartAPI.minus(cartItemId, newQuantity);
 
         set((state) => ({

@@ -29,7 +29,7 @@ const App = () =>  {
         useShopStore.getState().fetchCart();
 
     }, [])
-            //Route - что показать по этому адресу
+            
         return (
             <>
              <Routes>
