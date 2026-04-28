@@ -2,12 +2,12 @@ import React from 'react';
 import {useShopStore} from "../../store/useShopStore.js";
 import {selectCartTotals} from "../../store/selectors/cartCalculations.jsx";
 import fakePaymentAPI from "../../api/paymentAPI.js";
+import {useNavigate} from "react-router-dom";
 
-const DeliveryMakingOrder = () => {
+const DeliveryMakingOrder = ({ form }) => {
     const cart  = useShopStore(state => state.cart );
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
     const createOrderFromCart = useShopStore(state => state.createOrderFromCart);
-
 
     const [isBonusActive, setBonusActive] = React.useState(false);
 
@@ -34,12 +34,21 @@ const DeliveryMakingOrder = () => {
         }
     };
 
+    const navigate = useNavigate();
     const handlePay = async () => {
+        if(!form.street ||!form.house || !form.float){
+            alert("Заполните улицу, дом, и квартиру");
+            return;
+        }
+        if(!canOrder) {
+            navigate('/cart');
+            return;
+        }
         try {
             const res = await fakePaymentAPI({amount: finalPrice });
             console.log(finalPrice);
             if (res?.success) {
-                await createOrderFromCart();
+                await createOrderFromCart(form);
                 // clearCart();
             }else {
                 alert('оплата не прошла');
@@ -49,6 +58,7 @@ const DeliveryMakingOrder = () => {
             alert("Ошибка оплаты");
         }
     }
+
     return (
         <div className="making-order">
             <div className="making-order__bonus-toggle">
@@ -79,16 +89,15 @@ const DeliveryMakingOrder = () => {
                 <span className="making-order__bonus-text">Вы получаете {bonus.toFixed(0)} <span
                     className="product__bonus-text--bold">бонусов</span></span>
             </div>
-            <button className="making-order__pay--online"
+            <button className={`making-order__pay--online ${canOrder ? 'active' : ''}`}
                     type="button"
                     onClick={handlePay}
             >Оплатить на сайте</button>
-            <button className="making-order__pay--offline"
+            <button className={`making-order__pay--offline ${canOrder ? 'active' : ''}`}
                     type="button"
-                    onClick={async () => {
-                            await  createOrderFromCart()
+                    onClick={handlePay
                             // clearCart();
-                    }}
+                   }
             >Оплатить при получении</button>
         </div>
     );
