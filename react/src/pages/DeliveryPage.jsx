@@ -4,7 +4,8 @@ import HeaderNav from "../components/HeaderComponents/HeaderNav.jsx";
 import Footer from "../components/Footer.jsx";
 import DeliveryMakingOrder from "../components/DeliveryComponents/DeliveryMakingOrder.jsx";
 import {useShopStore} from "../store/useShopStore.js";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {selectCartTotals} from "../store/selectors/cartCalculations.jsx";
 
 const DeliveryPage = () => {
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
@@ -25,30 +26,32 @@ const DeliveryPage = () => {
         return availableSlot ? availableSlot.label : timeSlots[0].label;
     };
 
+    const today = new Date().toISOString().split('T')[0];
     const [form, setForm] = React.useState({
         city: "Усть-Ижма",
         street: "",
         house: "",
         float: "",
         additionally: "",
-        date: "20.02.2021",
+        date: today,
         time: getInitialTimeSlot()
     });
 
 
     const now = new Date();
     const currentHour = now.getHours();
-
-
+    const isToday = form.date === new Date().toISOString().split('T')[0];
     const getTimeClass = (slot) => {
-        const isPast = currentHour >= slot.end;
         const isSelected = form.time === slot.label;
+
+        const isPast = isToday && currentHour >= slot.end;
 
         if (isSelected) return "delivery__time--green";
         if (isPast) return "delivery__time--block";
 
         return "delivery__time--transparent";
     };
+
 
     return (
         <>
@@ -129,9 +132,14 @@ const DeliveryPage = () => {
                             <div className="delivery__fields">
                                 <div className="delivery__field">
                                     <p className="delivery__label">Дата</p>
-                                    <button className="delivery__date">
-                                        <p>20.02.2021</p>
-                                        <img src="/IMAGES/chevron-down.png" alt=""/></button>
+                                    <input
+                                        type="date"
+                                        className="delivery__date"
+                                        value={form.date}
+                                        onChange={(e) =>
+                                            setForm(prev => ({ ...prev, date: e.target.value }))
+                                        }
+                                    />
                                 </div>
                                 <div className="delivery__field">
                                     <p className="delivery__label">Время</p>
@@ -139,12 +147,16 @@ const DeliveryPage = () => {
                                         <div className="delivery__time">
                                             {timeSlots.map((slot) => (
                                                 <button
+                                                    type="button"
                                                     key={slot.label}
                                                     className={getTimeClass(slot)}
-                                                    onClick={() =>
-                                                        ! (currentHour >= slot.end) &&
-                                                        setForm(prev => ({ ...prev, time: slot.label }))
-                                                    }
+                                                    onClick={() => {
+                                                        if (isToday && currentHour >= slot.end) return;
+                                                        setForm(prev => ({
+                                                            ...prev,
+                                                            time: slot.label
+                                                        }));
+                                                    }}
                                                 >
                                                     {slot.label}
                                                 </button>
@@ -165,7 +177,9 @@ const DeliveryPage = () => {
                             </div>
                         </form>
 
-                        <DeliveryMakingOrder/>
+                        <DeliveryMakingOrder
+                            form={form}
+                        />
 
                     </div>
 

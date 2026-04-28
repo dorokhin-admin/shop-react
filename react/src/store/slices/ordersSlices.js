@@ -3,20 +3,27 @@ import ordersAPI from "../../api/ordersAPI.jsx";
 const OrdersSlices = (set, get) => ({
     orders: [],
 
-    createOrderFromCart: async () => {
-        const cart = get().cart; // ✅ вот так получаем cart
+    createOrderFromCart: async (form) => {
+        const cart = get().cart;
 
         const newOrder = {
             id: Date.now(),
-            time: new Date().toLocaleTimeString(),
+
+            createdAt: new Date().toISOString(),
+
+            deliveryDate: form.date,
+            deliveryTime: form.time,
+
+            date: form.date,
+            time: form.time,
             items: cart,
             total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
         };
 
-        // 👉 отправляем на сервер
         await ordersAPI.createOrder(newOrder);
 
-        // 👉 обновляем Zustand
+        alert('Order Successfully created!');
+
         set(state => ({
             orders: [...state.orders, newOrder],
         }));

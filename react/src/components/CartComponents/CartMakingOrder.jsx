@@ -21,19 +21,19 @@ const CartMakingOrder = () => {
     } = selectCartTotals(cart, isBonusActive);
 
     React.useEffect(() => {
-        if (discontSumPrice < 1000) {
+        if (finalPrice  < 1000) {
             setBonusActive(false);
         }
     }, [discontSumPrice]);
 
     const toggleActive = () => {
-        if (discontSumPrice >= 1000) {
+        if (finalPrice >= 1000) {
             setBonusActive(prev => !prev);
         }
     };
 
     const navigate = useNavigate();
-    const handleClick = () => {
+    const handleClickDelivery = () => {
         if(!canOrder) return;
         navigate('/delivery');
     }
@@ -75,7 +75,7 @@ const CartMakingOrder = () => {
             <p className={`making-order__min-limit ${finalPrice <= 1000 ? 'active' : 'hidden'}`}>Минимальная сумма заказа 1000р</p>
             <button className={`making-order__button ${canOrder ? 'active' : ''}`}
                 disabled={!canOrder}
-                onClick={handleClick}
+                onClick={handleClickDelivery}
             >Оформить заказ
             </button>
         </div>

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useShopStore} from "./store/useShopStore.js";
 
+
 import CartPage from "./pages/CartPage.jsx";
 import ProductsPage from "./pages/ProductsPage.jsx";
 import OneProductPage from "./pages/OneProductPage.jsx";
@@ -30,7 +31,8 @@ const App = () =>  {
     }, [])
             //Route - что показать по этому адресу
         return (
-            <Routes>
+            <>
+             <Routes>
                 <Route
                     path='/'
                     element={<MainPage
@@ -72,7 +74,7 @@ const App = () =>  {
                     path='*'
                     element={ <div>404 Page not found</div>}/>
             </Routes>
-
+            </>
         )
 }
 

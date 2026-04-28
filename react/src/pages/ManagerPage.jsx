@@ -9,6 +9,39 @@ const ManagerPage = () => {
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
     const orders = useShopStore(state => state.orders)
 
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    const dayAfterTomorrow = new Date();
+    dayAfterTomorrow.setDate(today.getDate() + 2);
+
+    const formatDate = (date) =>
+        date.toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long'
+        });
+
+    const isSameDay = (d1, d2) =>
+        d1.getDate() === d2.getDate() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getFullYear() === d2.getFullYear();
+
+    const todayOrders = orders.filter(order =>
+        isSameDay(new Date(order.date), today)
+    );
+
+    const tomorrowOrders = orders.filter(order =>
+        isSameDay(new Date(order.date), tomorrow)
+    );
+
+    const afterTomorrowOrders = orders.filter(order =>
+        isSameDay(new Date(order.date), dayAfterTomorrow)
+    )
+
+    const todayCount = todayOrders.length;
+    const tomorrowCount = tomorrowOrders.length;
+    const afterTomorrowCount = afterTomorrowOrders.length;
+
     const getNormaliedTime = (date) => {
         const hours = new Date(date).getHours();
 
@@ -47,6 +80,8 @@ const ManagerPage = () => {
             labelTime: time
         }
     }
+
+
     return (
         <>
             <header>
@@ -80,13 +115,13 @@ const ManagerPage = () => {
                                                                        alt="calendar"/></button>
                             <button className="cart__date--now">
                                 <p className="cart__date-text">Сегодня</p>
-                                <p className="cart__date-quantity">10</p></button>
+                                <p className="cart__date-quantity">{todayCount}</p></button>
                             <button className="cart__date--next">
-                                <p className="cart__date-text">1 апреля</p>
-                                <p className="cart__date-quantity">2</p></button>
+                                <p className="cart__date-text">{formatDate(tomorrow)}</p>
+                                <p className="cart__date-quantity">{tomorrowCount}</p></button>
                             <button className="cart__date--next">
-                                <p className="cart__date-text">5 апреля</p>
-                                <p className="cart__date-quantity">1</p></button>
+                                <p className="cart__date-text">{formatDate(dayAfterTomorrow)}</p>
+                                <p className="cart__date-quantity">{afterTomorrowCount}</p></button>
                         </div>
                     </div>
 
