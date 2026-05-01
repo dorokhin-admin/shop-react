@@ -6,8 +6,11 @@ import {Link} from "react-router-dom";
 import {useShopStore} from "../store/useShopStore.js";
 
 const ManagerPage = () => {
-    const ordersQuantity = useShopStore(state => state.getTotalQuantity());
     const orders = useShopStore(state => state.orders)
+    const updateOrderStatus = useShopStore(state => state.updateOrderStatus);
+
+    const [openStatusId, setOpenStatusId] = React.useState(null)
+    const [openOrderId, setOpenOrderId] = React.useState(null)
 
     const today = new Date();
     const tomorrow = new Date();
@@ -21,66 +24,80 @@ const ManagerPage = () => {
             month: 'long'
         });
 
-    const isSameDay = (d1, d2) =>
-        d1.getDate() === d2.getDate() &&
-        d1.getMonth() === d2.getMonth() &&
-        d1.getFullYear() === d2.getFullYear();
+    const todayStr = today.toISOString().split('T')[0];
+
+    const tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+    const afterTomorrowStr = dayAfterTomorrow.toISOString().split('T')[0];
 
     const todayOrders = orders.filter(order =>
-        isSameDay(new Date(order.date), today)
+        order.date === todayStr
     );
 
     const tomorrowOrders = orders.filter(order =>
-        isSameDay(new Date(order.date), tomorrow)
+        order.date === tomorrowStr
     );
 
     const afterTomorrowOrders = orders.filter(order =>
-        isSameDay(new Date(order.date), dayAfterTomorrow)
-    )
+        order.date === afterTomorrowStr
+    );
 
     const todayCount = todayOrders.length;
     const tomorrowCount = tomorrowOrders.length;
     const afterTomorrowCount = afterTomorrowOrders.length;
 
-    const getNormaliedTime = (date) => {
-        const hours = new Date(date).getHours();
+    const getTimeSlot = (time) => {
+        const hour = Number(time.split(":")[0]);
 
-        if(hours >= 18) {
-            return {time: '11:00', nextDay: true}
-        }
-        if (hours < 11) {
-            return { time: "14:00", nextDay: false };
-        }
-        if (hours < 14) {
-            return { time: "16:00", nextDay: false };
-        }
-        if (hours < 16) {
-            return { time: "18:00", nextDay: false };
-        }
-        return { time: "18:00", nextDay: false };
-    }
-
-    const normalizeOrderDate = (orderDate) => {
-        const {time, nextDay} = getNormaliedTime(orderDate);
-
-        const date = new Date(orderDate);
-
-        if(nextDay) {
-            date.setDate(date.getDate() + 1);
+        if (hour >= 8 && hour < 14) {
+            return "08:00 - 14:00";
         }
 
-        const [hours, minutes] = time.split(":");
-
-        date.setHours(Number(hours));
-        date.setMinutes(Number(minutes));
-        date.setSeconds(0);
-
-        return {
-            ...date,
-            labelTime: time
+        if (hour >= 14 && hour < 18) {
+            return "14:00 - 18:00";
         }
-    }
 
+        if (hour >= 18 && hour < 22) {
+            return "18:00 - 22:00";
+        }
+
+        return "00:00 - 08:00";
+    };
+
+    const groupOrdersByTime = (orders) => {
+        return orders.reduce((acc, order) => {
+            const slot = getTimeSlot(order.time);
+
+            if (!acc[slot]) {
+                acc[slot] = [];
+            }
+
+            acc[slot].push(order);
+
+            return acc;
+        }, {});
+    };
+    const groupedOrders = groupOrdersByTime(orders);
+
+    const statuses = [
+        { value: "new", label: "Новый" },
+        { value: "confirmed", label: "Подтвержден" },
+        { value: "refund", label: "Возврат" }
+    ];
+
+    const getStatusClass = (status) => {
+        if (status === "new") return "order__item-new";
+        if (status === "confirmed") return "order__item-confirmed";
+        if (status === "refund") return "order__item-refund";
+        return "";
+    };
+
+    const getStatusText = (status) => {
+        if (status === "new") return "Новый";
+        if (status === "confirmed") return "Подтвержден";
+        if (status === "refund") return "Возврат";
+        return "Неизвестно";
+    };
 
     return (
         <>
@@ -108,7 +125,7 @@ const ManagerPage = () => {
                     <div className="cart__header">
                         <div className="cart-head__cart">
                             <h1 className="cart-title">Заказы</h1>
-                            <p className="cart-head__cart-wrapper">{ordersQuantity}</p>
+                            <p className="cart-head__cart-wrapper">{orders.length}</p>
                         </div>
                         <div className="cart__header-calendar">
                             <button className="cart__date-choise"><img src="/IMAGES/Button%20(3).png"
@@ -152,10 +169,43 @@ const ManagerPage = () => {
                                                 <img src="/IMAGES/phone.png" alt="phone" className=""/>
                                                 <p className="order__item-contact">+79128883443</p>
                                             </div>
-                                            <button className="order__item-new">
-                                                <img src="/IMAGES/bag.png" alt="bag"/>
-                                                <p className="order__item-new-text">Новый</p>
-                                                <img src="/IMAGES/chevron-down.png" alt="down"/>
+                                            <div className="order__status-wrapper">
+                                                <button
+                                                    className={getStatusClass(order.status)}
+                                                    onClick={() =>
+                                                        setOpenStatusId(prev =>
+                                                            prev === order.id ? null : order.id
+                                                        )
+                                                    }
+                                                >
+                                                    {getStatusText(order.status)}
+                                                    <img className='down' src="/IMAGES/chevron-down.png" alt="down" />
+                                                </button>
+
+                                                {openStatusId === order.id && (
+                                                    <div className="order__status-dropdown">
+                                                        {statuses.map(status => (
+                                                            <div
+                                                                key={status.value}
+                                                                className="order__status-option"
+                                                                onClick={() => {
+                                                                    updateOrderStatus(order.id, status.value);
+                                                                    setOpenStatusId(null);
+                                                                }}
+                                                            >
+                                                                {status.label}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <button className="order__item-check">
+                                                <img src="/IMAGES/eye.png" alt="shape"/>
+                                                <p className="order__item-status-text"
+                                                    onClick={() =>
+                                                setOpenOrderId(prev =>
+                                                prev === order.id ? null : order.id)}
+                                                >Просмотреть заказ</p>
                                             </button>
                                             <button className="order__item-upload">
                                                 <img src="/IMAGES/upload.png" alt="upload"/>
@@ -167,151 +217,37 @@ const ManagerPage = () => {
                                         </div>
                                         ))}
                                 </div>
+                                {openOrderId  === order.id && (
+                                    <div className="order__products">
+                                        {order.items.map(item =>(
+                                            <div className="order__product" key={item.id}>
+                                                <article className="product-card">
+                                                    <img
+                                                        className='product-card__image'
+                                                        src={item.imgSrc}
+                                                        alt="product"
+                                                    />
+                                                    <button className="product-card__cart">
+                                                        <img src="/IMAGES/shopping-cart.png" alt="cart"/>
+                                                        <p className="product-card__cart-counter">
+                                                            {item.quantity}
+                                                        </p>
+                                                    </button>
+                                                    <button className="product-card__warehouse">
+                                                        <img src="/IMAGES/box1.png" alt="box1"/>
+                                                        <p className="product-card__warehouse-counter">40</p>
+                                                    </button>
+                                                    <div className="order__product-description">
+                                                        <p className="order__product-name">{item.category}</p>
+                                                        <p className="order__product-about">{item.title}»</p>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         ))}
-                    </div>
-
-                    <div className="orders">
-                        <div className="order">
-                            <div className="order__time">
-                                <img src="/IMAGES/Frame%20211%20(2).png" alt="time" className="order__time-img"/>
-                                <h1 className="order__time-title">11:00</h1>
-                            </div>
-                            <div className="order__district">
-                                <button className="order__district-first">
-                                    <p className="cart__date-text">Усть-Ижма</p>
-                                    <p className="cart__date-quantity">3</p></button>
-                                <button className="order__district-next">
-                                    <p className="cart__date-text">Галово</p>
-                                    <p className="cart__date-quantity">2</p></button>
-                            </div>
-                            <div className="order-items">
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-confirmed">
-                                        <img src="/IMAGES/check-circle.png" alt="check"/>
-                                        <p className="order__item-confirmed-text">Подтвержден</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-
-                                <div className="order__item">
-                                    <h1 className="order__item-value">222</h1>
-                                    <div className="order__item-deliveryman">
-                                        <img src="/IMAGES/avatar.png" alt="avatar"/>
-                                        <p className="">Дмитрий</p>
-                                    </div>
-                                    <div className="order__item-telephone">
-                                        <img src="/IMAGES/phone.png" alt="phone" className=""/>
-                                        <p className="order__item-contact">+79128883443</p>
-                                    </div>
-                                    <button className="order__item-refund">
-                                        <img src="/IMAGES/alert-triangle.png" alt="check"/>
-                                        <p className="order__item-refund-text">Возврат</p>
-                                        <img src="/IMAGES/chevron-down.png" alt="down"/>
-                                    </button>
-                                    <button className="order__item-check">
-                                        <img src="/IMAGES/eye.png" alt="shape"/>
-                                        <p className="order__item-status-text">Просмотреть заказ</p>
-                                    </button>
-                                    <button className="order__item-chat"><img src="/IMAGES/Button%20(4).png"
-                                                                              alt="chat"/></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="order">
-                            <div className="order__products">
-                                <div className="order__product">
-                                    <article className="product-card">
-                                        <img className='product-card__image' src="src/IMAGES/image.png" alt="product"/>
-                                        <button className="product-card__cart">
-                                            <img src="/IMAGES/shopping-cart.png" alt="cart"/>
-                                            <p className="product-card__cart-counter">4</p>
-                                        </button>
-                                        <button className="product-card__warehouse">
-                                            <img src="/IMAGES/box1.png" alt="box1"/>
-                                            <p className="product-card__warehouse-counter">40</p>
-                                        </button>
-                                    </article>
-                                    <div className="order__product-description">
-                                        <p className="order__product-name">Снеки</p>
-                                        <p className="order__product-about">Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»</p>
-                                    </div>
-                                </div>
-                                <div className="order__product">
-                                    <article className="product-card">
-                                        <img className='product-card__image' src="src/IMAGES/image.png" alt="product"/>
-                                        <button className="product-card__cart">
-                                            <img src="/IMAGES/shopping-cart.png" alt="cart"/>
-                                            <p className="product-card__cart-counter">4</p>
-                                        </button>
-                                        <button className="product-card__warehouse">
-                                            <img src="/IMAGES/box1.png" alt="box1"/>
-                                            <p className="product-card__warehouse-counter">40</p>
-                                        </button>
-                                    </article>
-                                    <div className="order__product-description">
-                                        <p className="order__product-name">Снеки</p>
-                                        <p className="order__product-about">Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»</p>
-                                    </div>
-                                </div>
-                                <div className="order__product">
-                                    <article className="product-card">
-                                        <img className='product-card__image' src="src/IMAGES/image.png" alt="product"/>
-                                        <button className="product-card__cart">
-                                            <img src="/IMAGES/shopping-cart.png" alt="cart"/>
-                                            <p className="product-card__cart-counter">4</p>
-                                        </button>
-                                        <button className="product-card__warehouse">
-                                            <img src="/IMAGES/box1.png" alt="box1"/>
-                                            <p className="product-card__warehouse-counter">40</p>
-                                        </button>
-                                    </article>
-                                    <div className="order__product-description">
-                                        <p className="order__product-name">Снеки</p>
-                                        <p className="order__product-about">Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»</p>
-                                    </div>
-                                </div>
-                                <div className="order__product">
-                                    <article className="product-card">
-                                        <img className='product-card__image' src="/IMAGES/image.png" alt="product"/>
-                                        <button className="product-card__cart">
-                                            <img src="/IMAGES/shopping-cart.png" alt="cart"/>
-                                            <p className="product-card__cart-counter">4</p>
-                                        </button>
-                                        <button className="product-card__warehouse">
-                                            <img src="/IMAGES/box1.png" alt="box1"/>
-                                            <p className="product-card__warehouse-counter">40</p>
-                                        </button>
-                                    </article>
-                                    <div className="order__product-description">
-                                        <p className="order__product-name">Снеки</p>
-                                        <p className="order__product-about">Комбайн КЗС-1218 «ДЕСНА-ПОЛЕСЬЕ GS12»</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="order__item-check-center">
-                                <button className="order__item-check">
-                                    <img src="/IMAGES/eye.png" alt="shape"/>
-                                    <p className="order__item-status-text">Просмотреть заказ</p>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </section>
             </div>
