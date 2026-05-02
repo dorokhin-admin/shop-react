@@ -1,12 +1,15 @@
 {
   "dependencies": {
     "@tanstack/react-query": "^5.99.0",
+    "json-server": "^1.0.0-beta.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.30.3",
+    "react-toastify": "^11.1.0",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7"
   }
