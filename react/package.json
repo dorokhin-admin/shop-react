@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "server": "json-server db.json --watch --port 3001",
+    "server": "node server.сjs",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",

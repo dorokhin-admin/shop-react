@@ -11,7 +11,6 @@ const Cart = () => {
     const minus = useShopStore(state => state.minus);
     const toggleSelect = useShopStore(state => state.toggleSelect);
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
-    const addToCart = useShopStore(state => state.addToCart);
 
     return (
     <section className="page page--cart">
@@ -35,7 +34,6 @@ const Cart = () => {
                     <CartOrder
                         key={orderItem.id}
                         orderItem={orderItem}
-                        addToCart={addToCart}
                         plus={plus}
                         minus={minus}
                         toggleSelect={toggleSelect}

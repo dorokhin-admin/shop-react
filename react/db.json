@@ -81,22 +81,7 @@
   ],
   "cart": [
     {
-      "id": "HdQpTx3DeYw",
-      "category": "milk",
-      "imgSrc": "/IMAGES/milk.png",
-      "promo": 10,
-      "priceDiscontText": "С картой",
-      "price": 50.5,
-      "priceText": "Обычная",
-      "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
-      "country": "Россия",
-      "quantity": 23,
-      "currency": "₽",
-      "selected": true,
-      "productId": "3"
-    },
-    {
-      "id": "z_23Hn7y4kg",
+      "id": "up2JddZpTzk",
       "category": "meat",
       "imgSrc": "/IMAGES/kolbasi.png",
       "promo": 10,
@@ -109,6 +94,21 @@
       "currency": "₽",
       "selected": true,
       "productId": "4"
+    },
+    {
+      "id": "V2-A-SxaZyQ",
+      "category": "milk",
+      "imgSrc": "/IMAGES/milk.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽",
+      "selected": true,
+      "productId": "3"
     }
   ],
   "orders": [
@@ -277,6 +277,54 @@
         }
       ],
       "total": 1212,
+      "status": "new"
+    },
+    {
+      "id": "yHKQrYtU2hM",
+      "createdAt": "2026-05-01T16:52:08.544Z",
+      "city": "Усть-Ижма",
+      "street": "13123",
+      "house": "1331",
+      "float": "312321",
+      "additionally": "",
+      "phone": "+123456789",
+      "deliveryDate": "2026-05-01",
+      "deliveryTime": "20:00 - 22:00",
+      "date": "2026-05-01",
+      "time": "20:00 - 22:00",
+      "items": [
+        {
+          "id": "z_23Hn7y4kg",
+          "category": "meat",
+          "imgSrc": "/IMAGES/kolbasi.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Колбаса сырокопченая МЯСНАЯ ИСТОРИЯ Сальчичон и Тоскан",
+          "country": "Россия",
+          "quantity": 1,
+          "currency": "₽",
+          "selected": true,
+          "productId": "4"
+        },
+        {
+          "id": "a_NgfySMDiE",
+          "category": "milk",
+          "imgSrc": "/IMAGES/milk.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+          "country": "Россия",
+          "quantity": 22,
+          "currency": "₽",
+          "selected": true,
+          "productId": "3"
+        }
+      ],
+      "total": 1161.5,
       "status": "new"
     }
   ],
