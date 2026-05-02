@@ -15,7 +15,9 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.30.3",
-    "zustand": "^5.0.12"
+    "zustand": "^5.0.12",
+    "vite": "^8.0.1",
+    "json-server": "^1.0.0-beta.15"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -27,8 +29,6 @@
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.4.0",
-    "json-server": "^1.0.0-beta.15",
-    "vite": "^8.0.1"
+    "globals": "^17.4.0"
   }
 }
