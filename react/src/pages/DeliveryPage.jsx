@@ -10,6 +10,10 @@ import {selectCartTotals} from "../store/selectors/cartCalculations.jsx";
 const DeliveryPage = () => {
     const ordersQuantity = useShopStore(state => state.getTotalQuantity());
 
+    const cities = ["Усть-Ижма", "Галово", "Сыктывкар"];
+
+    const [isCityOpen, setIsCityOpen] = React.useState(false);
+
     const timeSlots = [
         { label: "8:00 - 14:00", start: 8, end: 14 },
         { label: "14:00 - 18:00", start: 14, end: 18 },
@@ -28,13 +32,14 @@ const DeliveryPage = () => {
 
     const today = new Date().toISOString().split('T')[0];
     const [form, setForm] = React.useState({
-        city: "Усть-Ижма",
+        city: "",
         street: "",
         house: "",
         float: "",
         additionally: "",
         date: today,
-        time: getInitialTimeSlot()
+        time: getInitialTimeSlot(),
+        phone: ""
     });
 
 
@@ -52,6 +57,20 @@ const DeliveryPage = () => {
         return "delivery__time--transparent";
     };
 
+    const handleGetCode = () => {
+        const phone = form.phone.trim();
+        if(!phone){
+            alert('введите номер телефона')
+            return;
+        }
+        if(phone.length < 10){
+            alert('неверный номер')
+            return;
+        }
+        console.log("Отправляем код на:", form.phone);
+
+        alert("Код отправлен (имитация)");
+    }
 
     return (
         <>
@@ -85,9 +104,30 @@ const DeliveryPage = () => {
                             <div className="delivery__fields">
                                 <div className="delivery__field">
                                     <p className="delivery__label">Населенный пункт</p>
-                                    <button className="delivery__city">
-                                        <p>Усть-Ижма</p>
-                                        <img src="/IMAGES/chevron-down.png" alt=""/></button>
+                                    <button
+                                        type="button"
+                                        className="delivery__city"
+                                        onClick={() => setIsCityOpen(prev => !prev)}
+                                    >
+                                        <p>{form.city}</p>
+                                        <img src="/IMAGES/chevron-down.png" alt=""/>
+                                    </button>
+                                    {isCityOpen && (
+                                        <div className="delivery__city-dropdown">
+                                            {cities.map(city => (
+                                                <div
+                                                    key={city}
+                                                    className="delivery__city-option"
+                                                    onClick={() => {
+                                                        setForm(prev => ({ ...prev, city }));
+                                                        setIsCityOpen(false);
+                                                    }}
+                                                >
+                                                    {city}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="delivery__field">
                                     <p className="delivery__label">Улица</p>
@@ -170,8 +210,15 @@ const DeliveryPage = () => {
                             <div className="delivery__fields">
                                 <div className="delivery__field-footer">
                                     <input className='delivery__telephone' name="delivery__input" id="5"
-                                           placeholder="+79128883443"/>
-                                    <button className='delivery__getcode'>Получить код</button>
+                                           placeholder="+79128883443"
+                                            value={form.phone}
+                                           onChange={(e) => {
+                                               setForm(prev => ({...prev, phone: e.target.value}))
+                                           }}
+                                    />
+                                    <button className='delivery__getcode'
+                                            onClick={handleGetCode}
+                                    >Получить код</button>
                                     <button className='delivery__loginbymail'>Войти по почте</button>
                                 </div>
                             </div>
