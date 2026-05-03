@@ -47,25 +47,21 @@ const ManagerPage = () => {
     const afterTomorrowCount = afterTomorrowOrders.length;
 
     const getTimeSlot = (time) => {
+        if (!time) return "Без времени"; // 🔥 защита
+
         const hour = Number(time.split(":")[0]);
 
-        if (hour >= 8 && hour < 14) {
-            return "08:00 - 14:00";
-        }
-
-        if (hour >= 14 && hour < 18) {
-            return "14:00 - 18:00";
-        }
-
-        if (hour >= 18 && hour < 22) {
-            return "18:00 - 22:00";
-        }
+        if (hour >= 8 && hour < 14) return "08:00 - 14:00";
+        if (hour >= 14 && hour < 18) return "14:00 - 18:00";
+        if (hour >= 18 && hour < 22) return "18:00 - 22:00";
 
         return "00:00 - 08:00";
     };
 
     const groupOrdersByTime = (orders) => {
         return orders.reduce((acc, order) => {
+            if (!order?.time) return acc; // 🔥 пропускаем мусор
+
             const slot = getTimeSlot(order.time);
 
             if (!acc[slot]) {
@@ -158,9 +154,8 @@ const ManagerPage = () => {
                                         <p className="cart__date-quantity">2</p></button>
                                 </div>
                                 <div className="order-items">
-                                    {order.items.map((item, index) => (
-                                        <div className="order__item" key={`${item.id}-${index}`}>
-                                            <h1 className="order__item-value">{item.id.slice(-4)}</h1>
+                                        <div className="order__item" key={order.id}>
+                                            <h1 className="order__item-value">{order.id}</h1>
                                             <div className="order__item-deliveryman">
                                                 <img src="/IMAGES/avatar.png" alt="avatar"/>
                                                 <p className="">Дмитрий</p>
@@ -215,7 +210,7 @@ const ManagerPage = () => {
                                                 <img src="/IMAGES/Button%20(4).png" alt="chat"/>
                                             </button>
                                         </div>
-                                        ))}
+
                                 </div>
                                 {openOrderId  === order.id && (
                                     <div className="order__products">

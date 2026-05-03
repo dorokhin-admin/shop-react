@@ -138,6 +138,7 @@ header{
     padding-right: 15px;
 }
 
+
 /*-------------------- Slider --------------------*/
 .hero{
     position: relative;
@@ -1040,6 +1041,82 @@ header{
     z-index: 1000;
     box-shadow: 0 10px 30px rgba(255, 102, 51, 0.16),
     10px 0 30px rgba(255, 102, 51, 0.07);
+}
+
+.header__profile-overlay{
+    position: fixed;
+    inset: 0;
+    background-color: #FCD5BACC;
+    z-index: 2999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__profile-auth{
+    position: fixed;
+    width: 420px;
+    height: 431px;
+    background-color: white;
+    z-index: 3000;
+    box-shadow: 0 10px 30px rgba(255, 102, 51, 0.16),
+    10px 0 30px rgba(255, 102, 51, 0.07);
+    border-radius: 4px;
+}
+
+.cross-block{
+    position: absolute;
+    right: 0;
+    background-color: #F3F2F1;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__profile-header{
+    margin-top: 72px;
+}
+
+.header__profile-header-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header__profile-header{
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 32px;
+}
+
+.header__profile-telephone{
+    color: #8F8F8F;
+}
+
+.header__profile-input{
+    width: 260px;
+    height: 60px;
+    font-size: 24px;
+    margin-bottom: 32px;
+}
+
+.header__profile-inn{
+    width: 260px;
+    height: 68px;
+    color: #FF6633;
+    background-color:#FCD5BA ;
+    border-radius: 4px;
+    margin-bottom: 32px;
+}
+
+.header__profile-signUP{
+    margin-right: 16px;
+    padding: 4px 16px;
+    border-radius: 4px;
+    border: 2px solid #70C05B;
+    color: #70C05B;
 }
 
 .cart-item,

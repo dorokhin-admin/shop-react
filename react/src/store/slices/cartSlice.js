@@ -1,6 +1,5 @@
 import ordersAPI from "../../api/ordersAPI.jsx";
 import cartAPI from "../../api/cartAPI.jsx";
-
 const cartSlice = (set, get) => ({
     cart: [],
 
@@ -34,6 +33,8 @@ const cartSlice = (set, get) => ({
         }));
     },
 
+
+
     plus: async (cartItemId) => {
         // 1. изменить сервер
         const state = get();//чтобы прочитать актуальное сост стора ниже в нашем случае orders, без него при плюса не будет меня в реальном времени
@@ -42,7 +43,6 @@ const cartSlice = (set, get) => ({
         if (!cartItem) return;
 
         const newQuantity = cartItem.quantity + 1;
-
         await cartAPI.plus(cartItemId, newQuantity);
         // 2. изменить Zustand (локалку) для перерисовки UI
         set((state) =>(

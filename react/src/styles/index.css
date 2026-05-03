@@ -1,4 +1,9 @@
+@import "tailwindcss/preflight";
+
 @import "./normalizer.css";
-@import "./styles.css";
 @import "./fonts.css";
 @import "./variables.css";
+
+@import "tailwindcss/utilities";
+
+@import "./styles.css";
