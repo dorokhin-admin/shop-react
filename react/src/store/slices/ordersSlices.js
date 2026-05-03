@@ -7,10 +7,6 @@ const OrdersSlices = (set, get) => ({
         const cart = get().cart;
 
         const newOrder = {
-            id: Date.now(),
-
-            createdAt: new Date().toISOString(),
-
             city: form.city,
             street: form.street,
             house: form.house,
@@ -21,53 +17,37 @@ const OrdersSlices = (set, get) => ({
             deliveryDate: form.date,
             deliveryTime: form.time,
 
-            date: form.date,
-            time: form.time,
             items: cart,
             total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
 
             status: "new"
         };
-        await ordersAPI.createOrder(newOrder);
 
-        alert('Order Successfully created!');
+        try {
+            // 🔥 ВОТ ЭТО ГЛАВНОЕ
+            const savedOrder = await ordersAPI.createOrder(newOrder);
 
-        set(state => ({
-            orders: [...state.orders, newOrder],
-        }));
-    },
+            set(state => ({
+                orders: [...state.orders, savedOrder],
+                cart: [] // очистка корзины на фронте
+            }));
 
-    clearCart: () => {
-        set({cart: []})
-    },
-
-    fetchCart: async () => {
-        const res = await fetch('http://localhost:3001/cart');
-        const data = await res.json();
-
-        set({ cart: data });
+            alert('Order successfully created!');
+        } catch (e) {
+            console.error(e);
+            alert('Order failed');
+        }
     },
 
     fetchOrders: async () => {
-        const res = await fetch("http://localhost:3001/orders");
-        const data = await res.json();
+        try {
+            const data = await ordersAPI.getOrders();
 
-
-        const normalized = data.map(order => ({
-            ...order,
-            status: order.status || "new"
-        }))
-        set({ orders: normalized });
+            set({ orders: data });
+        } catch (e) {
+            console.error(e);
+        }
     },
-
-    updateOrderStatus: (orderId, status) => {
-        set(state => ({
-            orders: state.orders.map(order =>
-                order.id === orderId
-                    ? { ...order, status }
-                    : order
-            )
-        }));
-    }
 });
+
 export default OrdersSlices;

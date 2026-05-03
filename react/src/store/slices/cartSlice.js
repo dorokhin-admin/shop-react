@@ -1,4 +1,3 @@
-import ordersAPI from "../../api/ordersAPI.jsx";
 import cartAPI from "../../api/cartAPI.jsx";
 
 const cartSlice = (set, get) => ({
@@ -7,14 +6,28 @@ const cartSlice = (set, get) => ({
     addToCart: async (item) => {
         const state = get();
 
-        if (state.cart.some(i => i.productId  === item.id)) return;
+        const exists = state.cart.find(i => i.productId === item.id);
 
-        const res = await cartAPI.addToCart(item);
+        if (exists) {
+            const newQuantity = exists.quantity + 1;
 
-        const newOrder = await res.json();
+            await cartAPI.plus(exists.id, newQuantity);
+
+            set((state) => ({
+                cart: state.cart.map(i =>
+                    i.id === exists.id
+                        ? { ...i, quantity: newQuantity }
+                        : i
+                )
+            }));
+
+            return;
+        }
+
+        const newItem = await cartAPI.addToCart(item);
 
         set((state) => ({
-            cart: [...state.cart, newOrder]
+            cart: [...state.cart, newItem]
         }));
     },
 
@@ -83,15 +96,14 @@ const cartSlice = (set, get) => ({
         }))
     },
 
-    deleteItems: () => {
+    deleteItems: async () => {
         const isConfirmed = confirm('Are you sure you want to delete?');
         if (!isConfirmed) return;
 
         const state = get();
-
         const selectedOrders = state.cart.filter(o => o.selected);
 
-        cartAPI.deleteItems(selectedOrders);
+        await cartAPI.deleteItems(selectedOrders); // 🔥 ЖДЕМ
 
         set({
             cart: state.cart.filter(o => !o.selected)

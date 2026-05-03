@@ -12,31 +12,23 @@ import DeliveryPage from "./pages/DeliveryPage.jsx";
 import ManagerPage from "./pages/ManagerPage.jsx";
 
 const App = () =>  {
-    const [items, setItems] = useState( []);
+    const items = useShopStore(state => state.items);
 
     useEffect(() => {
-        fetch("http://localhost:3001/items")
-            .then(res => res.json())
-            .then(data => setItems(data))
-    }, [])
+      const store = useShopStore.getState();
 
-    useEffect(() => {
-        useShopStore.setState({
-            orders: [],
-            cart:[]
-        })
-        useShopStore.getState().fetchOrders();
-        useShopStore.getState().fetchCart();
-
+        if (!store.items.length) {
+            store.fetchItems();
+        }
+        store.fetchOrders();
+        store.fetchCart();
     }, [])
-            //Route - что показать по этому адресу
         return (
             <>
              <Routes>
                 <Route
                     path='/'
                     element={<MainPage
-                    items={items}
                     />}
                 />
                 <Route

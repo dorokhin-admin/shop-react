@@ -37,7 +37,7 @@ const HeaderCart = () => {
                         {cart.map((orderItem) => (
                             <HeaderOrder
                                 orderItem={orderItem}
-                                key={orderItem.id}
+                                key={`${orderItem.id}-${Math.random()}`}
                             />
                         ))}
 

@@ -1,18 +1,11 @@
 import {useShopStore} from "../../store/useShopStore.js";
 import Product from "./Product.jsx";
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
 
-const Products = () => {
+const Products = ({items,}) => {
     const searchQuery = useShopStore(state => state.searchQuery);
-    const items = useShopStore(state => state.items);
-    const fetchItems = useShopStore(state => state.fetchItems); //  запрос
 
     const {categoryId} = useParams();
-
-    useEffect(() => {
-        fetchItems(); //  загрузка с API
-    }, []);
 
     const clearSearchQuery = searchQuery.trim().toLowerCase();
 
@@ -21,7 +14,7 @@ const Products = () => {
         .filter(item =>
             clearSearchQuery.length > 0
             ? item.title.toLowerCase().includes(clearSearchQuery)
-            : true);
+            : items);
 
     if(filterItems.length === 0) {
         return <div className='product__empty-message'>Таких продуктов нет :(</div>;
