@@ -46,7 +46,6 @@ const DeliveryMakingOrder = ({ form }) => {
         }
         try {
             const res = await fakePaymentAPI({amount: finalPrice });
-            console.log(finalPrice);
             if (res?.success) {
                 await createOrderFromCart(form);
                 // clearCart();
