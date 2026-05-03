@@ -31,7 +31,7 @@ button{
     background: none;
 }
 
-/*-------------------- Header --------------------*/
+/* Header -*/
 header{
     background-color: white;
 }
@@ -138,8 +138,6 @@ header{
     padding-right: 15px;
 }
 
-
-/*-------------------- Slider --------------------*/
 .hero{
     position: relative;
     height: 200px;
