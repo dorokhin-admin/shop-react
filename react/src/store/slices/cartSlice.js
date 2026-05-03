@@ -1,5 +1,4 @@
 import cartAPI from "../../api/cartAPI.jsx";
-
 const cartSlice = (set, get) => ({
     cart: [],
 
@@ -47,6 +46,8 @@ const cartSlice = (set, get) => ({
         }));
     },
 
+
+
     plus: async (cartItemId) => {
         
         const state = get();
@@ -55,7 +56,6 @@ const cartSlice = (set, get) => ({
         if (!cartItem) return;
 
         const newQuantity = cartItem.quantity + 1;
-
         await cartAPI.plus(cartItemId, newQuantity);
         
         set((state) =>(

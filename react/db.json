@@ -81,7 +81,22 @@
   ],
   "cart": [
     {
-      "id": "up2JddZpTzk",
+      "id": "Lc4NUbiNstI",
+      "category": "candy",
+      "imgSrc": "/IMAGES/blini.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Г/Ц Блинчики с мясом вес,",
+      "country": "Россия",
+      "quantity": 11,
+      "currency": "₽",
+      "productId": "2",
+      "selected": true
+    },
+    {
+      "id": "gXADib0OLF0",
       "category": "meat",
       "imgSrc": "/IMAGES/kolbasi.png",
       "promo": 10,
@@ -90,29 +105,15 @@
       "priceText": "Обычная",
       "title": "Колбаса сырокопченая МЯСНАЯ ИСТОРИЯ Сальчичон и Тоскан",
       "country": "Россия",
-      "quantity": 1,
+      "quantity": 19,
       "currency": "₽",
-      "selected": true,
-      "productId": "4"
-    },
-    {
-      "id": "V2-A-SxaZyQ",
-      "category": "milk",
-      "imgSrc": "/IMAGES/milk.png",
-      "promo": 10,
-      "priceDiscontText": "С картой",
-      "price": 50.5,
-      "priceText": "Обычная",
-      "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
-      "country": "Россия",
-      "quantity": 1,
-      "currency": "₽",
-      "selected": true,
-      "productId": "3"
+      "productId": "5",
+      "selected": true
     }
   ],
   "orders": [
 
   ],
+  "users": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

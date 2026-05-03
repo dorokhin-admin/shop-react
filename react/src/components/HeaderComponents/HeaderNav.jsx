@@ -1,6 +1,7 @@
 import HeaderCart from "./HeaderCart.jsx";
 import HeaderOrders from "./HeaderOrders.jsx";
 import HeaderFavorite from "./HeaderFavorite.jsx";
+import HeaderProfile from "./HeaderProfile.jsx";
 
 const HeaderNav = () => {
 
@@ -13,11 +14,8 @@ const HeaderNav = () => {
 
             <HeaderCart />
 
-                <button  className='header__profile'>
-                    <img src="/IMAGES/avatar.png"  alt="avatar"/>
-                    <span className="header__profile-name">Алексей</span>
-                    <img src="/IMAGES/chevron-down.png" alt="down"/>
-                </button>
+            <HeaderProfile />
+
         </div>
     );
 }

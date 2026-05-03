@@ -40,5 +40,7 @@ export const useShopStore = create((set, get) => ({
 
     getTotalQuantity: () =>
         get().cart.reduce((acc, item) => acc + item.quantity, 0),
+
+
 }));
 
