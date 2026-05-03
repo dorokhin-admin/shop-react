@@ -23,6 +23,7 @@ const App = () =>  {
         store.fetchOrders();
         store.fetchCart();
     }, [])
+            
         return (
             <>
              <Routes>
