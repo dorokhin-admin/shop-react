@@ -1,20 +1,8 @@
 {
   "dependencies": {
-    "@tanstack/react-query": "^5.99.0",
-    "json-server": "^1.0.0-beta.15",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.30.3",
-    "react-toastify": "^11.1.0",
-    "zustand": "^5.0.12"
+    "concurrently": "^9.2.1"
   },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.4",
-    "@types/node": "^25.6.0",
-    "@types/react": "^18.3.28",
-    "@types/react-dom": "^18.3.7",
-    "autoprefixer": "^10.5.0",
-    "postcss": "^8.5.13",
-    "tailwindcss": "^4.2.4"
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend/react\" \"npm run dev --prefix backend\""
   }
 }
