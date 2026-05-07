@@ -6,13 +6,17 @@ import {useShopStore} from "../store/useShopStore.js";
 import Product from "../components/ProductsComponents/Product.jsx";
 import Footer from "../components/Footer.jsx";
 
-const MainPage = ({items}) => {
+const MainPage = () => {
     const searchQuery = useShopStore(state => state.searchQuery);
-
+    const items = useShopStore(state => state.items) ?? [];
     const clearSearchQuery = searchQuery.trim().toLowerCase();
-    const filterItems = clearSearchQuery.length > 0
-        ? items.filter((item) => item.title.toLowerCase().includes(clearSearchQuery))
-        : items;
+    const filterItems = items.length > 0
+        ? (clearSearchQuery.length > 0
+            ? items.filter(item =>
+                item.title.toLowerCase().includes(clearSearchQuery)
+            )
+            : items)
+        : [];
 
     return (
         <>

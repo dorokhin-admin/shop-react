@@ -1,24 +1,43 @@
-const CART_URL = 'http://localhost:3001/cart';
+const CART_URL = 'https://function-bun-production-512e.up.railway.app/api/cart';
 
 const headers = {
     'content-type': 'application/json',
 };
 
 const cartAPI = {
-    addToCart: (item) => {
-        return fetch(CART_URL, {
+    // addToCart: (item) => {
+    //     return fetch(CART_URL, {
+    //         method: 'POST',
+    //         headers,
+    //         body: JSON.stringify({
+    //             ...item,
+    //             selected: true,
+    //             productId: item.id,
+    //             quantity: item.quantity ?? 1
+    //         })
+    //     });
+    // },
+
+    addToCart: async (item) => {
+        const res = await fetch(CART_URL, {
             method: 'POST',
             headers,
             body: JSON.stringify({
                 ...item,
-                selected: true,
                 productId: item.id,
-                quantity: item.quantity ?? 1
+                quantity: item.quantity ?? 1,
+                selected: true
             })
         });
+
+        if (!res.ok) throw new Error("Add to cart failed");
+
+        return  res.json();
     },
 
     plus: (id, newQuantity) => {
+        console.log("SEND PATCH:", id, newQuantity);
+
         return fetch(`${CART_URL}/${id}`, {
             method: 'PATCH',
             headers,

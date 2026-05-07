@@ -6,9 +6,14 @@ const HeaderOrder = ({orderItem}) => {
     const minus = useShopStore(state => state.minus);
     const toggleSelect = useShopStore(state => state.toggleSelect);
 
-    const discontPrice = orderItem.price - (orderItem.price * orderItem.promo) / 100;
-    const discontSumPrice = (orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100)).toFixed(2);
+    // const discontPrice = orderItem.price - (orderItem.price * orderItem.promo) / 100;
+    // const discontSumPrice = (orderItem.price * orderItem.quantity * (1 - orderItem.promo / 100)).toFixed(2);
+    const price = Number(orderItem.price || 0);
+    const promo = Number(orderItem.promo || 0);
+    const quantity = Number(orderItem.quantity || 0);
 
+    const discontPrice = price - (price * promo) / 100;
+    const discontSumPrice = (price * quantity * (1 - promo / 100)).toFixed(2);
     return (
         <div className="block-cart-item__header">
             <div  className={`cart-item__header ${!orderItem.selected ? 'cart-item-blure__header' : ''}`}>

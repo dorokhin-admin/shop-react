@@ -1,4 +1,4 @@
-const URL = 'http://localhost:3001/orders';
+const URL = 'https://function-bun-production-512e.up.railway.app/api/orders';
 
 const headers = {
     'content-type': 'application/json',
