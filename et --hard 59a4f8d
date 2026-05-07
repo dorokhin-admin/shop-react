@@ -1,0 +1,15 @@
+[33m1df2c5b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: rebase (finish): returning to refs/heads/main
+[33m1df2c5b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{1}: rebase (continue): Добавил изменения
+[33mf89d0d9[m HEAD@{2}: pull origin main --rebase (start): checkout f89d0d979439bdaa773d6b16927af3c4f434f778
+[33m9d5a02e[m HEAD@{3}: commit: Добавил изменения
+[33m07f8dc9[m HEAD@{4}: commit: Добавил функционал корзины
+[33m59a4f8d[m HEAD@{5}: commit: cart feature
+[33mf5770b6[m HEAD@{6}: commit: clean init
+[33m388b0b6[m HEAD@{7}: commit: fix cartItemm
+[33m6aa3111[m HEAD@{8}: commit: fix cartItem
+[33m378ab3f[m HEAD@{9}: commit: fix emai
+[33m9bf342b[m HEAD@{10}: commit: fix email
+[33m7ff0fa9[m HEAD@{11}: commit: CartItem
+[33m341562c[m HEAD@{12}: commit: CartItem
+[33m41a5942[m HEAD@{13}: Branch: renamed refs/heads/master to refs/heads/main
+[33m41a5942[m HEAD@{15}: commit (initial): update

@@ -1,0 +1,40 @@
+[33m65b7044[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull: Fast-forward
+[33md4fd1b5[m HEAD@{1}: checkout: moving from feature/app-slices to main
+[33ma35fd5f[m[33m ([m[1;31morigin/feature/app-slices[m[33m, [m[1;32mfeature/app-slices[m[33m)[m HEAD@{2}: commit: закончил переход на zustand, добавил slices
+[33m802eb2d[m[33m ([m[1;31morigin/feature/app-startZustand[m[33m, [m[1;32mfeature/app-startZustand[m[33m)[m HEAD@{3}: checkout: moving from feature/app-startZustand to feature/app-slices
+[33m802eb2d[m[33m ([m[1;31morigin/feature/app-startZustand[m[33m, [m[1;32mfeature/app-startZustand[m[33m)[m HEAD@{4}: commit: начал разделение по zustand
+[33mb2b2ace[m[33m ([m[1;31morigin/feature/app-main__calculations[m[33m, [m[1;32mfeature/app-main__calculations[m[33m)[m HEAD@{5}: checkout: moving from feature/app-main__calculations to feature/app-startZustand
+[33mb2b2ace[m[33m ([m[1;31morigin/feature/app-main__calculations[m[33m, [m[1;32mfeature/app-main__calculations[m[33m)[m HEAD@{6}: commit: стабилизировал функции и кешировал вычисления
+[33mb04dcf0[m[33m ([m[1;31morigin/feature/header-favorite[m[33m, [m[1;32mfeature/header-favorite[m[33m)[m HEAD@{7}: checkout: moving from feature/header-favorite to feature/app-main__calculations
+[33mb04dcf0[m[33m ([m[1;31morigin/feature/header-favorite[m[33m, [m[1;32mfeature/header-favorite[m[33m)[m HEAD@{8}: commit: Добавил фичу избранное, доработал корзину в header
+[33m595b64a[m[33m ([m[1;31morigin/feature/cart-header[m[33m, [m[1;32mfeature/cart-header[m[33m)[m HEAD@{9}: checkout: moving from feature/cart-header to feature/header-favorite
+[33m595b64a[m[33m ([m[1;31morigin/feature/cart-header[m[33m, [m[1;32mfeature/cart-header[m[33m)[m HEAD@{10}: commit: Добавил фичу добавить в header
+[33m5d0fc4e[m[33m ([m[1;31morigin/feature/cart-checkbox2[m[33m, [m[1;32mfeature/cart-checkbox2[m[33m)[m HEAD@{11}: checkout: moving from feature/cart-checkbox2 to feature/cart-header
+[33m5d0fc4e[m[33m ([m[1;31morigin/feature/cart-checkbox2[m[33m, [m[1;32mfeature/cart-checkbox2[m[33m)[m HEAD@{12}: commit: Добавил фичу добавить в корзину
+[33meb58fca[m[33m ([m[1;31morigin/feature/cart-checkbox[m[33m, [m[1;32mfeature/cart-checkbox[m[33m)[m HEAD@{13}: checkout: moving from feature/cart-checkbox to feature/cart-checkbox2
+[33meb58fca[m[33m ([m[1;31morigin/feature/cart-checkbox[m[33m, [m[1;32mfeature/cart-checkbox[m[33m)[m HEAD@{14}: commit: Добавил фичу добавить в корзину
+[33m74d7755[m HEAD@{15}: commit: Добавил чекбокс с галочкой в CartOrder
+[33m07479c8[m[33m ([m[1;31morigin/feature-1[m[33m, [m[1;32mfeature-1[m[33m)[m HEAD@{16}: checkout: moving from feature-1 to feature/cart-checkbox
+[33m07479c8[m[33m ([m[1;31morigin/feature-1[m[33m, [m[1;32mfeature-1[m[33m)[m HEAD@{17}: commit: Добавил новую фичу
+[33md4fd1b5[m HEAD@{18}: checkout: moving from main to feature-1
+[33md4fd1b5[m HEAD@{19}: commit: first commitjl
+[33mc1ece97[m HEAD@{20}: commit: first commit
+[33m38f929a[m HEAD@{21}: commit: first commit
+[33m00fe193[m HEAD@{22}: Branch: renamed refs/heads/main to refs/heads/main
+[33m00fe193[m HEAD@{24}: commit: Добавил изменения
+[33m59a4f8d[m HEAD@{25}: reset: moving to 59a4f8d
+[33m1df2c5b[m HEAD@{26}: rebase (finish): returning to refs/heads/main
+[33m1df2c5b[m HEAD@{27}: rebase (continue): Добавил изменения
+[33mf89d0d9[m HEAD@{28}: pull origin main --rebase (start): checkout f89d0d979439bdaa773d6b16927af3c4f434f778
+[33m9d5a02e[m HEAD@{29}: commit: Добавил изменения
+[33m07f8dc9[m HEAD@{30}: commit: Добавил функционал корзины
+[33m59a4f8d[m HEAD@{31}: commit: cart feature
+[33mf5770b6[m HEAD@{32}: commit: clean init
+[33m388b0b6[m HEAD@{33}: commit: fix cartItemm
+[33m6aa3111[m HEAD@{34}: commit: fix cartItem
+[33m378ab3f[m HEAD@{35}: commit: fix emai
+[33m9bf342b[m HEAD@{36}: commit: fix email
+[33m7ff0fa9[m HEAD@{37}: commit: CartItem
+[33m341562c[m HEAD@{38}: commit: CartItem
+[33m41a5942[m HEAD@{39}: Branch: renamed refs/heads/master to refs/heads/main
+[33m41a5942[m HEAD@{41}: commit (initial): update
