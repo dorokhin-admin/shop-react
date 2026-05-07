@@ -1,0 +1,252 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "category": "candy",
+      "imgSrc": "/IMAGES/blini.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Г/Ц Блинчики с мясом вес,",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id": "2",
+      "category": "candy",
+      "imgSrc": "/IMAGES/blini.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Г/Ц Блинчики с мясом вес,",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id": "3",
+      "category": "milk",
+      "imgSrc": "/IMAGES/milk.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id": "4",
+      "category": "meat",
+      "imgSrc": "/IMAGES/kolbasi.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Колбаса сырокопченая МЯСНАЯ ИСТОРИЯ Сальчичон и Тоскан",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id": "5",
+      "category": "meat",
+      "imgSrc": "/IMAGES/kolbasi.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Колбаса сырокопченая МЯСНАЯ ИСТОРИЯ Сальчичон и Тоскан",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    },
+    {
+      "id": "6",
+      "category": "milk",
+      "imgSrc": "/IMAGES/image(3).png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Масло ПРОСТОКВАШИНО сливочное в/с 82% фольга без змж, 180 г",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽"
+    }
+  ],
+  "cart": [
+    {
+      "id": "Z-_6HhVV2LM",
+      "category": "milk",
+      "imgSrc": "/IMAGES/milk.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+      "country": "Россия",
+      "quantity": 1,
+      "currency": "₽",
+      "productId": "3",
+      "selected": true
+    },
+    {
+      "id": "Ba-aXrksQPU",
+      "category": "candy",
+      "imgSrc": "/IMAGES/blini.png",
+      "promo": 10,
+      "priceDiscontText": "С картой",
+      "price": 50.5,
+      "priceText": "Обычная",
+      "title": "Г/Ц Блинчики с мясом вес,",
+      "country": "Россия",
+      "quantity": 22,
+      "currency": "₽",
+      "productId": "2",
+      "selected": true
+    }
+  ],
+  "orders": [
+    {
+      "city": "Усть-Ижма",
+      "street": "ads",
+      "house": "das",
+      "float": "ads",
+      "additionally": "",
+      "phone": "",
+      "deliveryDate": "2026-05-03",
+      "deliveryTime": "14:00 - 18:00",
+      "items": [
+        {
+          "id": "zuLZiUQW0Hg",
+          "category": "milk",
+          "imgSrc": "/IMAGES/milk.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+          "country": "Россия",
+          "quantity": 3,
+          "currency": "₽",
+          "productId": "3",
+          "selected": true
+        },
+        {
+          "id": "dAVj6xe3aUs",
+          "category": "candy",
+          "imgSrc": "/IMAGES/blini.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Г/Ц Блинчики с мясом вес,",
+          "country": "Россия",
+          "quantity": 20,
+          "currency": "₽",
+          "productId": "2",
+          "selected": true
+        }
+      ],
+      "total": 1161.5,
+      "status": "new",
+      "id": "ReUw9FCATwE"
+    },
+    {
+      "city": "Усть-Ижма",
+      "street": "выфв",
+      "house": "ывфвфы",
+      "float": "выфвфы",
+      "additionally": "",
+      "phone": "",
+      "deliveryDate": "2026-05-03",
+      "deliveryTime": "14:00 - 18:00",
+      "items": [
+        {
+          "id": "zuLZiUQW0Hg",
+          "category": "milk",
+          "imgSrc": "/IMAGES/milk.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+          "country": "Россия",
+          "quantity": 3,
+          "currency": "₽",
+          "productId": "3",
+          "selected": true
+        },
+        {
+          "id": "dAVj6xe3aUs",
+          "category": "candy",
+          "imgSrc": "/IMAGES/blini.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Г/Ц Блинчики с мясом вес,",
+          "country": "Россия",
+          "quantity": 20,
+          "currency": "₽",
+          "productId": "2",
+          "selected": true
+        }
+      ],
+      "total": 1161.5,
+      "status": "new",
+      "id": "GpRoYWkNdg4"
+    },
+    {
+      "city": "Усть-Ижма",
+      "street": "fdfds",
+      "house": "dsffds",
+      "float": "dfsfds",
+      "additionally": "",
+      "phone": "",
+      "deliveryDate": "2026-05-03",
+      "deliveryTime": "14:00 - 18:00",
+      "items": [
+        {
+          "id": "Z-_6HhVV2LM",
+          "category": "milk",
+          "imgSrc": "/IMAGES/milk.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Молоко ПРОСТОКВАШИНО паст. питьевое цельное",
+          "country": "Россия",
+          "quantity": 1,
+          "currency": "₽",
+          "productId": "3",
+          "selected": true
+        },
+        {
+          "id": "Ba-aXrksQPU",
+          "category": "candy",
+          "imgSrc": "/IMAGES/blini.png",
+          "promo": 10,
+          "priceDiscontText": "С картой",
+          "price": 50.5,
+          "priceText": "Обычная",
+          "title": "Г/Ц Блинчики с мясом вес,",
+          "country": "Россия",
+          "quantity": 22,
+          "currency": "₽",
+          "productId": "2",
+          "selected": true
+        }
+      ],
+      "total": 1161.5,
+      "status": "new",
+      "id": "lzWNu738Qqo"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
