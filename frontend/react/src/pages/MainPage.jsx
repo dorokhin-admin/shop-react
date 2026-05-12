@@ -5,6 +5,8 @@ import React from 'react';
 import {useShopStore} from "../store/useShopStore.js";
 import Product from "../components/ProductsComponents/Product.jsx";
 import Footer from "../components/Footer.jsx";
+import MapSection from "../components/MapSection.jsx";
+
 
 const MainPage = () => {
     const searchQuery = useShopStore(state => state.searchQuery);
@@ -99,13 +101,13 @@ const MainPage = () => {
 
                     <section className="home__stores">
                         <h2 className="section-title">Наши магазины</h2>
-                        <div className="home__stores-controls">
-                            <button className="stores__button-selected">п.Щелькяюр</button>
-                            <button className="stores__button">п.д.Вертеп</button>
-                            <button className="stores__button">п.Краснобор</button>
-                            <button className="stores__button">п.Диюр</button>
-                        </div>
-                        <img src="/IMAGES/map.png" alt="map"/>
+                        {/*<div className="home__stores-controls">*/}
+                        {/*    <button className="stores__button-selected">п.Щелькяюр</button>*/}
+                        {/*    <button className="stores__button">п.д.Вертеп</button>*/}
+                        {/*    <button className="stores__button">п.Краснобор</button>*/}
+                        {/*    <button className="stores__button">п.Диюр</button>*/}
+                        {/*</div>*/}
+                        <MapSection />
                     </section>
 
                     <section className="articles">
