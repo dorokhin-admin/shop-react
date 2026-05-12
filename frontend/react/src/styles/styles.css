@@ -143,6 +143,7 @@ header {
   background-image: url("/IMAGES/pattern2.png");
   display: flex;
   align-items: center;
+  gap: 40px;
 }
 
 .hero::before {
@@ -152,21 +153,40 @@ header {
   background: rgba(255, 255, 255, 0.5);
 }
 
+@media (max-width: 880px) {
+    .hero{
+        height: 80px;
+    }
+}
+
 .hero__image-cart {
-  position: absolute;
-  left: 25%;
-  transform: translateX(-50%);
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+}
+
+@media(max-width: 1370px){
+    .hero__image-cart{
+        display: none;
+    }
 }
 
 .hero__caption {
-  position: absolute;
+    position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  left: 40%;
+    transform: translate(-50%, -50%);
+  left: 60%;
   font-size: 48px;
   font-weight: 700;
   white-space: nowrap;
   color: #414141;
+}
+
+@media(max-width: 880px){
+    .hero__caption{
+        font-size: 18px;
+    }
 }
 
 .page--home {
@@ -195,7 +215,10 @@ header {
   color: #414141;
   flex-wrap: wrap;
   margin-bottom: 120px;
-  display: flex;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 272px));
+  justify-content: center;
 }
 
 .product__card {
@@ -1230,8 +1253,10 @@ header {
   height: 100%;
 }
 
-.cart-item:hover {
-  box-shadow: 0 8px 16px rgba(255, 102, 51, 0.2);
+@media (hover: hover) {
+    .cart-item:hover {
+        box-shadow: 0 8px 16px rgba(255, 102, 51, 0.2);
+    }
 }
 
 .cart-item__promo {
@@ -1785,141 +1810,32 @@ footer {
   display: none;
 }
 
+/*map*/
+.map-wrapper {
+    width: 100%;
+    height: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.map-tabs {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.map-tabs button {
+    padding: 8px 16px;
+    border: none;
+    background: #f3f2f1;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.map-tabs button.active {
+    background: #70c05b;
+    color: white;
+}
 /*# sourceMappingURL=styles.css.map */
-
-/*HEADER*/
-@media (max-width: 768px) {
-    .header__inner {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .header__search input {
-        width: 100%;
-    }
-
-    .header__controls {
-        margin: 0;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .header__nav {
-        width: 100%;
-        justify-content: space-between;
-    }
-}
-
-/*HERO*/
-@media (max-width: 768px) {
-    .hero__caption {
-        font-size: 28px;
-        left: 20%;
-    }
-
-    .hero {
-        height: 140px;
-    }
-}
-
-/*PRODUCTS GRID*/
-@media (max-width: 1024px) {
-    .products__list {
-        gap: 20px;
-    }
-
-    .product__card {
-        flex-basis: 220px;
-    }
-}
-
-@media (max-width: 768px) {
-    .products__list {
-        justify-content: center;
-    }
-
-    .product__card {
-        flex-basis: 45%;
-    }
-}
-
-@media (max-width: 480px) {
-    .product__card {
-        flex-basis: 100%;
-    }
-}
-
-/*CATALOG GRID*/
-@media (max-width: 1024px) {
-    .catalog__grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .catalog__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .catalog__grid {
-        grid-template-columns: 1fr;
-    }
-
-    .catalog__title {
-        font-size: 36px;
-    }
-}
-
-/*CART*/
-@media (max-width: 1024px) {
-    .cart-item {
-        width: 100%;
-        flex-wrap: wrap;
-    }
-
-    .container-block-cart {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 768px) {
-    .cart-title {
-        font-size: 36px;
-    }
-
-    .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .cart__quantity {
-        max-width: 100%;
-    }
-}
-
-/*DELIVERY FORM*/
-@media (max-width: 768px) {
-    .delivery__fields {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .delivery__city,
-    .delivery__date,
-    .delivery__telephone {
-        width: 100%;
-    }
-}
-
-/*GLOBAL FIX*/
-@media (max-width: 768px) {
-    .container {
-        padding: 0 12px;
-    }
-
-    .section-title {
-        font-size: 24px;
-    }
-}
+/*PRODUCTS HEADER*/

@@ -1,7 +1,5 @@
 import React, {useEffect, } from "react";
 import {useShopStore} from "./store/useShopStore.js";
-
-
 import CartPage from "./pages/CartPage.jsx";
 import ProductsPage from "./pages/ProductsPage.jsx";
 import OneProductPage from "./pages/OneProductPage.jsx";
@@ -10,6 +8,7 @@ import MainPage from "./pages/MainPage.jsx";
 import CatalogPage from "./pages/CatalogPage.jsx";
 import DeliveryPage from "./pages/DeliveryPage.jsx";
 import ManagerPage from "./pages/ManagerPage.jsx";
+
 
 const App = () =>  {
     const items = useShopStore(state => state.items);
@@ -26,13 +25,14 @@ const App = () =>  {
             
         return (
             <>
-             <Routes>
+
+                <Routes>
                 <Route
                     path='/'
                     element={<MainPage
                     />}
                 />
-                <Route
+                 <Route
                     path='/catalog'
                     element={<CatalogPage
                     />}

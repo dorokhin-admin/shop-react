@@ -5,17 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5345865c-0088-499f-9017-95cbbf5da325" name="Изменения" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/MapSection.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/vercel.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/react/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/styles/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/styles/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/CartPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/CartPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/MainPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/MainPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +61,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/new&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/refactor&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;25.6.0&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;25.6.0&quot;,
@@ -80,6 +77,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dorok\Desktop\react-magnum\frontend\react\src\components" />
       <recent name="C:\Users\dorok\Desktop\react-magnum\frontend\react\src\styles" />
       <recent name="C:\Users\dorok\Desktop\react-magnum\frontend\react\src" />
       <recent name="C:\Users\dorok\Desktop\react-magnum\backend" />
@@ -103,7 +101,9 @@
       <workItem from="1777915338010" duration="7000" />
       <workItem from="1777915356147" duration="2474000" />
       <workItem from="1778167100619" duration="232000" />
-      <workItem from="1778167645741" duration="5094000" />
+      <workItem from="1778167645741" duration="5317000" />
+      <workItem from="1778584346142" duration="6078000" />
+      <workItem from="1778597814239" duration="4591000" />
     </task>
     <servers />
   </component>
