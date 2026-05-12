@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5345865c-0088-499f-9017-95cbbf5da325" name="Изменения" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/MapSection.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/react/vercel.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/CartPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/CartPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/MainPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/MainPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/HeaderComponents/HeaderButtonCatalog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/HeaderComponents/HeaderButtonCatalog.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/react/src/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +98,7 @@
       <workItem from="1778167100619" duration="232000" />
       <workItem from="1778167645741" duration="5317000" />
       <workItem from="1778584346142" duration="6078000" />
-      <workItem from="1778597814239" duration="4591000" />
+      <workItem from="1778597814239" duration="8064000" />
     </task>
     <servers />
   </component>

@@ -7,7 +7,7 @@ class HeaderButtonCatalog extends Component {
             <button >
                 <Link className='catalog' to='/catalog'>
                     <img src="/IMAGES/menu.png"/>
-                    Каталог
+                    <p className='catalog-text'>Каталог</p>
                 </Link>
             </button>
         );
