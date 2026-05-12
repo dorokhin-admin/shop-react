@@ -73,6 +73,21 @@ header {
   cursor: pointer;
 }
 
+@media (max-width: 1100px) {
+    .catalog-text{
+        display: none;
+    }
+    .catalog{
+        width: 40px;
+    }
+}
+
+@media (max-width: 800px) {
+    .catalog{
+        display: none;
+    }
+}
+
 .header__search {
   display: flex;
   border: solid 1px #70C05B;
@@ -90,6 +105,19 @@ header {
 .header__nav {
   display: flex;
   gap: 20px;
+  position: relative;
+    z-index: 5000;
+}
+
+@media (max-width: 800px) {
+    .header__nav{
+        position: fixed;
+        bottom: 0;
+        background-color: white;
+        width: 100%;
+        justify-content: center;
+        padding: 8px;
+    }
 }
 
 .header__link--favorite,
@@ -112,9 +140,6 @@ header {
   z-index: 1000;
 }
 
-.header__nav {
-  position: relative;
-}
 
 .header__link-counter {
   position: absolute;
