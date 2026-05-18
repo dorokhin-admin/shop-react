@@ -27,22 +27,6 @@ Zustand (store)
 JavaScript (ES6+)
 CSS
 Mock backend (db.json)
-
-Структура проекта
-react-magnum/
- ├── frontend/react
- │    ├── src
- │    │    ├── api
- │    │    ├── components
- │    │    ├── pages
- │    │    ├── store
- │    │    └── styles
- │    └── App.jsx
- │
- ├── backend
- │    └── db.json
- │
- └── README.md
  
 Установка и запуск
 1. Установить зависимости
