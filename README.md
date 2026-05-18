@@ -36,7 +36,6 @@ npm start
 или (если Vite):
 npm run dev
 
-Работа с данными:
 При запуске:
 загружаются товары (fetchItems)
 загружается корзина (fetchCart)
