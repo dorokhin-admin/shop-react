@@ -8,49 +8,18 @@ const HeaderProfile = () => {
     const [telephone, setTelephone] = useState('');
 
     const handleLogin =async () => {
-        const res = await fetch(  `http://localhost:3001/users?email=${email}&password=${password}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({email, password}),
-        })
-
-        const data = await res.json();
-        console.log("LOGIN:", data);
-        if(res.ok){
-            setProfileIsOpen(false)
-        }
+        console.log("LOGIN disabled in test mode", { email, password });
+        setProfileIsOpen(false);
     };
 
     const handleRegister =async () => {
-        const res = await fetch('http://localhost:3001/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({email, password, telephone}),
-        })
-        const data = await res.json();
-        console.log("REGISTER:", data);
-        if(res.ok){
-            setProfileIsOpen(false)
-        }
+        console.log("REGISTER disabled in test mode", { email, password, telephone });
+        setProfileIsOpen(false);
     }
 
     const handleTelephone =async () => {
-        const res = await fetch('http://localhost:3001/telephone', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({telephone}),
-        })
-        const data = await res.json();
-        console.log("telephone:", data);
-        if(res.ok){
-            setProfileIsOpen(false)
-        }
+        console.log("TELEPHONE disabled in test mode", telephone);
+        setProfileIsOpen(false);
     }
     return (
         <>
