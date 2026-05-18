@@ -21,11 +21,11 @@ React Magnum Shop
 Загрузка данных с API (cart, orders, items)
 
 Стек технологий
-React
-React Router DOM
-Zustand (store)
-JavaScript (ES6+)
-CSS
+React,
+React Router DOM,
+Zustand (store),
+JavaScript (ES6+),
+CSS,
 Mock backend (db.json)
  
 Установка и запуск
@@ -36,20 +36,12 @@ npm start
 или (если Vite):
 npm run dev
 
-Архитектура
-Global state через useShopStore
-API слой разделён на:
-cartAPI.jsx
-ordersAPI.jsx
-Компоненты разделены по доменам (Header, Delivery, Pages)
-Данные загружаются при старте приложения
-
-Работа с данными
+Работа с данными:
 При запуске:
 загружаются товары (fetchItems)
 загружается корзина (fetchCart)
 загружаются заказы (fetchOrders)
 
-Особенности
+Особенности:
 Используется моковый backend (db.json)
 Состояние хранится в Zustand store
