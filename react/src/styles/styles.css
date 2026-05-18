@@ -1381,6 +1381,7 @@ header{
 .delivery__telephone{
     height: 40px;
     resize: none;
+    border: 1px solid #000000;
 }
 
 .delivery__telephone{

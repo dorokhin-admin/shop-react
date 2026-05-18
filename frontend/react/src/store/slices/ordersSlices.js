@@ -1,5 +1,3 @@
-import ordersAPI from "../../api/ordersAPI.jsx";
-
 const OrdersSlices = (set, get) => ({
     orders: [],
 
@@ -7,30 +5,30 @@ const OrdersSlices = (set, get) => ({
         const cart = get().cart;
 
         const newOrder = {
+            id: Date.now(),
             city: form.city,
             street: form.street,
             house: form.house,
             float: form.float,
             additionally: form.additionally,
             phone: form.phone,
-
-            deliveryDate: form.date,
-            deliveryTime: form.time,
-
+            date: form.date,
+            time: form.time,
             items: cart,
             total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
-
-            status: "new"
+            status: "new",
+            selected: true,
         };
 
         try {
-            // 🔥 ВОТ ЭТО ГЛАВНОЕ
-            const savedOrder = await ordersAPI.createOrder(newOrder);
+            const orders = [...get().orders, newOrder];
+            localStorage.setItem("orders", JSON.stringify(orders));
+            localStorage.setItem("cart", JSON.stringify([]));
 
-            set(state => ({
-                orders: [...state.orders, savedOrder],
-                cart: [] // очистка корзины на фронте
-            }));
+            set({
+                orders,
+                cart: []
+            });
 
             alert('Order successfully created!');
         } catch (e) {
@@ -39,10 +37,25 @@ const OrdersSlices = (set, get) => ({
         }
     },
 
+    updateOrderStatus: async (orderId, status) => {
+        const orders = get().orders.map(order =>
+            order.id === orderId
+                ? { ...order, status }
+                : order
+        );
+
+        try {
+            localStorage.setItem("orders", JSON.stringify(orders));
+            set({ orders });
+        } catch (e) {
+            console.error("Failed to update order status:", e);
+        }
+    },
+
     fetchOrders: async () => {
         try {
-            const data = await ordersAPI.getOrders();
-
+            const saved = localStorage.getItem("orders");
+            const data = saved ? JSON.parse(saved) : [];
             set({ orders: data });
         } catch (e) {
             console.error(e);

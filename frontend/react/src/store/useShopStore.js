@@ -4,7 +4,6 @@ import { uiSlice } from "./slices/uiSlice.js";
 import {favoritesSlice} from "./slices/favoritesSlice.js";
 import ordersSlices from "./slices/ordersSlices.js";
 import {getCart, getItems, getOrders} from "../api/api.js";
-import {useEffect} from "react";
 
 export const useShopStore = create((set, get) => ({
     items: [],
@@ -19,8 +18,7 @@ export const useShopStore = create((set, get) => ({
 
     fetchItems: async () => {
         try {
-            const res = await fetch("https://function-bun-production-512e.up.railway.app/api/items");
-            const data = await res.json();
+            const data = await getItems();
             set({ items: data || [] });
         } catch (e) {
             console.log("fetchItems error", e);
@@ -29,18 +27,17 @@ export const useShopStore = create((set, get) => ({
     },
 
     fetchCart: async () => {
-        const data = await getCart()
-        set({cart: data})
+        const data = await getCart();
+        set({cart: data});
     },
 
     fetchOrders: async () => {
-        const data = await getOrders()
-        set({orders: data})
+        const data = await getOrders();
+        set({orders: data});
     },
 
     getTotalQuantity: () =>
         get().cart.reduce((acc, item) => acc + item.quantity, 0),
-
 
 }));
 

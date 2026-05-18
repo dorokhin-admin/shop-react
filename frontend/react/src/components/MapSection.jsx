@@ -29,15 +29,20 @@ export default function MapSection() {
     };
 
     const [activeCity, setActiveCity] = useState("shelyayur");
+    const [isMapReady, setIsMapReady] = useState(false);
 
     // 🧠 Инициализация карты (1 раз)
     useEffect(() => {
-        if (!window.DG) return;
+        if (!window.DG || typeof window.DG.map !== "function") {
+            setIsMapReady(false);
+            return;
+        }
 
         mapInstance.current = window.DG.map(mapRef.current, {
             center: cities.shelyayur.center,
             zoom: 12,
         });
+        setIsMapReady(true);
 
         // первая метка
         markerRef.current = window.DG.marker(cities.shelyayur.center)
@@ -49,7 +54,7 @@ export default function MapSection() {
 
     // 🧠 Переключение города + обновление маркера
     useEffect(() => {
-        if (!mapInstance.current) return;
+        if (!mapInstance.current || !window.DG || typeof window.DG.marker !== "function") return;
 
         const city = cities[activeCity];
 
@@ -84,7 +89,12 @@ export default function MapSection() {
                 ))}
             </div>
 
-            <div ref={mapRef} className="map-wrapper" />
+            <div
+                ref={mapRef}
+                className={`map-wrapper ${isMapReady ? "" : "map-wrapper--fallback"}`}
+            >
+                {!isMapReady && <span>{cities[activeCity].title}</span>}
+            </div>
         </div>
     );
 }
