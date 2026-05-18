@@ -3,10 +3,10 @@ import cartSlice from "./slices/cartSlice.js";
 import { uiSlice } from "./slices/uiSlice.js";
 import {favoritesSlice} from "./slices/favoritesSlice.js";
 import ordersSlices from "./slices/ordersSlices.js";
-import {getCart, getItems, getOrders} from "../api/api.js";
+import {items as initialItems, getCart, getItems, getOrders} from "../api/api.js";
 
 export const useShopStore = create((set, get) => ({
-    items: [],
+    items: initialItems,
     cart: [],
     orders: [],
     favorites: [],
