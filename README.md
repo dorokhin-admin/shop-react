@@ -36,14 +36,6 @@ npm start
 или (если Vite):
 npm run dev
 
-Основные страницы
-/ — Главная
-/catalog — Каталог товаров
-/cart — Корзина
-/product/:id — Страница товара
-/delivery — Оформление заказа
-/manager — Панель менеджера
-
 Архитектура
 Global state через useShopStore
 API слой разделён на:
