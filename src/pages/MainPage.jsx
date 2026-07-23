@@ -122,34 +122,27 @@ const MainPage = () => {
                             <article className="article-card">
                                 <img src="/IMAGES/Item(12).png" alt="article1"/>
                                 <div className="paragraph-article">
-                                    <span className="article-card__date">05.03.2021</span>
-                                    <h4 className="article-card__title">Режим использования масок<br/>и перчаток на
-                                        территории магазинов</h4>
-                                    <p className="article-card__text">Подробная информация о режимах<br/>использования
-                                        масок и перчаток на<br/>территории магазинов "ЛЕНТА". Информация<br/>обновляется
-                                        каждый будний день.</p>
+                                    <span className="article-card__date">23.07.2026</span>
+                                    <h4 className="article-card__title">Летняя корзина: выбираем полезные продукты<br/>за один визит</h4>
+                                    <p className="article-card__text">Собирайте свежие овощи, ягоды и напитки<br/>для жарких дней без лишних покупок и<br/>непродуктивных походов по отделам.</p>
                                 </div>
                                 <button className="article-card__button">Подробнее</button>
                             </article>
                             <article className="article-card">
                                 <img src="/IMAGES/Item%20(18).png" alt="article2"/>
                                 <div className="paragraph-article">
-                                    <span className="article-card__date">05.03.2021</span>
-                                    <h4 className="article-card__title">Весеннее настроение для каждой</h4>
-                                    <p className="article-card__text">8 Марта – это не просто Международный<br/>женский день, это ещё
-                                        день тюльпанов,<br/>приятных сюрпризов и праздничных тёплых<br/>пожеланий.</p>
+                                    <span className="article-card__date">23.07.2026</span>
+                                    <h4 className="article-card__title">Новая программа лояльности для<br/>частых покупок</h4>
+                                    <p className="article-card__text">Теперь бонусы начисляются быстрее,<br/>а накопленные баллы можно тратить<br/>на свежие продукты, кофе и домашние<br/>запасы в удобное время.</p>
                                 </div>
                                 <button className="article-card__button">Подробнее</button>
                             </article>
                             <article className="article-card">
                                 <img src="/IMAGES/Item%20(18).png" alt="article3"/>
                                 <div className="paragraph-article">
-                                    <span className="article-card__date">05.03.2021</span>
-                                    <h4 className="article-card__title">ЗОЖ или ФАСТФУД. А вы на чьей <br/> стороне? Голосуем!</h4>
-                                    <p className="article-card__text">Голосуйте за любимые категории, выбирайте
-                                        <br/> категорию-победителя в мобильном
-                                        <br/> приложении и получайте кешбэк 10%
-                                        <br/> баллами в апреле!</p>
+                                    <span className="article-card__date">23.07.2026</span>
+                                    <h4 className="article-card__title">Как экономить на доставке без потери<br/>качества заказа</h4>
+                                    <p className="article-card__text">Планируйте заказы заранее, выбирайте<br/>оптимальные интервалы доставки и<br/>собирайте корзину с теми товарами,<br/>которые нужны именно сейчас.</p>
                                 </div>
                                 <button className="article-card__button">Подробнее</button>
                             </article>
