@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 export default function MapSection() {
     const mapRef = useRef(null);
@@ -33,46 +35,58 @@ export default function MapSection() {
 
     // 🧠 Инициализация карты (1 раз)
     useEffect(() => {
-        if (!window.DG || typeof window.DG.map !== "function") {
-            setIsMapReady(false);
-            return;
-        }
+        let isCanceled = false;
 
-        mapInstance.current = window.DG.map(mapRef.current, {
-            center: cities.shelyayur.center,
-            zoom: 12,
-        });
-        setIsMapReady(true);
+        const initializeMap = () => {
+            if (!mapRef.current) return;
+            if (!L || typeof L.map !== 'function') {
+                return;
+            }
 
-        // первая метка
-        markerRef.current = window.DG.marker(cities.shelyayur.center)
-            .addTo(mapInstance.current)
-            .bindPopup(cities.shelyayur.title);
+            if (isCanceled) return;
 
-        return () => mapInstance.current?.remove();
+            const map = L.map(mapRef.current, {
+                center: cities.shelyayur.center,
+                zoom: 12,
+            });
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }).addTo(map);
+
+            mapInstance.current = map;
+            setIsMapReady(true);
+
+            markerRef.current = L.marker(cities.shelyayur.center)
+                .addTo(mapInstance.current)
+                .bindPopup(cities.shelyayur.title);
+        };
+
+        initializeMap();
+
+        return () => {
+            isCanceled = true;
+            mapInstance.current?.remove();
+        };
     }, []);
 
     // 🧠 Переключение города + обновление маркера
     useEffect(() => {
-        if (!mapInstance.current || !window.DG || typeof window.DG.marker !== "function") return;
+        if (!mapInstance.current || typeof L.marker !== "function") return;
 
         const city = cities[activeCity];
 
-        // переместить карту
         mapInstance.current.setView(city.center, city.zoom, {
             animate: true,
         });
 
-        // удалить старый маркер
         if (markerRef.current) {
-            mapInstance.current.removeLayer(markerRef.current);
+            markerRef.current.setLatLng(city.center).setPopupContent(city.title);
+        } else {
+            markerRef.current = L.marker(city.center)
+                .addTo(mapInstance.current)
+                .bindPopup(city.title);
         }
-
-        // создать новый маркер
-        markerRef.current = window.DG.marker(city.center)
-            .addTo(mapInstance.current)
-            .bindPopup(city.title);
-
     }, [activeCity]);
 
     return (
